@@ -23,8 +23,8 @@ Project ini masih dalam tahap pengembangan awal (Work in Progress).
 ## 👨‍💻 Author
 
 Developed by: 
-**1. Della Oktavia**
-**2. ⁠Syahrial Affansyah**
-**3. Thasya Jasmine**
-**4. ⁠Restu Bagas**
-**5. ⁠Arthur Donzel Paliling**
+1. **Della Oktavia**
+2. **⁠Syahrial Affansyah**
+3. **Thasya Jasmine**
+4. **⁠Restu Bagas**
+5. **⁠Arthur Donzel Paliling**
