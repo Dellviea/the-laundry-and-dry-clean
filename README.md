@@ -1,4 +1,4 @@
-# 🧺 Laundrify – Online Laundry Management System
+# 🧺 The Laundry & Dry Clean
 
 Laundrify adalah aplikasi laundry online berbasis web yang memungkinkan pengguna untuk memesan layanan laundry, melacak status cucian, serta berkomunikasi dengan admin secara digital.
 Aplikasi ini bertujuan untuk mempermudah proses pemesanan dan pengelolaan layanan laundry dengan sistem yang lebih efisien, terorganisir, dan mudah diakses oleh pelanggan maupun pengelola laundry.
