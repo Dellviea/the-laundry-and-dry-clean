@@ -5,7 +5,7 @@ Aplikasi ini bertujuan untuk mempermudah proses pemesanan dan pengelolaan layana
 
 ---
 
-### 🎯 Project Goals
+## 🎯 Project Goals
 - Mempermudah pelanggan dalam memesan layanan laundry secara online.
 - Membantu admin atau pengelola laundry dalam mengelola pesanan dengan lebih efisien.
 - Menyediakan sistem pelacakan status pesanan agar pelanggan mengetahui progres cucian mereka.
@@ -14,13 +14,13 @@ Aplikasi ini bertujuan untuk mempermudah proses pemesanan dan pengelolaan layana
 
 ---
 
-### 🚧 Project Status
+## 🚧 Project Status
 
 Project ini masih dalam tahap pengembangan awal (Work in Progress).
 
 ---
 
-### 👨‍💻 Development Team
+## 👨‍💻 Development Team
 - **Della Oktavia**
 - **⁠Syahrial Affansyah**
 - **Thasya Jasmine**
