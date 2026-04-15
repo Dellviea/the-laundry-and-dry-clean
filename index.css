@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'inter';
+    src: url(font/Inter_18pt-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'interbold';
+    src: url(font/Inter_18pt-Bold.ttf);
+}
+
+body{
+    font-family: 'inter';
+}
+
+.title{
+    font-family: 'interbold';
+}

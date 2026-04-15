@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="/index.css">
+    <title>Document</title>
+</head>
+<body>
+    <section class="flex h-screen shadow-xl ">
+        <div class="w-1/2 h-full rounded-2xl flex flex-col justify-center px-34 space-y-16 z-10">
+            <div class="space-y-6">
+                <h1 class="title text-3xl">Register</h1>
+                <p class="text-sm">Lengkapi informasi kredensial dan data diri di bawah ini untuk mulai <br>menggunakan layanan kami.</p>
+            </div>
+            <form action="submit" class="space-y-16">
+                <div class="space-y-4">
+                    <div class="flex flex-col gap-1">
+                        <label for="email" class="title ">Email</label>
+                        <input type="text" id="email" placeholder="example@gmail.com" class="border rounded-lg py-1 px-2">
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label for="password" class="title">Password</label>
+                        <input type="text" id="password" placeholder="*******" class="border rounded-lg py-1 px-2 ">
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label for="password" class="title"> Confirm Password</label>
+                        <input type="text" id="password" placeholder="*******" class="border rounded-lg py-1 px-2 ">
+                    </div>
+                </div>
+                <div class="flex flex-col gap-4">
+                    <button class="bg-[#0080FF] text-white rounded-lg py-1"><a href="/auth/login/login.html">Register</a></button>
+                    <button class="border text-[#0080FF] rounded-lg py-1"><a href="/auth/login/login.html">Login</a></button>
+                </div>
+            </form>
+        </div>
+        <div class="w-1/2 h-full">
+            <img src="/image/logimage.svg" alt="" class="w-full h-full object-cover">
+        </div>
+    </section>
+</body>
+</html>
