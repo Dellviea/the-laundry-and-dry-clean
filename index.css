@@ -15,3 +15,7 @@ body{
 .title{
     font-family: 'interbold';
 }
+
+html {
+  scroll-behavior: smooth;
+}
