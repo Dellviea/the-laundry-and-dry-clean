@@ -6,6 +6,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="/index.css">
     <title>Document</title>
+    <script src="../auth.js" defer></script>
 </head>
 <body>
     <section class="flex h-screen shadow-xl ">
@@ -14,15 +15,19 @@
                 <h1 class="title text-3xl">Login</h1>
                 <p class="text-sm">Masuk sekarang buat pesan layanan laundry kilat tanpa ribet. <br>Waktumu terlalu berharga untuk memcuci baju</p>
             </div>
-            <form action="submit" class="space-y-16">
+            <form id="login-form" class="space-y-16">
                 <div class="space-y-4">
                     <div class="flex flex-col gap-1">
                         <label for="email" class="title ">Email</label>
                         <input type="text" id="email" placeholder="example@gmail.com" class="border rounded-lg py-1 px-2">
+    
+                        <p id="email-error" class="text-red-500 text-xs hidden">Email tidak boleh kosong!</p>
                     </div>
                     <div class="flex flex-col gap-1">
                         <label for="password" class="title">Password</label>
                         <input type="text" id="password" placeholder="*******" class="border rounded-lg py-1 px-2 ">
+    
+                        <p id="password-error" class="text-red-500 text-xs hidden">Password tidak boleh kosong!</p>
                     </div>
                 </div>
                 <div class="flex flex-col gap-4">

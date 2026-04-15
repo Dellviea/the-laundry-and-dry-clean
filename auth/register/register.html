@@ -6,6 +6,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="/index.css">
     <title>Document</title>
+    <script src="../auth.js" defer></script>
 </head>
 <body>
     <section class="flex h-screen shadow-xl ">
@@ -14,24 +15,32 @@
                 <h1 class="title text-3xl">Register</h1>
                 <p class="text-sm">Lengkapi informasi kredensial dan data diri di bawah ini untuk mulai <br>menggunakan layanan kami.</p>
             </div>
-            <form action="submit" class="space-y-16">
+            <form id="register-form" class="space-y-16">
                 <div class="space-y-4">
                     <div class="flex flex-col gap-1">
                         <label for="email" class="title ">Email</label>
                         <input type="text" id="email" placeholder="example@gmail.com" class="border rounded-lg py-1 px-2">
+    
+                        <p id="email-error" class="text-red-500 text-xs hidden">Email tidak boleh kosong!</p>
                     </div>
                     <div class="flex flex-col gap-1">
                         <label for="password" class="title">Password</label>
                         <input type="text" id="password" placeholder="*******" class="border rounded-lg py-1 px-2 ">
+    
+                        <p id="password-error" class="text-red-500 text-xs hidden">Password tidak boleh kosong!</p>
+                        <p id="password-notSame" class="text-red-500 text-xs hidden">Password tidak sama!</p>
                     </div>
                     <div class="flex flex-col gap-1">
                         <label for="password" class="title"> Confirm Password</label>
-                        <input type="text" id="password" placeholder="*******" class="border rounded-lg py-1 px-2 ">
+                        <input type="text" id="confirm_password" placeholder="*******" class="border rounded-lg py-1 px-2 ">
+    
+                        <p id="reEnterPassword-error" class="text-red-500 text-xs hidden">Password tidak boleh kosong!</p>
+                        <p id="reEnterPassword-notSame" class="text-red-500 text-xs hidden">Password tidak sama!</p>
                     </div>
                 </div>
                 <div class="flex flex-col gap-4">
-                    <button type="submit" onclick="window.location.href='/auth/register/register.html'" class="border text-[#0080FF] hover:bg-[#EFEFEF] rounded-lg py-1 cursor-pointer">Register</button>
-                    <button type="button" onclick="window.location.href='/auth/login/login.html'" class="border text-[#0080FF] hover:bg-[#EFEFEF] rounded-lg py-1 cursor-pointer">Login</button>
+                    <button type="submit" class="border text-[#0080FF] hover:bg-[#EFEFEF] rounded-lg py-1 cursor-pointer">Register</button>
+                    <button type="button" class="border text-[#0080FF] hover:bg-[#EFEFEF] rounded-lg py-1 cursor-pointer">Login</button>
                 </div>
             </form>
         </div>

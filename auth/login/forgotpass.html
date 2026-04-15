@@ -6,6 +6,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="/index.css">
     <title>Document</title>
+    <script src="../auth.js" defer></script>
 </head>
 <body>
     <section class="flex h-screen shadow-xl ">
@@ -14,11 +15,13 @@
                 <h1 class="title text-3xl">Forgot Password</h1>
                 <p class="text-sm">Cucianmu tetap aman! <br>Cukup masukkan alamat email yang terdaftar di bawah ini, dan <br>kami akan mengirimkan tautan untuk membuat kata sandi baru.</p>
             </div>
-            <form action="submit" class="space-y-10">
+            <form id="forgot-form" class="space-y-10">
                 <div class="space-y-4">
                     <div class="flex flex-col gap-1">
                         <label for="email" class="title ">Email</label>
                         <input type="text" id="email" placeholder="example@gmail.com" class="border rounded-lg py-1 px-2">
+                        
+                        <p id="email-error" class="text-red-500 text-xs hidden">Email tidak boleh kosong!</p>
                     </div>
                 </div>
                 <div class="flex flex-col gap-4">
