@@ -12,10 +12,10 @@
     <section class="flex h-screen shadow-xl ">
         <div class="w-1/2 h-full rounded-2xl flex flex-col justify-center px-34 space-y-16 z-10">
             <div class="space-y-6">
-                <h1 class="title text-3xl">Login</h1>
-                <p class="text-sm">Masuk sekarang buat pesan layanan laundry kilat tanpa ribet. <br>Waktumu terlalu berharga untuk memcuci baju</p>
+                <h1 class="title text-3xl">Register</h1>
+                <p class="text-sm">Lengkapi informasi kredensial dan data diri di bawah ini untuk mulai <br>menggunakan layanan kami.</p>
             </div>
-            <form id="login-form" class="space-y-16">
+            <form id="register-form" class="space-y-16">
                 <div class="space-y-4">
                     <div class="flex flex-col gap-1">
                         <label for="email" class="title ">Email</label>
@@ -25,20 +25,27 @@
                     </div>
                     <div class="flex flex-col gap-1">
                         <label for="password" class="title">Password</label>
-                        <input type="text" id="password" placeholder="*******" class="border rounded-lg py-1 px-2 ">
+                        <input type="password" id="password" placeholder="*******" class="border rounded-lg py-1 px-2 ">
     
                         <p id="password-error" class="text-red-500 text-xs hidden">Password tidak boleh kosong!</p>
+                        <p id="password-notSame" class="text-red-500 text-xs hidden">Password tidak sama!</p>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label for="password" class="title"> Confirm Password</label>
+                        <input type="password" id="confirm_password" placeholder="*******" class="border rounded-lg py-1 px-2 ">
+    
+                        <p id="reEnterPassword-error" class="text-red-500 text-xs hidden">Password tidak boleh kosong!</p>
+                        <p id="reEnterPassword-notSame" class="text-red-500 text-xs hidden">Password tidak sama!</p>
                     </div>
                 </div>
                 <div class="flex flex-col gap-4">
-                    <button type="submit" class="bg-[#0080FF] hover:bg-[#005DBB] text-white rounded-lg py-1 cursor-pointer">Login</button>
-                    <button type="button" onclick="window.location.href='/auth/register/register.html'" class="border text-[#0080FF] hover:bg-[#EFEFEF] rounded-lg py-1 cursor-pointer">Register</button>
-                    <button type="button" onclick="window.location.href='/auth/login/forgotpass.html'" class="border text-[#CE0000] hover:bg-[#EFEFEF] rounded-lg py-1 cursor-pointer">Forgot Password</a></button>
+                    <button type="submit" class="border bg-[#0080FF] text-white hover:bg-[#005DBB] rounded-lg py-1 cursor-pointer">Register</button>
+                    <button type="button" onclick="window.location.href='/frontend/auth/login/login.html'" class="border text-[#0080FF] hover:bg-[#EFEFEF] rounded-lg py-1 cursor-pointer">Login</button>
                 </div>
             </form>
         </div>
         <div class="w-1/2 h-full">
-            <img src="/image/logimage.svg" alt="" class="w-full h-full object-cover">
+            <img src="/frontend/image/logimage.svg" alt="" class="w-full h-full object-cover">
         </div>
     </section>
 </body>

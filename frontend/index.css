@@ -8,12 +8,21 @@
     src: url(font/Inter_18pt-Bold.ttf);
 }
 
+@font-face {
+    font-family: 'intersemibold';
+    src: url(font/Inter_18pt-SemiBold.ttf);
+}
+
 body{
     font-family: 'inter';
 }
 
 .title{
     font-family: 'interbold';
+}
+
+.semi{
+    font-family: "intersemibold";
 }
 
 html {
