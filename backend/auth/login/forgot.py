@@ -6,7 +6,6 @@ forgot_bp = Blueprint('forgot', __name__)
 @forgot_bp.route("/forgot-password", methods=["POST"])
 def forgot_password():
     data = request.json
-
     email = data.get("email")
 
     if not email:

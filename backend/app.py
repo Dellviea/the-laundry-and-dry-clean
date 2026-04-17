@@ -19,3 +19,4 @@ app.register_blueprint(register_bp)
 if __name__ == "__main__":
     print("SERVER STARTING...")
     app.run(debug=True)
+    
