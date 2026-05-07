@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
+    
     // ================= FORGOT PASSWORD =================
     const forgotPassword = document.getElementById('forgot-form');
     if (forgotPassword) {
