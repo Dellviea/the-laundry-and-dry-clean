@@ -8,261 +8,131 @@ const jas = document.getElementById("jas");
 jas.value = 25000;
 const setrika = document.getElementById("setrika");
 setrika.value = 3000;
-
 const itemParent = document.getElementById("item");
 
 function addItemChild(title, value, weight){
-    let itemChild = 
-        `<div class="flex bg-[#F7F7F7] px-10 rounded-lg py-5 border border-[#D9D9D9] justify-between">
-            <div class="title">
-                <p class="">${title}</p>
-                <p class="text-sm text-[#0080FF]">Rp.${value}/kg</p>
-            </div>
-            <div class="flex justify-center items-center gap-20">
-                <div class="flex justify-center items-center gap-4">
-                    <button class="minus border border-[#0080FF] text-white px-3 py-2 rounded-md flex justify-center items-center">
-                        <img class="w-4 h-4" src="icon/minus.svg" alt="">
-                    </button>
-                    <p class="semi text-sm text-[#0080FF]">${weight} kg</p>
-                    <div class="flex gap-2">
-                        <button id="plus" class="plus border border-[#0080FF] text-white px-3 py-2 rounded-md flex justify-center items-center">
-                            <img class="w-4 h-4" src="icon/plus.svg" alt="">
-                        </button>
-                        <button id="delete" class="bg-[#CE0000] text-white px-3 py-2 rounded-md flex justify-center items-center">
-                            <img class="w-4 h-4" src="icon/trash.svg" alt="">
-                        </button>
-                    </div>
-                </div>
-                <div>
-                    <p id="total">Rp. ${value}</p>
-                </div>
-            </div>
-        </div>`
+
+    return `
     
-    return itemChild;
+    <div class="item flex bg-[#F7F7F7] px-10 rounded-lg py-5 border border-[#D9D9D9] justify-between items-center">
+
+        <div class="title">
+            <p>${title}</p>
+            <p class="text-sm text-[#0080FF]">Rp.${value}/kg</p>
+        </div>
+
+        <div class="flex items-center gap-20">
+
+            <div class="flex items-center gap-4">
+
+                <button class="minus border border-[#0080FF] px-3 py-2 rounded-md flex justify-center items-center">
+                    <img class="w-4 h-4" src="icon/minus.svg" alt="">
+                </button>
+
+                <p class="weight semi text-sm text-[#0080FF] w-[50px] text-center">
+                    ${weight} kg
+                </p>
+
+                <div class="flex gap-2">
+
+                    <button class="plus border border-[#0080FF] px-3 py-2 rounded-md flex justify-center items-center">
+                        <img class="w-4 h-4" src="icon/plus.svg" alt="">
+                    </button>
+
+                    <button class="delete bg-[#CE0000] px-3 py-2 rounded-md flex justify-center items-center">
+                        <img class="w-4 h-4" src="icon/trash.svg" alt="">
+                    </button>
+
+                </div>
+            </div>
+
+            <div class="w-[120px] text-right">
+                <p class="total">Rp. ${value}</p>
+            </div>
+
+        </div>
+    </div>
+    `;
 }
 
-express.addEventListener('click', function(e) {
-    e.preventDefault();
+function addItem(button, title){
 
-    const value = express.value;
+    button.addEventListener("click", function(e){
 
-    let itemChild = addItemChild("Cuci Express", value, 1 , 0);
-    itemParent.innerHTML += itemChild;
+        e.preventDefault();
 
-    const plusBtn = document.querySelectorAll(".plus");
+        const value = parseInt(button.value);
+        let itemChild = addItemChild(title, value, 1);
 
-    plusBtn.forEach(btn => {
-        btn.onclick = () => {
-            let text = btn.parentElement.parentElement.querySelector("p");
-            let current = parseInt(text.innerText);
-            text.innerText = (current + 1) + " kg";
+        itemParent.innerHTML += itemChild;
 
-            let total = document.getElementById("total");
-            let currentTot = parseInt(total.innerText);
-            let newVal = current + 1
-            total.innerText = "Rp. "+ (newVal * value);
-        };
+        button.disabled = true;
+        button.classList.add("bg-[#0080FF]/20");
     });
+}
 
-    const minusBtn = document.querySelectorAll(".minus");
+addItem(express, "Cuci Express");
+addItem(regular, "Cuci Regular");
+addItem(gaun, "Dry Clean Gaun");
+addItem(jas, "Dry Clean Jas");
+addItem(setrika, "Setrika");
 
-    minusBtn.forEach(btn => {
-        btn.onclick = () => {
-            let text = btn.parentElement.parentElement.querySelector("p");
-            let current = parseInt(text.innerText);
-            if (current > 1){
-                
-                text.innerText = (current + -1) + " kg";
+itemParent.addEventListener("click", function(e){
 
-                let total = document.getElementById("total");
-                let currentTot = parseInt(total.innerText);
-                let newVal = current + -1
-                total.innerText = "Rp. "+ (newVal * value);
-            }
-        };
-    });
+    const item = e.target.closest(".item");
 
+    if(!item) return;
 
-    express.disabled = true;
-});
+    const weight = item.querySelector(".weight");
+    const total = item.querySelector(".total");
+    let current = parseInt(weight.innerText);
+    let priceText = item.querySelector(".title p:nth-child(2)").innerText;
+    let value = parseInt(priceText.replace(/[^0-9]/g, ""));
 
-regular.addEventListener('click', function(e) {
-    e.preventDefault();
+    if(e.target.closest(".plus")){
+        current++;
+        weight.innerText = current + " kg";
+        total.innerText = "Rp. " + (current * value);
+    }
 
-    const value = regular.value;
+    if(e.target.closest(".minus")){
 
-    let itemChild = addItemChild("Cuci Reguler", value, 1);
-    itemParent.innerHTML += itemChild;
+        if(current > 1){
+            current--;
+            weight.innerText = current + " kg";
+            total.innerText = "Rp. " + (current * value);
+        }
+    }
 
-    const plusBtn = document.querySelectorAll(".plus");
+    if(e.target.closest(".delete")){
 
-    plusBtn.forEach(btn => {
-        btn.onclick = () => {
-            let text = btn.parentElement.parentElement.querySelector("p");
-            let current = parseInt(text.innerText);
-            text.innerText = (current + 1) + " kg";
+        const title = item.querySelector(".title p").innerText;
 
-            let total = document.getElementById("total");
-            let currentTot = parseInt(total.innerText);
-            let newVal = current + 1
-            total.innerText = "Rp. "+ (newVal * value);
-        };
-    });
+        if(title === "Cuci Express"){
+            express.disabled = false;
+            express.classList.remove("bg-[#0080FF]/20");
+        }
 
-    const minusBtn = document.querySelectorAll(".minus");
+        if(title === "Cuci Regular"){
+            regular.disabled = false;
+            regular.classList.remove("bg-[#0080FF]/20");
+        }
 
-    minusBtn.forEach(btn => {
-        btn.onclick = () => {
-            let text = btn.parentElement.parentElement.querySelector("p");
-            let current = parseInt(text.innerText);
-            if (current > 1){
-                
-                text.innerText = (current + -1) + " kg";
+        if(title === "Dry Clean Gaun"){
+            gaun.disabled = false;
+            gaun.classList.remove("bg-[#0080FF]/20");
+        }
 
-                let total = document.getElementById("total");
-                let currentTot = parseInt(total.innerText);
-                let newVal = current + -1
-                total.innerText = "Rp. "+ (newVal * value);
-            }
-        };
-    });
+        if(title === "Dry Clean Jas"){
+            jas.disabled = false;
+            jas.classList.remove("bg-[#0080FF]/20");
+        }
 
+        if(title === "Setrika"){
+            setrika.disabled = false;
+            setrika.classList.remove("bg-[#0080FF]/20");
+        }
 
-    regular.disabled = true;
-});
-
-gaun.addEventListener('click', function(e) {
-    e.preventDefault();
-
-    const value = gaun.value;
-
-    let itemChild = addItemChild("Dry Clean Gaun", value, 1);
-    itemParent.innerHTML += itemChild;
-
-    const plusBtn = document.querySelectorAll(".plus");
-
-    plusBtn.forEach(btn => {
-        btn.onclick = () => {
-            let text = btn.parentElement.parentElement.querySelector("p");
-            let current = parseInt(text.innerText);
-            text.innerText = (current + 1) + " kg";
-
-            let total = document.getElementById("total");
-            let currentTot = parseInt(total.innerText);
-            let newVal = current + 1
-            total.innerText = "Rp. "+ (newVal * value);
-        };
-    });
-
-    const minusBtn = document.querySelectorAll(".minus");
-
-    minusBtn.forEach(btn => {
-        btn.onclick = () => {
-            let text = btn.parentElement.parentElement.querySelector("p");
-            let current = parseInt(text.innerText);
-            if (current > 1){
-                
-                text.innerText = (current + -1) + " kg";
-
-                let total = document.getElementById("total");
-                let currentTot = parseInt(total.innerText);
-                let newVal = current + -1
-                total.innerText = "Rp. "+ (newVal * value);
-            }
-        };
-    });
-
-
-    gaun.disabled = true;
-});
-
-jas.addEventListener('click', function(e) {
-    e.preventDefault();
-
-    const value = jas.value;
-
-    let itemChild = addItemChild("Dry Clean Jas", value, 1);
-    itemParent.innerHTML += itemChild;
-
-    const plusBtn = document.querySelectorAll(".plus");
-
-    plusBtn.forEach(btn => {
-        btn.onclick = () => {
-            let text = btn.parentElement.parentElement.querySelector("p");
-            let current = parseInt(text.innerText);
-            text.innerText = (current + 1) + " kg";
-
-            let total = document.getElementById("total");
-            let currentTot = parseInt(total.innerText);
-            let newVal = current + 1
-            total.innerText = "Rp. "+ (newVal * value);
-        };
-    });
-
-    const minusBtn = document.querySelectorAll(".minus");
-
-    minusBtn.forEach(btn => {
-        btn.onclick = () => {
-            let text = btn.parentElement.parentElement.querySelector("p");
-            let current = parseInt(text.innerText);
-            if (current > 1){
-                
-                text.innerText = (current + -1) + " kg";
-
-                let total = document.getElementById("total");
-                let currentTot = parseInt(total.innerText);
-                let newVal = current + -1
-                total.innerText = "Rp. "+ (newVal * value);
-            }
-        };
-    });
-
-
-    jas.disabled = true;
-});
-
-setrika.addEventListener('click', function(e) {
-    e.preventDefault();
-
-    const value = setrika.value;
-
-    let itemChild = addItemChild("Setrika", value, 1);
-    itemParent.innerHTML += itemChild;
-
-    const plusBtn = document.querySelectorAll(".plus");
-
-    plusBtn.forEach(btn => {
-        btn.onclick = () => {
-            let text = btn.parentElement.parentElement.querySelector("p");
-            let current = parseInt(text.innerText);
-            text.innerText = (current + 1) + " kg";
-
-            let total = document.getElementById("total");
-            let currentTot = parseInt(total.innerText);
-            let newVal = current + 1
-            total.innerText = "Rp. "+ (newVal * value);
-        };
-    });
-
-    const minusBtn = document.querySelectorAll(".minus");
-
-    minusBtn.forEach(btn => {
-        btn.onclick = () => {
-            let text = btn.parentElement.parentElement.querySelector("p");
-            let current = parseInt(text.innerText);
-            if (current > 1){
-                
-                text.innerText = (current + -1) + " kg";
-
-                let total = document.getElementById("total");
-                let currentTot = parseInt(total.innerText);
-                let newVal = current + -1
-                total.innerText = "Rp. "+ (newVal * value);
-            }
-        };
-    });
-
-
-    setrika.disabled = true;
+        item.remove();
+    }
 });
