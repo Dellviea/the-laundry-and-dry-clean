@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="0; url=admin-orders.html">
+    <link rel="stylesheet" href="index.css">
+    <title>Admin Dashboard</title>
+</head>
+<body class="app-body">
+    <header class="app-topbar">
+        <a class="app-brand" href="admin-orders.html">
+            <img src="image/shirt.svg" alt="">
+            <span>Laundry &amp; Dry Clean</span>
+        </a>
+        <button class="profile-dot" type="button" onclick="window.location.href='loggedin.html'" aria-label="Switch to customer"></button>
+    </header>
+
+    <main>
+        <h1 class="page-title">Admin Dashboard</h1>
+        <div class="app-layout">
+            <aside class="side-stack">
+                <button class="back-button" type="button" onclick="window.location.href='loggedin.html'" aria-label="Back">
+                    <img src="icon/back.svg" alt="">
+                </button>
+            </aside>
+            <section class="page-card admin-card">
+                <h2 class="section-title">Admin Mode</h2>
+                <p>Menuju halaman Daftar Pesanan...</p>
+                <button class="primary-action" type="button" onclick="window.location.href='admin-orders.html'">Buka Daftar Pesanan</button>
+            </section>
+            <nav class="app-nav" aria-label="Admin navigation">
+                <a class="nav-button is-active" href="admin-orders.html">Daftar Pesanan</a>
+                <a class="nav-button" href="admin-chat.html">Chat Customers</a>
+                <a class="nav-button" href="admin-reviews.html">Reviews</a>
+                <a class="nav-button" href="admin-complaints.html">Complaints</a>
+            </nav>
+        </div>
+    </main>
+</body>
+</html>

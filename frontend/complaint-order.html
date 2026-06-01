@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
+    <script src="handlers/ui_actions.js" defer></script>
     <title>Complaint Order</title>
 </head>
 <body class="app-body">
@@ -12,7 +13,7 @@
             <img src="image/shirt.svg" alt="">
             <span>Laundry &amp; Dry Clean</span>
         </a>
-        <button class="profile-dot" type="button" aria-label="Profile"></button>
+        <button class="profile-dot" type="button" onclick="window.location.href='admin-orders.html'" aria-label="Switch to admin"></button>
     </header>
 
     <main>
@@ -39,7 +40,7 @@
                     </div>
                 </div>
 
-                <form class="complaint-grid" action="#" method="post">
+                <form class="complaint-grid" action="#" method="post" data-demo-form data-success="Complaint berhasil dikirim. Admin akan menindaklanjuti keluhan anda.">
                     <div class="form-field">
                         <label for="order-id">Pilih Pesanan</label>
                         <select id="order-id" name="order-id">

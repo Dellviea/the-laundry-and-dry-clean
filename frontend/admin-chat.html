@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <script src="handlers/ui_actions.js" defer></script>
+    <title>Chat Customers</title>
+</head>
+<body class="app-body">
+    <header class="app-topbar">
+        <a class="app-brand" href="admin-orders.html">
+            <img src="image/shirt.svg" alt="">
+            <span>Laundry &amp; Dry Clean</span>
+        </a>
+        <button class="profile-dot" type="button" onclick="window.location.href='loggedin.html'" aria-label="Switch to customer"></button>
+    </header>
+
+    <main>
+        <h1 class="page-title">Chat Customers</h1>
+
+        <div class="app-layout">
+            <aside class="side-stack">
+                <button class="back-button" type="button" onclick="window.location.href='loggedin.html'" aria-label="Back">
+                    <img src="icon/back.svg" alt="">
+                </button>
+                <div class="role-card">
+                    <strong>Admin Mode</strong>
+                    <span>Pilih customer, lalu kirim balasan sementara melalui form ini.</span>
+                </div>
+            </aside>
+
+            <section class="page-card admin-card">
+                <h2 class="section-title">Chat Dengan Customers</h2>
+                <div class="admin-panel-body admin-chat-list">
+                    <article class="admin-chat-row">
+                        <div class="admin-avatar">D</div>
+                        <div>
+                            <div class="admin-row-title">Della Oktavia</div>
+                            <div class="admin-row-copy">Apakah pesanan saya bisa dijemput sore ini?</div>
+                        </div>
+                        <button class="admin-mini-action" type="button" data-popup="Chat Della Oktavia dibuka.">Buka Chat</button>
+                    </article>
+                    <article class="admin-chat-row">
+                        <div class="admin-avatar">S</div>
+                        <div>
+                            <div class="admin-row-title">Syahrial Affansyah</div>
+                            <div class="admin-row-copy">Saya ingin menanyakan status cuci express.</div>
+                        </div>
+                        <button class="admin-mini-action" type="button" data-popup="Chat Syahrial Affansyah dibuka.">Buka Chat</button>
+                    </article>
+                    <article class="admin-chat-row">
+                        <div class="admin-avatar">T</div>
+                        <div>
+                            <div class="admin-row-title">Thasya Jasmine</div>
+                            <div class="admin-row-copy">Bisa tambah layanan setrika untuk pesanan saya?</div>
+                        </div>
+                        <button class="admin-mini-action" type="button" data-popup="Chat Thasya Jasmine dibuka.">Buka Chat</button>
+                    </article>
+                </div>
+
+                <form class="chat-reply-box" data-demo-form data-success="Balasan chat berhasil dikirim sementara.">
+                    <textarea placeholder="Tulis balasan untuk customer"></textarea>
+                    <button class="primary-action" type="submit">Kirim Balasan</button>
+                </form>
+
+                <div class="pagination" aria-label="Pagination">
+                    <button class="page-number is-active" type="button">1</button>
+                    <button class="page-number" type="button">2</button>
+                    <button class="page-number" type="button">3</button>
+                    <button class="page-number" type="button">4</button>
+                    <button class="page-number" type="button">5</button>
+                </div>
+            </section>
+
+            <nav class="app-nav" aria-label="Admin navigation">
+                <a class="nav-button" href="admin-orders.html">Daftar Pesanan</a>
+                <a class="nav-button is-active" href="admin-chat.html">Chat Customers</a>
+                <a class="nav-button" href="admin-reviews.html">Reviews</a>
+                <a class="nav-button" href="admin-complaints.html">Complaints</a>
+            </nav>
+        </div>
+    </main>
+</body>
+</html>

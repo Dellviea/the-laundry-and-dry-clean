@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <script src="handlers/ui_actions.js" defer></script>
+    <title>Daftar Pesanan</title>
+</head>
+<body class="app-body">
+    <header class="app-topbar">
+        <a class="app-brand" href="admin-orders.html">
+            <img src="image/shirt.svg" alt="">
+            <span>Laundry &amp; Dry Clean</span>
+        </a>
+        <button class="profile-dot" type="button" onclick="window.location.href='loggedin.html'" aria-label="Switch to customer"></button>
+    </header>
+
+    <main>
+        <h1 class="page-title">Daftar Pesanan</h1>
+
+        <div class="app-layout">
+            <aside class="side-stack">
+                <button class="back-button" type="button" onclick="window.location.href='loggedin.html'" aria-label="Back">
+                    <img src="icon/back.svg" alt="">
+                </button>
+                <div class="role-card">
+                    <strong>Admin Mode</strong>
+                    <span>Klik foto profil di kanan atas untuk kembali ke role customer.</span>
+                </div>
+            </aside>
+
+            <section class="page-card admin-card">
+                <h2 class="section-title">Lihat Daftar Pesanan</h2>
+                <div class="admin-panel-body">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Customer</th>
+                                <th>Layanan</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ORD-070526</td>
+                                <td>Della Oktavia</td>
+                                <td>Cuci Regular, Setrika</td>
+                                <td class="amount">Rp.19.000</td>
+                                <td><span class="admin-status status-pending">Dipesan</span></td>
+                                <td class="admin-table-actions">
+                                    <button class="admin-mini-action" type="button" data-popup="Detail ORD-070526: Pickup Service, QRIS, total Rp.19.000.">Detail</button>
+                                    <button class="admin-mini-action" type="button" data-popup="Status ORD-070526 diubah menjadi Sedang Diproses.">Ubah Status</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ORD-050526</td>
+                                <td>Syahrial Affansyah</td>
+                                <td>Cuci Express</td>
+                                <td class="amount">Rp.24.000</td>
+                                <td><span class="admin-status status-process">Diproses</span></td>
+                                <td class="admin-table-actions">
+                                    <button class="admin-mini-action" type="button" data-popup="Detail ORD-050526: Cuci Express 3kg, total Rp.24.000.">Detail</button>
+                                    <button class="admin-mini-action" type="button" data-popup="Status ORD-050526 diubah menjadi Selesai.">Ubah Status</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ORD-030526</td>
+                                <td>Thasya Jasmine</td>
+                                <td>Dry Clean Jas</td>
+                                <td class="amount">Rp.50.000</td>
+                                <td><span class="admin-status status-done">Selesai</span></td>
+                                <td class="admin-table-actions">
+                                    <button class="admin-mini-action" type="button" data-popup="Detail ORD-030526: Dry Clean Jas 2kg, pesanan selesai.">Detail</button>
+                                    <button class="admin-mini-action" type="button" data-popup="Pesanan ORD-030526 sudah selesai.">Ubah Status</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ORD-010526</td>
+                                <td>Restu Bagas</td>
+                                <td>Setrika</td>
+                                <td class="amount">Rp.12.000</td>
+                                <td><span class="admin-status status-done">Selesai</span></td>
+                                <td class="admin-table-actions">
+                                    <button class="admin-mini-action" type="button" data-popup="Detail ORD-010526: Setrika 4kg, total Rp.12.000.">Detail</button>
+                                    <button class="admin-mini-action" type="button" data-popup="Pesanan ORD-010526 sudah selesai.">Ubah Status</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination" aria-label="Pagination">
+                    <button class="page-number is-active" type="button">1</button>
+                    <button class="page-number" type="button">2</button>
+                    <button class="page-number" type="button">3</button>
+                    <button class="page-number" type="button">4</button>
+                    <button class="page-number" type="button">5</button>
+                </div>
+            </section>
+
+            <nav class="app-nav" aria-label="Admin navigation">
+                <a class="nav-button is-active" href="admin-orders.html">Daftar Pesanan</a>
+                <a class="nav-button" href="admin-chat.html">Chat Customers</a>
+                <a class="nav-button" href="admin-reviews.html">Reviews</a>
+                <a class="nav-button" href="admin-complaints.html">Complaints</a>
+            </nav>
+        </div>
+    </main>
+</body>
+</html>
