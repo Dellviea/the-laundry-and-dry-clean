@@ -1,221 +1,158 @@
 <!DOCTYPE html>
-<htmlnavi lang="en">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script src="/frontend/handlers/order_handler.js" defer></script>
     <link rel="stylesheet" href="index.css">
-    <title>Document</title>
+    <script src="handlers/order_handler.js" defer></script>
+    <title>Pemesanan</title>
 </head>
-<body>
-    <!-- navbar -->
-    <nav>
-        <div class="flex justify-between items-center m-4">
-            <div class="flex items-center gap-6">
-                <img src="image/shirt.svg" alt="" class="w-[40px]">
-                <h1 class="title text-2xl text-[#0080FF]">Laundry & Dry Clean</h1>
-            </div>
-            <div class="">
-                <button class="border p-5 rounded-full text-[#0080FF]"></button>
-            </div>
-        </div>
-    </nav>
-    <!-- endnavbar -->
-    <!-- Pemesanan section -->
-    <section class="bg-gradient-to-b flex flex-col justify-center from-[#0080FF] to-[#0057AD] h-full">
-        <div class="">
-            <div class="text-center p-8">
-                <h1 class="title text-4xl text-white">Pemesanan</h1>
-            </div>
-        </div>
-        <div class="flex justify-center gap-3.5">
+<body class="app-body">
+    <header class="app-topbar">
+        <a class="app-brand" href="loggedin.html">
+            <img src="image/shirt.svg" alt="">
+            <span>Laundry &amp; Dry Clean</span>
+        </a>
+        <button class="profile-dot" type="button" aria-label="Profile"></button>
+    </header>
 
-            <div class="py-3 px-5.5 rounded-lg bg-[#CE0000] h-full shadow-lg flex items-center">
-                <button><img class="w-2.5" src="icon/back.svg" alt=""></button>
-            </div>
-            <div class="bg-white rounded-lg py-2 mb-14">
-                <!-- pilih layanan -->
-                <div class="shadow-sm w-full px-6 pb-3 ">
-                    <h1 class="title text-xl">Pilih Layanan</h1>
-                    <hr class="border-[#0080FF]">
-                    <div class="flex items-center flex-wrap gap-14 my-4">
-                        <button id="express" type="button" class="exp flex justify-center flex-col items-center shadow-md/25 py-8 px-6 rounded-xl cursor-pointer hover:bg-[#0080FF]/20" onclick="this.classList.toggle('bg-[#0080FF]/20')">
-                            <img src="image/shirt.svg" alt="" class="w-[100px]">
-                            <p class="semi pt-3">Cuci Express</p>
-                            <p>Rp.8.000/kg</p>
-                        </button>
-                        <button id="regular" type="button" class="flex justify-center flex-col items-center shadow-md/25 py-8 px-6 rounded-xl cursor-pointer hover:bg-[#0080FF]/20" onclick="this.classList.toggle('bg-[#0080FF]/20')">
-                            <img src="image/shirt.svg" alt="" class="w-[100px]">
-                            <p class="semi pt-3">Cuci Regular</p>
-                            <p>Rp.5.000/kg</p>
-                        </button>
-                        <button id="gaun" type="button" class="flex justify-center flex-col items-center shadow-md/25 py-8 px-4 rounded-xl cursor-pointer hover:bg-[#0080FF]/20" onclick="this.classList.toggle('bg-[#0080FF]/20')">
-                            <img src="image/shirt.svg" alt="" class="w-[100px]">
-                            <p class="semi pt-3">Dry Clean Gaun</p>
-                            <p>Rp.30.000/kg</p>
-                        </button>
-                        <button id="jas" type="button" class="flex justify-center flex-col items-center shadow-md/25 py-8 px-6 rounded-xl cursor-pointer hover:bg-[#0080FF]/20" onclick="this.classList.toggle('bg-[#0080FF]/20')">
-                            <img src="image/shirt.svg" alt="" class="w-[100px]">
-                            <p class="semi pt-3">Dry Clean Jas</p>
-                            <p>Rp.25.000/kg</p>
-                        </button>
-                        <button id="setrika" type="button" class="flex justify-center flex-col items-center shadow-md/25 py-8 px-6 rounded-xl cursor-pointer hover:bg-[#0080FF]/20" onclick="this.classList.toggle('bg-[#0080FF]/20')">
-                            <img src="image/shirt.svg" alt="" class="w-[100px]">
-                            <p class="semi pt-3">Setrika</p>
-                            <p class="">Rp.3.000/kg</p>
-                        </button>
-                    </div> 
-                </div>
-                <!-- pilih layanan end -->
-                <!-- item pesanan -->
-                <div class="shadow-sm w-full px-6 pb-3 mt-6">
-                    <h1 class="semi text-xl">Item Pemesanan</h1>
-                    <hr class="border-[#0080FF]">
-                    <div id="item" class="mt-4 space-y-2">
-                        
-                    </div>
-                </div>
-                <!-- item pesanan end -->
+    <main>
+        <h1 class="page-title">Pemesanan</h1>
 
-                <!-- metode pengambilan -->
-                <div class="shadow-sm w-full px-6 pb-3 mt-6">
-                    <h1 class="semi text-xl">Item Pemesanan</h1>
-                    <hr class="border-[#0080FF]">
-                    <div class="flex my-4 gap-2">
-                        <div class="border border-[#ADADAD] rounded-lg w-1/2 p-8 ">
-                            <label for="pickup" class="peer flex gap-4">
-                                <input id="pickup" type="radio">
-                                <div class="space-y-2">
-                                    <p class="semi">Pickup Service</p>
-                                    <div>
-                                        <p class="text-sm">Pesanan akan diambil dari tempat anda</p>
-                                        <p class="text-sm text-[#0080FF]">Rp.3.000</p>
-                                    </div>
-                                </div>
-                            </label>
-                        </div>
-                        <div class="border border-[#ADADAD] rounded-lg w-1/2 p-8">
-                            <label for="self" class="peer flex gap-4">
-                                <input id="self" type="radio">
-                                <div class="space-y-2">
-                                    <p class="semi">Pickup Service</p>
-                                    <div>
-                                        <p class="text-sm ">Pesanan akan diambil dari tempat anda</p>
-                                        <p class="text-sm text-[#0080FF]">Free</p>
-                                    </div>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <!-- metode pengambilan end -->
-                <!-- Pengingat -->
-                 <div class="shadow-sm w-full px-6 pb-3 mt-6">
-                    <h1 class="semi text-xl">Item Pemesanan</h1>
-                    <hr class="border-[#0080FF]">
-                    <div class="flex my-4 gap-2">
-                        <div class="border border-[#ADADAD] rounded-lg w-1/2 py-2 px-8">
-                            <label for="added" class="peer flex gap-4">
-                                <input id="added" type="radio">
-                                <div class="space-y-1">
-                                    <p class="semi">Gunakan Email terdaftar</p>
-                                    <div>
-                                        <p class="text-sm">Notifikasi Laundry anda akan dikirimkan ke email saat <br> anda mendaftar</p>
-                                    </div>
-                                </div>
-                            </label>
-                        </div>
-                        <div class="border border-[#ADADAD] rounded-lg w-1/2 py-2 px-8">
-                            <label for="custom" class="peer flex gap-4">
-                                <input id="custom" type="radio">
-                                <div class="space-y-1">
-                                    <p class="semi">Custom Email</p>
-                                    <div>
-                                        <p class="text-sm ">Notifikasi Laundry anda akan dikirimkan ke email yang <br>anda isi</p>
-                                    </div>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <!-- pengingat end -->
-                <!-- detail transaksi -->
-                <div class="shadow-sm w-full px-6 pb-3 mt-6">
-                    <h1 class="semi text-xl">Detail Transaksi</h1>
-                    <hr class="border-[#0080FF]">
-                    <div class="my-4">
-                        <div class="bg-[#F7F7F7] px-10 rounded-lg py-5 border border-[#D9D9D9]">
-                            <div class="flex justify-between space-y-3">
-                                <div class="space-y-3">
-                                    <p class="text-sm ">Total pemesanan</p>
-                                    <p class="text-sm ">Pickup Service</p>
-                                </div>
-                                <div class="text-right">
-                                    <div class="space-y-3">
-                                        <p class="semi text-sm text-[#0080FF]">Rp.16.000</p>
-                                        <p class="semi text-sm text-[#0080FF]">Rp.3.000</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="border-[#0080FF]">
-                            <div class="flex justify-between mt-3">
-                                <div class="">
-                                    <p class="title text-md">Total </p>
-                                </div>
-                                <div class="text-right">
-                                    <div>
-                                        <p class="semi text-sm text-[#0080FF]">Rp.16.000</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- detail transaksi end -->
-                <!-- pembayaran -->
-                <div class=" w-full px-6 pb-3 mt-6">
-                    <h1 class="semi text-xl">Item Pemesanan</h1>
-                    <hr class="border-[#0080FF]">
-                    <div class="flex my-4 gap-2">
-                        <div class="border border-[#ADADAD] rounded-lg w-1/2 py-4 px-8">
-                            <label for="qris" class="peer flex gap-4">
-                                <input id="qris" type="radio">
-                                <div class="flex justify-between w-full">
-                                    <div>
-                                        <p class="semi">QRIS</p>
-                                        <div>
-                                            <p class="text-sm">Bayar menggunakan QR Code</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center ">
-                                        <img src="image/Qris.svg" alt="" class="size-12">
-                                    </div>
-                                </div>
-                            </label>
-                        </div>
+        <div class="app-layout">
+            <aside class="side-stack">
+                <button class="back-button" type="button" onclick="window.location.href='loggedin.html'" aria-label="Back">
+                    <img src="icon/back.svg" alt="">
+                </button>
+            </aside>
 
-                        <div class="border border-[#ADADAD] rounded-lg w-1/2 py-4 px-8">
-                            <label for="kasir" class="peer flex gap-4">
-                                <input id="kasir" type="radio">
-                                <div class="flex justify-between w-full">
-                                    <div>
-                                        <p class="semi">Bayar di Kasir</p>
-                                        <div>
-                                            <p class="text-sm">Bayar di tempat Laundry</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center ">
-                                        <img src="image/machine.svg" alt="" class="size-12">
-                                    </div>
-                                </div>
-                            </label>
+            <section class="page-card">
+                <div class="section-block">
+                    <h2 class="section-title">Pilih Layanan</h2>
+                    <div class="service-grid" id="service-grid">
+                        <button class="service-card" type="button" data-service="express" data-title="Cuci Express" data-price="8000">
+                            <img src="image/shirt.svg" alt="">
+                            <strong>Cuci Express</strong>
+                            <span class="price-text">Rp.8.000/kg</span>
+                        </button>
+                        <button class="service-card is-selected" type="button" data-service="regular" data-title="Cuci Regular" data-price="5000">
+                            <img src="image/shirt.svg" alt="">
+                            <strong>Cuci Regular</strong>
+                            <span class="price-text">Rp.5.000/kg</span>
+                        </button>
+                        <button class="service-card" type="button" data-service="gaun" data-title="Dry Clean Gaun" data-price="30000">
+                            <img src="image/shirt.svg" alt="">
+                            <strong>Dry Clean Gaun</strong>
+                            <span class="price-text">Rp.30.000/kg</span>
+                        </button>
+                        <button class="service-card" type="button" data-service="jas" data-title="Dry Clean Jas" data-price="25000">
+                            <img src="image/shirt.svg" alt="">
+                            <strong>Dry Clean Jas</strong>
+                            <span class="price-text">Rp.25.000/kg</span>
+                        </button>
+                        <button class="service-card is-selected" type="button" data-service="setrika" data-title="Setrika" data-price="3000">
+                            <img src="image/shirt.svg" alt="">
+                            <strong>Setrika</strong>
+                            <span class="price-text">Rp.3.000/kg</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="section-block">
+                    <h2 class="section-title">Item Pesanan</h2>
+                    <div class="order-items" id="item"></div>
+                </div>
+
+                <div class="section-block">
+                    <h2 class="section-title">Metode Pengambilan</h2>
+                    <div class="option-grid">
+                        <label class="option-box">
+                            <input type="radio" name="pickup-method" id="pickup" value="3000" checked>
+                            <span class="option-copy">
+                                <strong>Pickup Service</strong>
+                                <span>Pesanan akan diambil dari tempat anda</span>
+                                <span class="price-text">Rp.3.000</span>
+                            </span>
+                        </label>
+                        <label class="option-box">
+                            <input type="radio" name="pickup-method" id="self" value="0">
+                            <span class="option-copy">
+                                <strong>Self Service</strong>
+                                <span>Anda mengantar Laundry anda</span>
+                                <span class="price-text">Free</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="section-block">
+                    <h2 class="section-title">Pengingat</h2>
+                    <div class="option-grid">
+                        <label class="option-box">
+                            <input type="radio" name="reminder" checked>
+                            <span class="option-copy">
+                                <strong>Gunakan Email terdaftar</strong>
+                                <span>Notifikasi Laundry anda akan dikirimkan ke email saat anda mendaftar</span>
+                            </span>
+                        </label>
+                        <label class="option-box">
+                            <input type="radio" name="reminder">
+                            <span class="option-copy">
+                                <strong>Custom Email</strong>
+                                <span>Notifikasi Laundry anda akan dikirimkan ke email yang anda isi</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="section-block">
+                    <h2 class="section-title">Detail Transaksi</h2>
+                    <div class="summary-box">
+                        <div class="summary-line">
+                            <span>Total Pesanan</span>
+                            <span class="amount" id="subtotal">Rp.16.000</span>
+                        </div>
+                        <div class="summary-line">
+                            <span>Pickup Service</span>
+                            <span class="amount" id="pickup-total">Rp.3.000</span>
+                        </div>
+                        <hr class="summary-rule">
+                        <div class="summary-line">
+                            <strong>Total</strong>
+                            <span class="amount" id="grand-total">Rp.19.000</span>
                         </div>
                     </div>
                 </div>
-                <!-- pemabayana end -->
-            </div>
+
+                <div class="section-block">
+                    <h2 class="section-title">Pembayaran</h2>
+                    <div class="option-grid">
+                        <label class="option-box payment-box">
+                            <input type="radio" name="payment" checked>
+                            <span class="option-copy">
+                                <strong>QRIS</strong>
+                                <span>Bayar menggunakan QR Code</span>
+                            </span>
+                            <img class="payment-icon" src="image/Qris.svg" alt="">
+                        </label>
+                        <label class="option-box payment-box">
+                            <input type="radio" name="payment">
+                            <span class="option-copy">
+                                <strong>Bayar di Kasir</strong>
+                                <span>Bayar di tempat Laundry</span>
+                            </span>
+                            <img class="payment-icon" src="image/machine.svg" alt="">
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <nav class="app-nav" aria-label="Order navigation">
+                <a class="nav-button is-active" href="pemesanan.html">Pemesanan</a>
+                <a class="nav-button" href="riwayat-pemesanan.html">Riwayat Pesanan</a>
+                <a class="nav-button" href="complaint-order.html">Complaint Order</a>
+            </nav>
         </div>
-    </section>
-    <!-- Pemesanan section end -->
+    </main>
 </body>
+</html>
