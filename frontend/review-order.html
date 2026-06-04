@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <script src="handlers/ui_actions.js" defer></script>
+    <title>Review Order</title>
+</head>
+<body class="app-body">
+    <header class="app-topbar">
+        <a class="app-brand" href="loggedin.html">
+            <img src="image/shirt.svg" alt="">
+            <span>Laundry &amp; Dry Clean</span>
+        </a>
+        <button class="profile-dot" type="button" onclick="window.location.href='admin-analytics.html'" aria-label="Switch to admin"></button>
+    </header>
+
+    <main>
+        <h1 class="page-title">Review Order</h1>
+        <div class="app-layout">
+            <aside class="side-stack">
+                <button class="back-button" type="button" onclick="window.location.href='loggedin.html'" aria-label="Back">
+                    <img src="icon/back.svg" alt="">
+                </button>
+            </aside>
+
+            <section class="page-card complaint-card">
+                <h2 class="section-title">Beri Review</h2>
+                <div class="complaint-note">
+                    <strong class="item-title">Pesanan selesai</strong>
+                    <div class="history-date" style="margin-top: 8px;">ORD-030526 - Minggu 3 Mei 2026</div>
+                    <div class="price-text">Dry Clean Jas - Rp.50.000</div>
+                </div>
+                <form class="complaint-grid" data-demo-form data-success="Review berhasil dikirim. Terima kasih atas penilaiannya.">
+                    <div class="form-field">
+                        <label for="review-order">Pilih Pesanan</label>
+                        <select id="review-order">
+                            <option>ORD-030526 - Dry Clean Jas</option>
+                            <option>ORD-010526 - Setrika</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label for="review-rating">Rating</label>
+                        <select id="review-rating">
+                            <option>5 - Sangat Puas</option>
+                            <option>4 - Puas</option>
+                            <option>3 - Cukup</option>
+                            <option>2 - Kurang</option>
+                            <option>1 - Tidak Puas</option>
+                        </select>
+                    </div>
+                    <div class="form-field full">
+                        <label for="review-message">Review</label>
+                        <textarea id="review-message" placeholder="Ceritakan pengalaman anda"></textarea>
+                    </div>
+                    <div class="form-field full" style="align-items: flex-end;">
+                        <button class="primary-action" type="submit">Kirim Review</button>
+                    </div>
+                </form>
+            </section>
+
+            <nav class="app-nav" aria-label="Customer navigation">
+                <a class="nav-button" href="pemesanan.html">Pemesanan</a>
+                <a class="nav-button" href="riwayat-pemesanan.html">Riwayat Pesanan</a>
+                <a class="nav-button" href="chat-admin.html">Chat Admin</a>
+                <a class="nav-button" href="kelola-akun.html">Kelola Akun</a>
+                <a class="nav-button is-active" href="review-order.html">Review Order</a>
+                <a class="nav-button" href="complaint-order.html">Complaint Order</a>
+            </nav>
+        </div>
+    </main>
+</body>
+</html>

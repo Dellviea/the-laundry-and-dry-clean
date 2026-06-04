@@ -3,6 +3,13 @@ const serviceGrid = document.getElementById("service-grid");
 const subtotalEl = document.getElementById("subtotal");
 const pickupTotalEl = document.getElementById("pickup-total");
 const grandTotalEl = document.getElementById("grand-total");
+const customEmailRadio = document.getElementById("custom-email");
+const registeredEmailRadio = document.getElementById("registered-email");
+const customEmailPanel = document.getElementById("custom-email-panel");
+const customEmailInput = document.getElementById("custom-email-input");
+const qrisOption = document.getElementById("qris-option");
+const qrisPayment = document.getElementById("qris-payment");
+const submitOrderButton = document.getElementById("submit-order");
 
 const orderItems = new Map([
     ["regular", { title: "Cuci Regular", price: 5000, quantity: 2 }],
@@ -118,5 +125,53 @@ if (itemParent) {
 document.querySelectorAll('input[name="pickup-method"]').forEach((input) => {
     input.addEventListener("change", updateTotals);
 });
+
+if (customEmailRadio) {
+    customEmailRadio.addEventListener("change", () => {
+        if (!customEmailRadio.checked) return;
+
+        const email = prompt("Masukkan custom email untuk notifikasi pesanan:");
+        if (email && customEmailInput) {
+            customEmailInput.value = email.trim();
+        }
+        if (customEmailPanel) {
+            customEmailPanel.classList.add("is-visible");
+        }
+        alert("Notifikasi akan dikirim ke custom email yang anda isi.");
+    });
+}
+
+if (registeredEmailRadio) {
+    registeredEmailRadio.addEventListener("change", () => {
+        if (customEmailPanel) {
+            customEmailPanel.classList.remove("is-visible");
+        }
+    });
+}
+
+if (qrisOption && qrisPayment) {
+    qrisOption.addEventListener("click", () => {
+        qrisPayment.checked = true;
+        alert("Pembayaran QRIS dipilih. Silakan scan QR Code untuk melanjutkan pembayaran.");
+    });
+}
+
+if (submitOrderButton) {
+    submitOrderButton.addEventListener("click", () => {
+        if (orderItems.size === 0) {
+            alert("Pilih minimal satu layanan sebelum submit pemesanan.");
+            return;
+        }
+
+        if (customEmailRadio && customEmailRadio.checked && customEmailInput && !customEmailInput.value.trim()) {
+            alert("Isi custom email terlebih dahulu sebelum submit pemesanan.");
+            customEmailInput.focus();
+            return;
+        }
+
+        alert("Pemesanan berhasil dibuat. Anda akan diarahkan ke Riwayat Pesanan.");
+        window.location.href = "riwayat-pemesanan.html";
+    });
+}
 
 renderItems();

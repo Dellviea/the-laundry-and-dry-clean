@@ -9,7 +9,7 @@
 </head>
 <body class="app-body">
     <header class="app-topbar">
-        <a class="app-brand" href="admin-orders.html">
+        <a class="app-brand" href="admin-analytics.html">
             <img src="image/shirt.svg" alt="">
             <span>Laundry &amp; Dry Clean</span>
         </a>
@@ -52,8 +52,8 @@
                                 <td class="amount">Rp.19.000</td>
                                 <td><span class="admin-status status-pending">Dipesan</span></td>
                                 <td class="admin-table-actions">
-                                    <button class="admin-mini-action" type="button" data-popup="Detail ORD-070526: Pickup Service, QRIS, total Rp.19.000.">Detail</button>
-                                    <button class="admin-mini-action" type="button" data-popup="Status ORD-070526 diubah menjadi Sedang Diproses.">Ubah Status</button>
+                                    <button class="admin-mini-action" type="button" onclick="window.location.href='admin-order-detail.html'">Detail</button>
+                                    <button class="admin-mini-action" type="button" onclick="window.location.href='admin-status.html'">Ubah Status</button>
                                 </td>
                             </tr>
                             <tr>
@@ -63,8 +63,8 @@
                                 <td class="amount">Rp.24.000</td>
                                 <td><span class="admin-status status-process">Diproses</span></td>
                                 <td class="admin-table-actions">
-                                    <button class="admin-mini-action" type="button" data-popup="Detail ORD-050526: Cuci Express 3kg, total Rp.24.000.">Detail</button>
-                                    <button class="admin-mini-action" type="button" data-popup="Status ORD-050526 diubah menjadi Selesai.">Ubah Status</button>
+                                    <button class="admin-mini-action" type="button" onclick="window.location.href='admin-order-detail.html'">Detail</button>
+                                    <button class="admin-mini-action" type="button" onclick="window.location.href='admin-status.html'">Ubah Status</button>
                                 </td>
                             </tr>
                             <tr>
@@ -74,8 +74,8 @@
                                 <td class="amount">Rp.50.000</td>
                                 <td><span class="admin-status status-done">Selesai</span></td>
                                 <td class="admin-table-actions">
-                                    <button class="admin-mini-action" type="button" data-popup="Detail ORD-030526: Dry Clean Jas 2kg, pesanan selesai.">Detail</button>
-                                    <button class="admin-mini-action" type="button" data-popup="Pesanan ORD-030526 sudah selesai.">Ubah Status</button>
+                                    <button class="admin-mini-action" type="button" onclick="window.location.href='admin-order-detail.html'">Detail</button>
+                                    <button class="admin-mini-action" type="button" onclick="window.location.href='admin-status.html'">Ubah Status</button>
                                 </td>
                             </tr>
                             <tr>
@@ -85,8 +85,8 @@
                                 <td class="amount">Rp.12.000</td>
                                 <td><span class="admin-status status-done">Selesai</span></td>
                                 <td class="admin-table-actions">
-                                    <button class="admin-mini-action" type="button" data-popup="Detail ORD-010526: Setrika 4kg, total Rp.12.000.">Detail</button>
-                                    <button class="admin-mini-action" type="button" data-popup="Pesanan ORD-010526 sudah selesai.">Ubah Status</button>
+                                    <button class="admin-mini-action" type="button" onclick="window.location.href='admin-order-detail.html'">Detail</button>
+                                    <button class="admin-mini-action" type="button" onclick="window.location.href='admin-status.html'">Ubah Status</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -103,7 +103,13 @@
             </section>
 
             <nav class="app-nav" aria-label="Admin navigation">
+                <a class="nav-button" href="admin-analytics.html">Dashboard</a>
                 <a class="nav-button is-active" href="admin-orders.html">Daftar Pesanan</a>
+                <a class="nav-button" href="admin-order-detail.html">Detail Pesanan</a>
+                <a class="nav-button" href="admin-approval.html">Approve Order</a>
+                <a class="nav-button" href="admin-status.html">Update Status</a>
+                <a class="nav-button" href="admin-delivery.html">Confirm Delivery</a>
+                <a class="nav-button" href="admin-laundry-data.html">Data Laundry</a>
                 <a class="nav-button" href="admin-chat.html">Chat Customers</a>
                 <a class="nav-button" href="admin-reviews.html">Reviews</a>
                 <a class="nav-button" href="admin-complaints.html">Complaints</a>

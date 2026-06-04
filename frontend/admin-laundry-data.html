@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <script src="handlers/ui_actions.js" defer></script>
+    <title>Kelola Data Laundry</title>
+</head>
+<body class="app-body">
+    <header class="app-topbar">
+        <a class="app-brand" href="admin-analytics.html">
+            <img src="image/shirt.svg" alt="">
+            <span>Laundry &amp; Dry Clean</span>
+        </a>
+        <button class="profile-dot" type="button" onclick="window.location.href='loggedin.html'" aria-label="Switch to customer"></button>
+    </header>
+
+    <main>
+        <h1 class="page-title">Data Laundry</h1>
+        <div class="app-layout">
+            <aside class="side-stack">
+                <button class="back-button" type="button" onclick="window.location.href='loggedin.html'" aria-label="Back">
+                    <img src="icon/back.svg" alt="">
+                </button>
+                <div class="role-card">
+                    <strong>Admin Mode</strong>
+                    <span>Kelola layanan, harga, kategori, dan status rekomendasi.</span>
+                </div>
+            </aside>
+
+            <section class="page-card admin-card">
+                <h2 class="section-title">Kelola Data Laundry</h2>
+                <form class="complaint-grid" data-demo-form data-success="Layanan laundry berhasil disimpan sementara.">
+                    <div class="form-field">
+                        <label for="service-name">Nama Layanan</label>
+                        <input id="service-name" type="text" placeholder="Contoh: Cuci Hemat">
+                    </div>
+                    <div class="form-field">
+                        <label for="service-price">Harga</label>
+                        <input id="service-price" type="text" placeholder="Contoh: 7000">
+                    </div>
+                    <div class="form-field">
+                        <label for="service-unit">Satuan</label>
+                        <select id="service-unit">
+                            <option>Kg</option>
+                            <option>Pcs</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label for="service-category">Kategori</label>
+                        <select id="service-category">
+                            <option>Reguler</option>
+                            <option>Express</option>
+                            <option>Dry Clean</option>
+                        </select>
+                    </div>
+                    <div class="form-field full" style="align-items: flex-end;">
+                        <button class="primary-action" type="submit">Simpan Layanan</button>
+                    </div>
+                </form>
+                <div class="admin-panel-body">
+                    <table class="admin-table">
+                        <thead><tr><th>Layanan</th><th>Harga</th><th>Satuan</th><th>Kategori</th><th>Aksi</th></tr></thead>
+                        <tbody>
+                            <tr><td>Cuci Regular</td><td class="amount">Rp.5.000</td><td>Kg</td><td>Reguler</td><td><button class="admin-mini-action" type="button" data-popup="Data Cuci Regular siap diedit.">Edit</button></td></tr>
+                            <tr><td>Cuci Express</td><td class="amount">Rp.8.000</td><td>Kg</td><td>Express</td><td><button class="admin-mini-action" type="button" data-popup="Data Cuci Express siap diedit.">Edit</button></td></tr>
+                            <tr><td>Dry Clean Jas</td><td class="amount">Rp.25.000</td><td>Kg</td><td>Dry Clean</td><td><button class="admin-mini-action" type="button" data-popup="Data Dry Clean Jas siap diedit.">Edit</button></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <nav class="app-nav" aria-label="Admin navigation">
+                <a class="nav-button" href="admin-analytics.html">Dashboard</a>
+                <a class="nav-button" href="admin-orders.html">Daftar Pesanan</a>
+                <a class="nav-button" href="admin-order-detail.html">Detail Pesanan</a>
+                <a class="nav-button" href="admin-approval.html">Approve Order</a>
+                <a class="nav-button" href="admin-status.html">Update Status</a>
+                <a class="nav-button" href="admin-delivery.html">Confirm Delivery</a>
+                <a class="nav-button is-active" href="admin-laundry-data.html">Data Laundry</a>
+                <a class="nav-button" href="admin-chat.html">Chat Customers</a>
+                <a class="nav-button" href="admin-reviews.html">Reviews</a>
+                <a class="nav-button" href="admin-complaints.html">Complaints</a>
+            </nav>
+        </div>
+    </main>
+</body>
+</html>

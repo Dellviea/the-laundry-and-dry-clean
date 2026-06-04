@@ -349,6 +349,43 @@ html {
     margin-left: auto;
 }
 
+.custom-email-panel {
+    display: none;
+    margin-top: 16px;
+    background: var(--laundry-soft);
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px 18px;
+}
+
+.custom-email-panel.is-visible {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.custom-email-panel label {
+    font-family: "intersemibold";
+    font-size: 14px;
+}
+
+.custom-email-panel input {
+    border: 1.5px solid #bdbdbd;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font: inherit;
+}
+
+.submit-section {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 24px;
+}
+
+.order-submit-button {
+    min-width: 220px;
+}
+
 .app-nav {
     display: flex;
     flex-direction: column;
@@ -356,6 +393,9 @@ html {
     position: sticky;
     top: 24px;
     z-index: 5;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    padding-right: 2px;
 }
 
 .nav-button {
@@ -760,6 +800,85 @@ html {
     resize: vertical;
 }
 
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.stat-box {
+    background: var(--laundry-soft);
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 18px;
+}
+
+.stat-box span {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.stat-box strong {
+    color: var(--laundry-blue);
+    font-family: "interbold";
+    font-size: 26px;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.detail-box {
+    background: var(--laundry-soft);
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 18px;
+}
+
+.detail-box strong {
+    display: block;
+    font-family: "interbold";
+    margin-bottom: 8px;
+}
+
+.message-thread {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.message-bubble {
+    max-width: 74%;
+    border-radius: 8px;
+    padding: 14px 16px;
+    line-height: 1.35;
+}
+
+.message-bubble.customer {
+    align-self: flex-start;
+    background: var(--laundry-soft);
+    border: 1px solid #e0e0e0;
+}
+
+.message-bubble.admin {
+    align-self: flex-end;
+    background: #d8ebff;
+    color: #064d93;
+}
+
+.compact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+}
+
 @media (max-width: 1180px) {
     .app-layout {
         grid-template-columns: 190px minmax(0, 1fr);
@@ -768,6 +887,7 @@ html {
     .app-nav {
         grid-column: 1 / -1;
         flex-direction: row;
+        flex-wrap: wrap;
     }
 
     .nav-button {
@@ -777,6 +897,10 @@ html {
     .service-grid {
         grid-template-columns: repeat(3, minmax(120px, 1fr));
         gap: 20px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
@@ -828,7 +952,9 @@ html {
 
     .service-grid,
     .option-grid,
-    .complaint-grid {
+    .complaint-grid,
+    .detail-grid,
+    .stats-grid {
         grid-template-columns: 1fr;
     }
 
@@ -863,5 +989,9 @@ html {
 
     .chat-reply-box {
         grid-template-columns: 1fr;
+    }
+
+    .message-bubble {
+        max-width: 100%;
     }
 }

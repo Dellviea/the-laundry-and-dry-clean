@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <script src="handlers/ui_actions.js" defer></script>
+    <title>Detail Pesanan</title>
+</head>
+<body class="app-body">
+    <header class="app-topbar">
+        <a class="app-brand" href="admin-analytics.html">
+            <img src="image/shirt.svg" alt="">
+            <span>Laundry &amp; Dry Clean</span>
+        </a>
+        <button class="profile-dot" type="button" onclick="window.location.href='loggedin.html'" aria-label="Switch to customer"></button>
+    </header>
+
+    <main>
+        <h1 class="page-title">Detail Pesanan</h1>
+        <div class="app-layout">
+            <aside class="side-stack">
+                <button class="back-button" type="button" onclick="window.location.href='admin-orders.html'" aria-label="Back">
+                    <img src="icon/back.svg" alt="">
+                </button>
+            </aside>
+
+            <section class="page-card admin-card">
+                <h2 class="section-title">Lihat Detail Pesanan</h2>
+                <div class="detail-grid">
+                    <div class="detail-box"><strong>ID Pesanan</strong>ORD-070526</div>
+                    <div class="detail-box"><strong>Customer</strong>Della Oktavia</div>
+                    <div class="detail-box"><strong>Kontak</strong>della@example.com<br>+62 812 3456 7890</div>
+                    <div class="detail-box"><strong>Alamat</strong>Jl. Laundry No.123, Jakarta</div>
+                    <div class="detail-box"><strong>Status</strong><span class="admin-status status-pending">Dipesan</span></div>
+                    <div class="detail-box"><strong>Pembayaran</strong>QRIS - Paid</div>
+                </div>
+                <div class="admin-panel-body">
+                    <table class="admin-table">
+                        <thead><tr><th>Layanan</th><th>Qty</th><th>Subtotal</th></tr></thead>
+                        <tbody>
+                            <tr><td>Cuci Regular</td><td>2 kg</td><td class="amount">Rp.10.000</td></tr>
+                            <tr><td>Setrika</td><td>2 kg</td><td class="amount">Rp.6.000</td></tr>
+                            <tr><td>Pickup Service</td><td>1</td><td class="amount">Rp.3.000</td></tr>
+                            <tr><td><strong>Total</strong></td><td></td><td class="amount">Rp.19.000</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="compact-actions">
+                    <button class="primary-action" type="button" data-popup="Invoice pesanan ORD-070526 dibuka sementara.">Cetak Invoice</button>
+                    <button class="admin-mini-action" type="button" onclick="window.location.href='admin-status.html'">Update Status</button>
+                </div>
+            </section>
+
+            <nav class="app-nav" aria-label="Admin navigation">
+                <a class="nav-button" href="admin-analytics.html">Dashboard</a>
+                <a class="nav-button" href="admin-orders.html">Daftar Pesanan</a>
+                <a class="nav-button is-active" href="admin-order-detail.html">Detail Pesanan</a>
+                <a class="nav-button" href="admin-approval.html">Approve Order</a>
+                <a class="nav-button" href="admin-status.html">Update Status</a>
+                <a class="nav-button" href="admin-delivery.html">Confirm Delivery</a>
+                <a class="nav-button" href="admin-laundry-data.html">Data Laundry</a>
+                <a class="nav-button" href="admin-chat.html">Chat Customers</a>
+                <a class="nav-button" href="admin-reviews.html">Reviews</a>
+                <a class="nav-button" href="admin-complaints.html">Complaints</a>
+            </nav>
+        </div>
+    </main>
+</body>
+</html>

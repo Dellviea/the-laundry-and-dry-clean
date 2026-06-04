@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <script src="handlers/ui_actions.js" defer></script>
+    <title>Kelola Akun</title>
+</head>
+<body class="app-body">
+    <header class="app-topbar">
+        <a class="app-brand" href="loggedin.html">
+            <img src="image/shirt.svg" alt="">
+            <span>Laundry &amp; Dry Clean</span>
+        </a>
+        <button class="profile-dot" type="button" onclick="window.location.href='admin-analytics.html'" aria-label="Switch to admin"></button>
+    </header>
+
+    <main>
+        <h1 class="page-title">Kelola Akun</h1>
+        <div class="app-layout">
+            <aside class="side-stack">
+                <button class="back-button" type="button" onclick="window.location.href='loggedin.html'" aria-label="Back">
+                    <img src="icon/back.svg" alt="">
+                </button>
+            </aside>
+
+            <section class="page-card complaint-card">
+                <h2 class="section-title">Data Akun</h2>
+                <form class="complaint-grid" data-demo-form data-success="Perubahan akun berhasil disimpan sementara.">
+                    <div class="form-field">
+                        <label for="account-name">Nama</label>
+                        <input id="account-name" type="text" value="Della Oktavia">
+                    </div>
+                    <div class="form-field">
+                        <label for="account-email">Email</label>
+                        <input id="account-email" type="email" value="della@example.com">
+                    </div>
+                    <div class="form-field">
+                        <label for="account-phone">Nomor HP</label>
+                        <input id="account-phone" type="text" value="+62 812 3456 7890">
+                    </div>
+                    <div class="form-field">
+                        <label for="account-password">Password Baru</label>
+                        <input id="account-password" type="password" placeholder="Kosongkan jika tidak diubah">
+                    </div>
+                    <div class="form-field full">
+                        <label for="account-address">Alamat</label>
+                        <textarea id="account-address">Jl. Laundry No.123, Jakarta</textarea>
+                    </div>
+                    <div class="form-field full" style="align-items: flex-end;">
+                        <button class="primary-action" type="submit">Simpan Akun</button>
+                    </div>
+                </form>
+                <div class="compact-actions">
+                    <button class="admin-mini-action" type="button" onclick="window.location.href='index.html'">Logout</button>
+                    <button class="admin-mini-action" type="button" data-popup="Foto profil akan bisa diubah setelah backend/profile upload tersedia.">Ubah Foto Profil</button>
+                </div>
+            </section>
+
+            <nav class="app-nav" aria-label="Customer navigation">
+                <a class="nav-button" href="pemesanan.html">Pemesanan</a>
+                <a class="nav-button" href="riwayat-pemesanan.html">Riwayat Pesanan</a>
+                <a class="nav-button" href="chat-admin.html">Chat Admin</a>
+                <a class="nav-button is-active" href="kelola-akun.html">Kelola Akun</a>
+                <a class="nav-button" href="review-order.html">Review Order</a>
+                <a class="nav-button" href="complaint-order.html">Complaint Order</a>
+            </nav>
+        </div>
+    </main>
+</body>
+</html>

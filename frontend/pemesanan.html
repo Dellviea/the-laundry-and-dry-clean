@@ -13,7 +13,7 @@
             <img src="image/shirt.svg" alt="">
             <span>Laundry &amp; Dry Clean</span>
         </a>
-        <button class="profile-dot" type="button" onclick="window.location.href='admin-orders.html'" aria-label="Switch to admin"></button>
+        <button class="profile-dot" type="button" onclick="window.location.href='admin-analytics.html'" aria-label="Switch to admin"></button>
     </header>
 
     <main>
@@ -89,19 +89,23 @@
                     <h2 class="section-title">Pengingat</h2>
                     <div class="option-grid">
                         <label class="option-box">
-                            <input type="radio" name="reminder" checked>
+                            <input type="radio" name="reminder" id="registered-email" checked>
                             <span class="option-copy">
                                 <strong>Gunakan Email terdaftar</strong>
                                 <span>Notifikasi Laundry anda akan dikirimkan ke email saat anda mendaftar</span>
                             </span>
                         </label>
                         <label class="option-box">
-                            <input type="radio" name="reminder">
+                            <input type="radio" name="reminder" id="custom-email">
                             <span class="option-copy">
                                 <strong>Custom Email</strong>
                                 <span>Notifikasi Laundry anda akan dikirimkan ke email yang anda isi</span>
                             </span>
                         </label>
+                    </div>
+                    <div class="custom-email-panel" id="custom-email-panel">
+                        <label for="custom-email-input">Email notifikasi</label>
+                        <input id="custom-email-input" type="email" placeholder="example@gmail.com">
                     </div>
                 </div>
 
@@ -127,8 +131,8 @@
                 <div class="section-block">
                     <h2 class="section-title">Pembayaran</h2>
                     <div class="option-grid">
-                        <label class="option-box payment-box">
-                            <input type="radio" name="payment" checked>
+                        <label class="option-box payment-box" id="qris-option">
+                            <input type="radio" name="payment" id="qris-payment" checked>
                             <span class="option-copy">
                                 <strong>QRIS</strong>
                                 <span>Bayar menggunakan QR Code</span>
@@ -136,7 +140,7 @@
                             <img class="payment-icon" src="image/Qris.svg" alt="">
                         </label>
                         <label class="option-box payment-box">
-                            <input type="radio" name="payment">
+                            <input type="radio" name="payment" id="cashier-payment">
                             <span class="option-copy">
                                 <strong>Bayar di Kasir</strong>
                                 <span>Bayar di tempat Laundry</span>
@@ -145,11 +149,18 @@
                         </label>
                     </div>
                 </div>
+
+                <div class="section-block submit-section">
+                    <button class="primary-action order-submit-button" id="submit-order" type="button">Submit Pemesanan</button>
+                </div>
             </section>
 
             <nav class="app-nav" aria-label="Order navigation">
                 <a class="nav-button is-active" href="pemesanan.html">Pemesanan</a>
                 <a class="nav-button" href="riwayat-pemesanan.html">Riwayat Pesanan</a>
+                <a class="nav-button" href="chat-admin.html">Chat Admin</a>
+                <a class="nav-button" href="kelola-akun.html">Kelola Akun</a>
+                <a class="nav-button" href="review-order.html">Review Order</a>
                 <a class="nav-button" href="complaint-order.html">Complaint Order</a>
             </nav>
         </div>
