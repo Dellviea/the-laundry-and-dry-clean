@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="../index.css">
+    <script src="../handlers/ui_actions.js" defer></script>
+    <title>Dashboard Analytics</title>
+</head>
+<body class="app-body min-h-screen m-0 text-[#4b4b4b] bg-gradient-to-b from-[#087de9] to-[#0063b7]">
+    <header class="app-topbar h-[72px] bg-white flex items-center justify-between px-12">
+        <a class="app-brand flex items-center gap-[18px] text-[#0080ff] no-underline [&_img]:h-10 [&_img]:w-10 [&_span]:font-bold [&_span]:text-2xl [&_span]:leading-none" href="analytics.html">
+            <img src="../image/shirt.svg" alt="">
+            <span>Laundry &amp; Dry Clean</span>
+        </a>
+        <button class="profile-dot w-[42px] h-[42px] border border-[#0080ff] rounded-full bg-white cursor-pointer" type="button" onclick="window.location.href='../customer/home.html'" aria-label="Switch to customer"></button>
+    </header>
+
+    <main>
+        <h1 class="page-title text-white font-bold text-[56px] leading-none text-center my-[46px]">Dashboard Analytics</h1>
+        <div class="app-layout w-[calc(100%_-_64px)] max-w-[1540px] mx-auto mb-[74px] grid grid-cols-[250px_minmax(0,1fr)_250px] gap-[26px] items-start">
+            <aside class="side-stack flex flex-col gap-[22px] sticky top-6 z-[5]">
+                <button class="back-button w-full h-[50px] border-0 rounded-lg bg-[#df0000] text-white shadow-md flex items-center justify-center cursor-pointer [&_img]:h-[18px] [&_img]:w-[18px]" type="button" onclick="window.location.href='../customer/home.html'" aria-label="Back">
+                    <img src="../icon/back.svg" alt="">
+                </button>
+                <div class="role-card bg-white rounded-lg p-[18px] shadow-md [&_strong]:block [&_strong]:text-[#0080ff] [&_strong]:font-bold [&_strong]:mb-2 [&_span]:block [&_span]:text-sm [&_span]:leading-snug">
+                    <strong>Admin Mode</strong>
+                    <span>Ringkasan operasional laundry untuk presentasi frontend.</span>
+                </div>
+            </aside>
+
+            <section class="page-card bg-white rounded-lg overflow-hidden shadow-md admin-card py-6 px-7 pb-10">
+                <h2 class="section-title font-bold text-[22px] leading-tight m-0 pb-1.5 border-b-2 border-[#0080ff]">Lihat Dashboard Analytics</h2>
+                <div class="stats-grid grid grid-cols-4 gap-3.5 mt-5">
+                    <div class="stat-box bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg p-[18px] [&_span]:block [&_span]:text-[13px] [&_span]:mb-2.5 [&_strong]:text-[#0080ff] [&_strong]:font-bold [&_strong]:text-[26px]"><span>Total Pesanan</span><strong>128</strong></div>
+                    <div class="stat-box bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg p-[18px] [&_span]:block [&_span]:text-[13px] [&_span]:mb-2.5 [&_strong]:text-[#0080ff] [&_strong]:font-bold [&_strong]:text-[26px]"><span>Pesanan Diproses</span><strong>24</strong></div>
+                    <div class="stat-box bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg p-[18px] [&_span]:block [&_span]:text-[13px] [&_span]:mb-2.5 [&_strong]:text-[#0080ff] [&_strong]:font-bold [&_strong]:text-[26px]"><span>Pesanan Selesai</span><strong>96</strong></div>
+                    <div class="stat-box bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg p-[18px] [&_span]:block [&_span]:text-[13px] [&_span]:mb-2.5 [&_strong]:text-[#0080ff] [&_strong]:font-bold [&_strong]:text-[26px]"><span>Pendapatan</span><strong>Rp.8,4jt</strong></div>
+                </div>
+                <div class="admin-panel-body mt-5 overflow-x-auto">
+                    <table class="admin-table w-full border-collapse text-sm [&_th]:py-3.5 [&_th]:px-3 [&_th]:border-b [&_th]:border-[#e3e3e3] [&_th]:text-left [&_th]:align-middle [&_th]:text-[#0080ff] [&_th]:font-bold [&_th]:bg-[#f7f7f7] [&_td]:py-3.5 [&_td]:px-3 [&_td]:border-b [&_td]:border-[#e3e3e3] [&_td]:text-left [&_td]:align-middle">
+                        <thead>
+                            <tr>
+                                <th>Layanan</th>
+                                <th>Total Order</th>
+                                <th>Revenue</th>
+                                <th>Trend</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Cuci Regular</td><td>58</td><td class="amount text-[#0080ff] font-bold">Rp.2.900.000</td><td>Naik</td></tr>
+                            <tr><td>Cuci Express</td><td>32</td><td class="amount text-[#0080ff] font-bold">Rp.1.920.000</td><td>Stabil</td></tr>
+                            <tr><td>Dry Clean Jas</td><td>18</td><td class="amount text-[#0080ff] font-bold">Rp.1.800.000</td><td>Naik</td></tr>
+                            <tr><td>Setrika</td><td>20</td><td class="amount text-[#0080ff] font-bold">Rp.600.000</td><td>Turun</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="compact-actions flex flex-wrap gap-2.5 mt-[18px]">
+                    <button class="primary-action h-12 border-0 rounded-lg bg-[#0080ff] text-white font-bold text-base px-7 cursor-pointer shadow-md" type="button" data-popup="Laporan analytics berhasil dibuat sementara.">Export Laporan</button>
+                </div>
+            </section>
+
+            <nav class="app-nav flex flex-col gap-2.5 sticky top-6 z-[5] max-h-[calc(100vh-48px)] overflow-y-auto pr-0.5" aria-label="Admin navigation">
+                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md is-active !bg-[#0080ff] !text-white !border-white" href="analytics.html">Dashboard</a>
+                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="orders.html">Daftar Pesanan</a>
+                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="order-detail.html">Detail Pesanan</a>
+                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="approval.html">Approve Order</a>
+                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="status.html">Update Status</a>
+                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="delivery.html">Confirm Delivery</a>
+                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="laundry-data.html">Data Laundry</a>
+                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="chat.html">Chat Customers</a>
+                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="reviews.html">Reviews</a>
+                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="complaints.html">Complaints</a>
+            </nav>
+        </div>
+    </main>
+</body>
+</html>

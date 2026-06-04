@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="../index.css">
+    <script src="../handlers/ui_actions.js" defer></script>
+    <title>Riwayat Pesanan</title>
+</head>
+<body class="app-body min-h-screen m-0 text-[#4b4b4b] bg-gradient-to-b from-[#087de9] to-[#0063b7]">
+    <header class="app-topbar h-[72px] bg-white flex items-center justify-between px-12">
+        <a class="app-brand flex items-center gap-[18px] text-[#0080ff] no-underline [&_img]:h-10 [&_img]:w-10 [&_span]:font-bold [&_span]:text-2xl [&_span]:leading-none" href="home.html">
+            <img src="../image/shirt.svg" alt="">
+            <span>Laundry &amp; Dry Clean</span>
+        </a>
+        <button class="profile-dot w-[42px] h-[42px] border border-[#0080ff] rounded-full bg-white cursor-pointer" type="button" onclick="window.location.href='../admin/analytics.html'" aria-label="Switch to admin"></button>
+    </header>
+
+    <main>
+        <h1 class="page-title text-white font-bold text-[56px] leading-none text-center my-[46px]">Riwayat Pesanan</h1>
+
+        <div class="app-layout w-[calc(100%_-_64px)] max-w-[1540px] mx-auto mb-[74px] grid grid-cols-[250px_minmax(0,1fr)_250px] gap-[26px] items-start">
+            <aside class="side-stack flex flex-col gap-[22px] sticky top-6 z-[5]">
+                <button class="back-button w-full h-[50px] border-0 rounded-lg bg-[#df0000] text-white shadow-md flex items-center justify-center cursor-pointer [&_img]:h-[18px] [&_img]:w-[18px]" type="button" onclick="window.location.href='home.html'" aria-label="Back">
+                    <img src="../icon/back.svg" alt="">
+                </button>
+
+                <div class="filter-card bg-white rounded-lg py-5 px-6 shadow-md [&_label]:flex [&_label]:items-center [&_label]:gap-2.5 [&_label]:text-[15px] [&_label]:my-1 [&_input]:accent-[#0080ff]">
+                    <div class="filter-heading text-[#0080ff] font-bold text-lg flex items-center justify-center gap-3.5 pb-2 border-b-2 border-[#0080ff] mb-2.5">Filter</div>
+                    <label><input type="checkbox"> Dipesan</label>
+                    <label><input type="checkbox"> Sedang Diproses</label>
+                    <label><input type="checkbox"> Selesai</label>
+                    <label><input type="checkbox"> Dibatalkan</label>
+
+                    <div class="filter-heading text-[#0080ff] font-bold text-lg flex items-center justify-center gap-3.5 pb-2 border-b-2 border-[#0080ff] mb-2.5 mt-[18px]">Sort</div>
+                    <label><input type="radio" name="sort"> Tanggal Ascending</label>
+                    <label><input type="radio" name="sort" checked> Tanggal Descending</label>
+                </div>
+            </aside>
+
+            <section class="page-card bg-white rounded-lg overflow-hidden shadow-md">
+                <div class="section-block px-[26px] pt-3 pb-0 border-b-0 last:border-b-0">
+                    <h2 class="section-title font-bold text-[22px] leading-tight m-0 pb-1.5 border-b-2 border-[#0080ff]">My Orders</h2>
+                </div>
+
+                <div class="history-list flex flex-col gap-3.5 pt-[30px] px-[26px] pb-[110px]">
+                    <article class="history-card border border-[#e2e2e2] rounded-lg shadow-md pt-5 px-4 pb-4">
+                        <div class="history-head flex items-start justify-between gap-[18px] mb-[18px]">
+                            <div class="history-title flex items-start gap-4 [&_img]:h-[42px] [&_img]:w-[42px]">
+                                <img src="../image/shirt.svg" alt="">
+                                <div>
+                                    <div class="history-date font-semibold text-[15px]">Kamis 7 Mei 2026</div>
+                                    <div class="price-text text-[#0080ff] font-bold text-xs">2 kg</div>
+                                </div>
+                            </div>
+                            <span class="status-pill min-w-[142px] h-8 rounded-lg text-white font-bold text-sm flex items-center justify-center shadow-md status-pending bg-[#9d9823]">Dipesan</span>
+                        </div>
+                        <div class="history-summary bg-[#f7f7f7] rounded-lg py-[18px] px-7">
+                            <div class="history-line grid grid-cols-[minmax(160px,1fr)_130px_130px] gap-3 text-sm mb-2.5"><span>Total Pesanan</span><span></span><span class="amount text-[#0080ff] font-bold">Rp.16.000</span></div>
+                            <div class="history-line grid grid-cols-[minmax(160px,1fr)_130px_130px] gap-3 text-sm mb-2.5"><span>Cuci Regular</span><span class="qty text-[#0080ff] font-bold">2kg</span><span class="amount text-[#0080ff] font-bold">Rp.10.000</span></div>
+                            <div class="history-line grid grid-cols-[minmax(160px,1fr)_130px_130px] gap-3 text-sm mb-2.5"><span>Setrika</span><span class="qty text-[#0080ff] font-bold">2kg</span><span class="amount text-[#0080ff] font-bold">Rp.6.000</span></div>
+                            <div class="history-line grid grid-cols-[minmax(160px,1fr)_130px_130px] gap-3 text-sm mb-2.5"><span>Pickup Service</span><span></span><span class="amount text-[#0080ff] font-bold">Rp.3.000</span></div>
+                            <hr class="summary-rule border-0 border-t-2 border-[#0080ff] mt-0.5 mb-[18px]">
+                            <div class="history-line grid grid-cols-[minmax(160px,1fr)_130px_130px] gap-3 text-sm mb-2.5"><strong>Total</strong><span></span><span class="amount text-[#0080ff] font-bold">Rp.19.000</span></div>
+                        </div>
+                    </article>
+
+                    <article class="history-card border border-[#e2e2e2] rounded-lg shadow-md pt-5 px-4 pb-4">
+                        <div class="history-head flex items-start justify-between gap-[18px] mb-[18px]">
+                            <div class="history-title flex items-start gap-4 [&_img]:h-[42px] [&_img]:w-[42px]">
+                                <img src="../image/shirt.svg" alt="">
+                                <div>
+                                    <div class="history-date font-semibold text-[15px]">Selasa 5 Mei 2026</div>
+                                    <div class="price-text text-[#0080ff] font-bold text-xs">2 kg</div>
+                                </div>
+                            </div>
+                            <span class="status-pill min-w-[142px] h-8 rounded-lg text-white font-bold text-sm flex items-center justify-center shadow-md status-process bg-[#2596a5]">Sedang Diproses</span>
+                        </div>
+                        <div class="history-summary bg-[#f7f7f7] rounded-lg py-[18px] px-7">
+                            <div class="history-line grid grid-cols-[minmax(160px,1fr)_130px_130px] gap-3 text-sm mb-2.5"><span>Total Pesanan</span><span></span><span class="amount text-[#0080ff] font-bold">Rp.16.000</span></div>
+                            <div class="history-line grid grid-cols-[minmax(160px,1fr)_130px_130px] gap-3 text-sm mb-2.5"><span>Cuci Regular</span><span class="qty text-[#0080ff] font-bold">2kg</span><span class="amount text-[#0080ff] font-bold">Rp.10.000</span></div>
+                            <div class="history-line grid grid-cols-[minmax(160px,1fr)_130px_130px] gap-3 text-sm mb-2.5"><span>Setrika</span><span class="qty text-[#0080ff] font-bold">2kg</span><span class="amount text-[#0080ff] font-bold">Rp.6.000</span></div>
+                            <div class="history-line grid grid-cols-[minmax(160px,1fr)_130px_130px] gap-3 text-sm mb-2.5"><span>Pickup Service</span><span></span><span class="amount text-[#0080ff] font-bold">Rp.3.000</span></div>
+                            <hr class="summary-rule border-0 border-t-2 border-[#0080ff] mt-0.5 mb-[18px]">
+                            <div class="history-line grid grid-cols-[minmax(160px,1fr)_130px_130px] gap-3 text-sm mb-2.5"><strong>Total</strong><span></span><span class="amount text-[#0080ff] font-bold">Rp.19.000</span></div>
+                        </div>
+                    </article>
+
+                    <article class="history-card border border-[#e2e2e2] rounded-lg shadow-md pt-5 px-4 pb-4">
+                        <div class="history-head flex items-start justify-between gap-[18px] mb-[18px]">
+                            <div class="history-title flex items-start gap-4 [&_img]:h-[42px] [&_img]:w-[42px]">
+                                <img src="../image/shirt.svg" alt="">
+                                <div>
+                                    <div class="history-date font-semibold text-[15px]">Minggu 3 Mei 2026</div>
+                                    <div class="price-text text-[#0080ff] font-bold text-xs">2 kg</div>
+                                </div>
+                            </div>
+                            <span class="status-pill min-w-[142px] h-8 rounded-lg text-white font-bold text-sm flex items-center justify-center shadow-md status-done bg-[#219425]">Selesai</span>
+                        </div>
+                        <div class="history-summary bg-[#f7f7f7] rounded-lg py-[18px] px-7">
+                            <div class="history-line grid grid-cols-[minmax(160px,1fr)_130px_130px] gap-3 text-sm mb-2.5"><span>Total Pesanan</span><span></span><span class="amount text-[#0080ff] font-bold">Rp.16.000</span></div>
+                            <div class="history-line grid grid-cols-[minmax(160px,1fr)_130px_130px] gap-3 text-sm mb-2.5"><span>Cuci Regular</span><span class="qty text-[#0080ff] font-bold">2kg</span><span class="amount text-[#0080ff] font-bold">Rp.10.000</span></div>
+                            <div class="history-line grid grid-cols-[minmax(160px,1fr)_130px_130px] gap-3 text-sm mb-2.5"><span>Setrika</span><span class="qty text-[#0080ff] font-bold">2kg</span><span class="amount text-[#0080ff] font-bold">Rp.6.000</span></div>
+                            <div class="history-line grid grid-cols-[minmax(160px,1fr)_130px_130px] gap-3 text-sm mb-2.5"><span>Pickup Service</span><span></span><span class="amount text-[#0080ff] font-bold">Rp.3.000</span></div>
+                            <hr class="summary-rule border-0 border-t-2 border-[#0080ff] mt-0.5 mb-[18px]">
+                            <div class="history-line grid grid-cols-[minmax(160px,1fr)_130px_130px] gap-3 text-sm mb-2.5"><strong>Total</strong><span></span><span class="amount text-[#0080ff] font-bold">Rp.19.000</span></div>
+                        </div>
+                    </article>
+
+                    <article class="history-card border border-[#e2e2e2] rounded-lg shadow-md pt-5 px-4 pb-4">
+                        <div class="history-head flex items-start justify-between gap-[18px] mb-[18px]">
+                            <div class="history-title flex items-start gap-4 [&_img]:h-[42px] [&_img]:w-[42px]">
+                                <img src="../image/shirt.svg" alt="">
+                                <div>
+                                    <div class="history-date font-semibold text-[15px]">Jumat 1 Mei 2026</div>
+                                    <div class="price-text text-[#0080ff] font-bold text-xs">2 kg</div>
+                                </div>
+                            </div>
+                            <span class="status-pill min-w-[142px] h-8 rounded-lg text-white font-bold text-sm flex items-center justify-center shadow-md status-done bg-[#219425]">Selesai</span>
+                        </div>
+                        <div class="history-summary bg-[#f7f7f7] rounded-lg py-[18px] px-7">
+                            <div class="history-line grid grid-cols-[minmax(160px,1fr)_130px_130px] gap-3 text-sm mb-2.5"><span>Total Pesanan</span><span></span><span class="amount text-[#0080ff] font-bold">Rp.16.000</span></div>
+                            <div class="history-line grid grid-cols-[minmax(160px,1fr)_130px_130px] gap-3 text-sm mb-2.5"><span>Cuci Regular</span><span class="qty text-[#0080ff] font-bold">2kg</span><span class="amount text-[#0080ff] font-bold">Rp.10.000</span></div>
+                            <div class="history-line grid grid-cols-[minmax(160px,1fr)_130px_130px] gap-3 text-sm mb-2.5"><span>Setrika</span><span class="qty text-[#0080ff] font-bold">2kg</span><span class="amount text-[#0080ff] font-bold">Rp.6.000</span></div>
+                            <div class="history-line grid grid-cols-[minmax(160px,1fr)_130px_130px] gap-3 text-sm mb-2.5"><span>Pickup Service</span><span></span><span class="amount text-[#0080ff] font-bold">Rp.3.000</span></div>
+                            <hr class="summary-rule border-0 border-t-2 border-[#0080ff] mt-0.5 mb-[18px]">
+                            <div class="history-line grid grid-cols-[minmax(160px,1fr)_130px_130px] gap-3 text-sm mb-2.5"><strong>Total</strong><span></span><span class="amount text-[#0080ff] font-bold">Rp.19.000</span></div>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="pagination flex justify-center gap-4 pt-[34px] pb-[78px]" aria-label="Pagination">
+                    <button class="page-number w-8 h-8 rounded-lg border-0 bg-[#d2d2d2] text-white font-bold cursor-pointer is-active !bg-[#0080ff] !border-white" type="button">1</button>
+                    <button class="page-number w-8 h-8 rounded-lg border-0 bg-[#d2d2d2] text-white font-bold cursor-pointer" type="button">2</button>
+                    <button class="page-number w-8 h-8 rounded-lg border-0 bg-[#d2d2d2] text-white font-bold cursor-pointer" type="button">3</button>
+                    <button class="page-number w-8 h-8 rounded-lg border-0 bg-[#d2d2d2] text-white font-bold cursor-pointer" type="button">4</button>
+                    <button class="page-number w-8 h-8 rounded-lg border-0 bg-[#d2d2d2] text-white font-bold cursor-pointer" type="button">5</button>
+                    <button class="page-number w-8 h-8 rounded-lg border-0 bg-[#d2d2d2] text-white font-bold cursor-pointer" type="button">6</button>
+                    <button class="page-number w-8 h-8 rounded-lg border-0 bg-[#d2d2d2] text-white font-bold cursor-pointer" type="button">7</button>
+                    <button class="page-number w-8 h-8 rounded-lg border-0 bg-[#d2d2d2] text-white font-bold cursor-pointer" type="button">8</button>
+                    <button class="page-number w-8 h-8 rounded-lg border-0 bg-[#d2d2d2] text-white font-bold cursor-pointer" type="button">9</button>
+                </div>
+            </section>
+
+            <nav class="app-nav flex flex-col gap-2.5 sticky top-6 z-[5] max-h-[calc(100vh-48px)] overflow-y-auto pr-0.5" aria-label="Order navigation">
+                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="pemesanan.html">Pemesanan</a>
+                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md is-active !bg-[#0080ff] !text-white !border-white" href="riwayat-pemesanan.html">Riwayat Pesanan</a>
+                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="chat-admin.html">Chat Admin</a>
+                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="kelola-akun.html">Kelola Akun</a>
+                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="review-order.html">Review Order</a>
+                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="complaint-order.html">Complaint Order</a>
+            </nav>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="../index.css">
+    <script src="../handlers/order_handler.js" defer></script>
+    <title>Pemesanan</title>
+</head>
+<body class="app-body min-h-screen m-0 text-[#4b4b4b] bg-gradient-to-b from-[#087de9] to-[#0063b7]">
+    <header class="app-topbar h-[72px] bg-white flex items-center justify-between px-12">
+        <a class="app-brand flex items-center gap-[18px] text-[#0080ff] no-underline [&_img]:h-10 [&_img]:w-10 [&_span]:font-bold [&_span]:text-2xl [&_span]:leading-none" href="home.html">
+            <img src="../image/shirt.svg" alt="">
+            <span>Laundry &amp; Dry Clean</span>
+        </a>
+        <button class="profile-dot w-[42px] h-[42px] border border-[#0080ff] rounded-full bg-white cursor-pointer" type="button" onclick="window.location.href='../admin/analytics.html'" aria-label="Switch to admin"></button>
+    </header>
+
+    <main>
+        <h1 class="page-title text-white font-bold text-[56px] leading-none text-center my-[46px]">Pemesanan</h1>
+
+        <div class="app-layout w-[calc(100%_-_64px)] max-w-[1540px] mx-auto mb-[74px] grid grid-cols-[250px_minmax(0,1fr)_250px] gap-[26px] items-start">
+            <aside class="side-stack flex flex-col gap-[22px] sticky top-6 z-[5]">
+                <button class="back-button w-full h-[50px] border-0 rounded-lg bg-[#df0000] text-white shadow-md flex items-center justify-center cursor-pointer [&_img]:h-[18px] [&_img]:w-[18px]" type="button" onclick="window.location.href='home.html'" aria-label="Back">
+                    <img src="../icon/back.svg" alt="">
+                </button>
+            </aside>
+
+            <section class="page-card bg-white rounded-lg overflow-hidden shadow-md">
+                <div class="section-block px-[26px] pt-3 pb-[30px] border-b border-[#e3e3e3] last:border-b-0">
+                    <h2 class="section-title font-bold text-[22px] leading-tight m-0 pb-1.5 border-b-2 border-[#0080ff]">Pilih Layanan</h2>
+                    <div class="service-grid grid grid-cols-5 gap-[60px] mt-[18px]" id="service-grid">
+                        <button class="service-card min-h-[198px] border border-[#e0e0e0] rounded-lg bg-white text-[#4b4b4b] shadow-md flex flex-col items-center justify-center gap-2.5 cursor-pointer hover:-translate-y-0.5 transition [&_img]:h-[88px] [&_img]:w-[88px] [&_strong]:font-semibold [&_strong]:text-[15px]" type="button" data-service="express" data-title="Cuci Express" data-price="8000">
+                            <img src="../image/shirt.svg" alt="">
+                            <strong>Cuci Express</strong>
+                            <span class="price-text text-[#0080ff] font-bold text-xs">Rp.8.000/kg</span>
+                        </button>
+                        <button class="service-card min-h-[198px] border border-[#e0e0e0] rounded-lg bg-white text-[#4b4b4b] shadow-md flex flex-col items-center justify-center gap-2.5 cursor-pointer hover:-translate-y-0.5 transition [&_img]:h-[88px] [&_img]:w-[88px] [&_strong]:font-semibold [&_strong]:text-[15px] is-selected !bg-[#c7e3ff]" type="button" data-service="regular" data-title="Cuci Regular" data-price="5000">
+                            <img src="../image/shirt.svg" alt="">
+                            <strong>Cuci Regular</strong>
+                            <span class="price-text text-[#0080ff] font-bold text-xs">Rp.5.000/kg</span>
+                        </button>
+                        <button class="service-card min-h-[198px] border border-[#e0e0e0] rounded-lg bg-white text-[#4b4b4b] shadow-md flex flex-col items-center justify-center gap-2.5 cursor-pointer hover:-translate-y-0.5 transition [&_img]:h-[88px] [&_img]:w-[88px] [&_strong]:font-semibold [&_strong]:text-[15px]" type="button" data-service="gaun" data-title="Dry Clean Gaun" data-price="30000">
+                            <img src="../image/shirt.svg" alt="">
+                            <strong>Dry Clean Gaun</strong>
+                            <span class="price-text text-[#0080ff] font-bold text-xs">Rp.30.000/kg</span>
+                        </button>
+                        <button class="service-card min-h-[198px] border border-[#e0e0e0] rounded-lg bg-white text-[#4b4b4b] shadow-md flex flex-col items-center justify-center gap-2.5 cursor-pointer hover:-translate-y-0.5 transition [&_img]:h-[88px] [&_img]:w-[88px] [&_strong]:font-semibold [&_strong]:text-[15px]" type="button" data-service="jas" data-title="Dry Clean Jas" data-price="25000">
+                            <img src="../image/shirt.svg" alt="">
+                            <strong>Dry Clean Jas</strong>
+                            <span class="price-text text-[#0080ff] font-bold text-xs">Rp.25.000/kg</span>
+                        </button>
+                        <button class="service-card min-h-[198px] border border-[#e0e0e0] rounded-lg bg-white text-[#4b4b4b] shadow-md flex flex-col items-center justify-center gap-2.5 cursor-pointer hover:-translate-y-0.5 transition [&_img]:h-[88px] [&_img]:w-[88px] [&_strong]:font-semibold [&_strong]:text-[15px] is-selected !bg-[#c7e3ff]" type="button" data-service="setrika" data-title="Setrika" data-price="3000">
+                            <img src="../image/shirt.svg" alt="">
+                            <strong>Setrika</strong>
+                            <span class="price-text text-[#0080ff] font-bold text-xs">Rp.3.000/kg</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="section-block px-[26px] pt-3 pb-[30px] border-b border-[#e3e3e3] last:border-b-0">
+                    <h2 class="section-title font-bold text-[22px] leading-tight m-0 pb-1.5 border-b-2 border-[#0080ff]">Item Pesanan</h2>
+                    <div class="order-items flex flex-col gap-3 mt-[18px]" id="item"></div>
+                </div>
+
+                <div class="section-block px-[26px] pt-3 pb-[30px] border-b border-[#e3e3e3] last:border-b-0">
+                    <h2 class="section-title font-bold text-[22px] leading-tight m-0 pb-1.5 border-b-2 border-[#0080ff]">Metode Pengambilan</h2>
+                    <div class="option-grid grid grid-cols-2 gap-2.5 mt-4">
+                        <label class="option-box min-h-24 border border-[#bdbdbd] rounded-lg flex items-center gap-[30px] py-[18px] px-8">
+                            <input type="radio" name="pickup-method" id="pickup" value="3000" checked>
+                            <span class="option-copy block [&_strong]:block [&_strong]:font-semibold [&_strong]:text-lg [&_strong]:mb-3 [&_span]:block [&_span]:text-sm">
+                                <strong>Pickup Service</strong>
+                                <span>Pesanan akan diambil dari tempat anda</span>
+                                <span class="price-text text-[#0080ff] font-bold text-xs">Rp.3.000</span>
+                            </span>
+                        </label>
+                        <label class="option-box min-h-24 border border-[#bdbdbd] rounded-lg flex items-center gap-[30px] py-[18px] px-8">
+                            <input type="radio" name="pickup-method" id="self" value="0">
+                            <span class="option-copy block [&_strong]:block [&_strong]:font-semibold [&_strong]:text-lg [&_strong]:mb-3 [&_span]:block [&_span]:text-sm">
+                                <strong>Self Service</strong>
+                                <span>Anda mengantar Laundry anda</span>
+                                <span class="price-text text-[#0080ff] font-bold text-xs">Free</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="section-block px-[26px] pt-3 pb-[30px] border-b border-[#e3e3e3] last:border-b-0">
+                    <h2 class="section-title font-bold text-[22px] leading-tight m-0 pb-1.5 border-b-2 border-[#0080ff]">Pengingat</h2>
+                    <div class="option-grid grid grid-cols-2 gap-2.5 mt-4">
+                        <label class="option-box min-h-24 border border-[#bdbdbd] rounded-lg flex items-center gap-[30px] py-[18px] px-8">
+                            <input type="radio" name="reminder" id="registered-email" checked>
+                            <span class="option-copy block [&_strong]:block [&_strong]:font-semibold [&_strong]:text-lg [&_strong]:mb-3 [&_span]:block [&_span]:text-sm">
+                                <strong>Gunakan Email terdaftar</strong>
+                                <span>Notifikasi Laundry anda akan dikirimkan ke email saat anda mendaftar</span>
+                            </span>
+                        </label>
+                        <label class="option-box min-h-24 border border-[#bdbdbd] rounded-lg flex items-center gap-[30px] py-[18px] px-8">
+                            <input type="radio" name="reminder" id="custom-email">
+                            <span class="option-copy block [&_strong]:block [&_strong]:font-semibold [&_strong]:text-lg [&_strong]:mb-3 [&_span]:block [&_span]:text-sm">
+                                <strong>Custom Email</strong>
+                                <span>Notifikasi Laundry anda akan dikirimkan ke email yang anda isi</span>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="custom-email-panel hidden mt-4 bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg p-4 flex-col gap-2 [&_label]:font-semibold [&_label]:text-sm [&_input]:border [&_input]:border-[#bdbdbd] [&_input]:rounded-lg [&_input]:py-3 [&_input]:px-3.5 [&_input]:font-[inherit]" id="custom-email-panel">
+                        <label for="custom-email-input">Email notifikasi</label>
+                        <input id="custom-email-input" type="email" placeholder="example@gmail.com">
+                    </div>
+                </div>
+
+                <div class="section-block px-[26px] pt-3 pb-[30px] border-b border-[#e3e3e3] last:border-b-0">
+                    <h2 class="section-title font-bold text-[22px] leading-tight m-0 pb-1.5 border-b-2 border-[#0080ff]">Detail Transaksi</h2>
+                    <div class="summary-box bg-[#f7f7f7] rounded-lg py-5 px-7 mt-[18px]">
+                        <div class="summary-line grid grid-cols-[1fr_auto] gap-5 text-sm mb-3.5 [&_strong]:font-bold [&_strong]:text-base">
+                            <span>Total Pesanan</span>
+                            <span class="amount text-[#0080ff] font-bold" id="subtotal">Rp.16.000</span>
+                        </div>
+                        <div class="summary-line grid grid-cols-[1fr_auto] gap-5 text-sm mb-3.5 [&_strong]:font-bold [&_strong]:text-base">
+                            <span>Pickup Service</span>
+                            <span class="amount text-[#0080ff] font-bold" id="pickup-total">Rp.3.000</span>
+                        </div>
+                        <hr class="summary-rule border-0 border-t-2 border-[#0080ff] mt-0.5 mb-[18px]">
+                        <div class="summary-line grid grid-cols-[1fr_auto] gap-5 text-sm mb-3.5 [&_strong]:font-bold [&_strong]:text-base">
+                            <strong>Total</strong>
+                            <span class="amount text-[#0080ff] font-bold" id="grand-total">Rp.19.000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-block px-[26px] pt-3 pb-[30px] border-b border-[#e3e3e3] last:border-b-0">
+                    <h2 class="section-title font-bold text-[22px] leading-tight m-0 pb-1.5 border-b-2 border-[#0080ff]">Pembayaran</h2>
+                    <div class="option-grid grid grid-cols-2 gap-2.5 mt-4">
+                        <label class="option-box min-h-24 border border-[#bdbdbd] rounded-lg flex items-center gap-[30px] py-[18px] px-8 payment-box" id="qris-option">
+                            <input type="radio" name="payment" id="qris-payment" checked>
+                            <span class="option-copy block [&_strong]:block [&_strong]:font-semibold [&_strong]:text-lg [&_strong]:mb-3 [&_span]:block [&_span]:text-sm">
+                                <strong>QRIS</strong>
+                                <span>Bayar menggunakan QR Code</span>
+                            </span>
+                            <img class="payment-icon w-[58px] h-[58px] ml-auto" src="../image/Qris.svg" alt="">
+                        </label>
+                        <label class="option-box min-h-24 border border-[#bdbdbd] rounded-lg flex items-center gap-[30px] py-[18px] px-8 payment-box">
+                            <input type="radio" name="payment" id="cashier-payment">
+                            <span class="option-copy block [&_strong]:block [&_strong]:font-semibold [&_strong]:text-lg [&_strong]:mb-3 [&_span]:block [&_span]:text-sm">
+                                <strong>Bayar di Kasir</strong>
+                                <span>Bayar di tempat Laundry</span>
+                            </span>
+                            <img class="payment-icon w-[58px] h-[58px] ml-auto" src="../image/machine.svg" alt="">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="section-block px-[26px] pt-3 pb-[30px] border-b border-[#e3e3e3] last:border-b-0 submit-section flex justify-end pt-6">
+                    <button class="primary-action h-12 border-0 rounded-lg bg-[#0080ff] text-white font-bold text-base px-7 cursor-pointer shadow-md order-submit-button min-w-[220px]" id="submit-order" type="button">Submit Pemesanan</button>
+                </div>
+            </section>
+
+            <nav class="app-nav flex flex-col gap-2.5 sticky top-6 z-[5] max-h-[calc(100vh-48px)] overflow-y-auto pr-0.5" aria-label="Order navigation">
+                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md is-active !bg-[#0080ff] !text-white !border-white" href="pemesanan.html">Pemesanan</a>
+                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="riwayat-pemesanan.html">Riwayat Pesanan</a>
+                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="chat-admin.html">Chat Admin</a>
+                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="kelola-akun.html">Kelola Akun</a>
+                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="review-order.html">Review Order</a>
+                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="complaint-order.html">Complaint Order</a>
+            </nav>
+        </div>
+    </main>
+
+    <div id="custom-email-modal" class="hidden fixed inset-0 z-50 items-center justify-center bg-black/50 px-4">
+        <div class="w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
+            <h2 class="mb-4 text-xl font-bold text-[#4b4b4b]">Custom Email</h2>
+            <label for="custom-email-modal-input" class="mb-2 block text-sm font-semibold text-[#4b4b4b]">Email notifikasi</label>
+            <input id="custom-email-modal-input" type="email" placeholder="example@gmail.com" class="mb-5 h-12 w-full rounded-lg border border-[#bdbdbd] px-4 outline-none focus:border-[#0080ff]">
+            <div class="flex justify-end gap-3">
+                <button id="cancel-custom-email" type="button" class="h-11 rounded-lg border border-[#0080ff] bg-white px-6 font-bold text-[#0080ff]">Batal</button>
+                <button id="save-custom-email" type="button" class="h-11 rounded-lg bg-[#0080ff] px-6 font-bold text-white shadow-md">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="qris-modal" class="hidden fixed inset-0 z-50 items-center justify-center bg-black/50 px-4">
+        <div class="w-full max-w-sm rounded-lg bg-white p-6 text-center shadow-xl">
+            <h2 class="mb-4 text-xl font-bold text-[#4b4b4b]">Pembayaran QRIS</h2>
+            <img src="../image/Qris.svg" alt="QRIS" class="mx-auto mb-4 h-52 w-52">
+            <p class="mb-5 text-sm text-[#4b4b4b]">Scan QR Code ini untuk melanjutkan pembayaran pesanan.</p>
+            <button id="close-qris-modal" type="button" class="h-11 rounded-lg bg-[#0080ff] px-6 font-bold text-white shadow-md">Tutup</button>
+        </div>
+    </div>
+</body>
+</html>

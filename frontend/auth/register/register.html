@@ -4,35 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="../../index.css">
     <title>Document</title>
     <script src="../auth.js" defer></script>
 </head>
 <body>
-    <section class="flex h-screen shadow-xl ">
-        <div class="w-1/2 h-full rounded-2xl flex flex-col justify-center px-34 space-y-16 z-10">
+    <section class="flex h-screen shadow-xl">
+        <div class="w-1/2 h-full rounded-2xl flex flex-col justify-center px-[136px] space-y-16 z-10">
             <div class="space-y-6">
-                <h1 class="title text-3xl">Register</h1>
+                <h1 class="font-bold text-3xl">Register</h1>
                 <p class="text-sm">Lengkapi informasi kredensial dan data diri di bawah ini untuk mulai <br>menggunakan layanan kami.</p>
             </div>
             <form id="register-form" class="space-y-16">
                 <div class="space-y-4">
                     <div class="flex flex-col gap-1">
-                        <label for="email" class="title ">Email</label>
+                        <label for="email" class="font-bold">Email</label>
                         <input type="text" id="email" placeholder="example@gmail.com" class="border rounded-lg py-1 px-2">
     
                         <p id="email-error" class="text-red-500 text-xs hidden">Email tidak boleh kosong!</p>
                     </div>
                     <div class="flex flex-col gap-1">
-                        <label for="password" class="title">Password</label>
-                        <input type="password" id="password" placeholder="*******" class="border rounded-lg py-1 px-2 ">
+                        <label for="password" class="font-bold">Password</label>
+                        <input type="password" id="password" placeholder="*******" class="border rounded-lg py-1 px-2">
     
                         <p id="password-error" class="text-red-500 text-xs hidden">Password tidak boleh kosong!</p>
                         <p id="password-notSame" class="text-red-500 text-xs hidden">Password tidak sama!</p>
                     </div>
                     <div class="flex flex-col gap-1">
-                        <label for="password" class="title"> Confirm Password</label>
-                        <input type="password" id="confirm_password" placeholder="*******" class="border rounded-lg py-1 px-2 ">
+                        <label for="password" class="font-bold"> Confirm Password</label>
+                        <input type="password" id="confirm_password" placeholder="*******" class="border rounded-lg py-1 px-2">
     
                         <p id="reEnterPassword-error" class="text-red-500 text-xs hidden">Password tidak boleh kosong!</p>
                         <p id="reEnterPassword-notSame" class="text-red-500 text-xs hidden">Password tidak sama!</p>
@@ -40,12 +40,12 @@
                 </div>
                 <div class="flex flex-col gap-4">
                     <button type="submit" class="border bg-[#0080FF] text-white hover:bg-[#005DBB] rounded-lg py-1 cursor-pointer">Register</button>
-                    <button type="button" onclick="window.location.href='/frontend/auth/login/login.html'" class="border text-[#0080FF] hover:bg-[#EFEFEF] rounded-lg py-1 cursor-pointer">Login</button>
+                    <button type="button" onclick="window.location.href='../login/login.html'" class="border text-[#0080FF] hover:bg-[#EFEFEF] rounded-lg py-1 cursor-pointer">Login</button>
                 </div>
             </form>
         </div>
         <div class="w-1/2 h-full">
-            <img src="/frontend/image/logimage.svg" alt="" class="w-full h-full object-cover">
+            <img src="../../image/logimage.svg" alt="" class="w-full h-full object-cover">
         </div>
     </section>
 </body>

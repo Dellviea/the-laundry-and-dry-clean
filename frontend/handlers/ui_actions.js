@@ -10,9 +10,9 @@ document.addEventListener("click", (event) => {
         const pagination = pageButton.closest(".pagination");
         if (pagination) {
             pagination.querySelectorAll(".page-number").forEach((button) => {
-                button.classList.remove("is-active");
+                button.classList.remove("is-active", "!bg-[#0080ff]", "!text-white", "!border-white");
             });
-            pageButton.classList.add("is-active");
+            pageButton.classList.add("is-active", "!bg-[#0080ff]", "!text-white", "!border-white");
             alert(`Menampilkan halaman ${pageButton.textContent.trim()}`);
         }
         return;

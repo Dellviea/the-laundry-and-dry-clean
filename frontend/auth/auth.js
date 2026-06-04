@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert(data.message);
 
                 if (res.ok) {
-                    window.location.href = '../../loggedin.html';
+                    window.location.href = '../../customer/home.html';
                 }
 
             } catch (err) {
