@@ -1,17 +1,19 @@
+const BASE_URL = "http://127.0.0.1:5000";
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // ================= LOGIN =================
     const loginForm = document.getElementById('login-form');
     if (loginForm) {
         loginForm.addEventListener('submit', async function(e) {
-            e.preventDefault(); 
-            
-            const emailInput = document.getElementById('email');
-            const passwordInput = document.getElementById('password');
-            const emailError = document.getElementById('email-error');
-            const passwordError = document.getElementById('password-error');
+            e.preventDefault();
 
-            const emailValue = emailInput.value.trim();
+            const emailInput     = document.getElementById('email');
+            const passwordInput  = document.getElementById('password');
+            const emailError     = document.getElementById('email-error');
+            const passwordError  = document.getElementById('password-error');
+
+            const emailValue    = emailInput.value.trim();
             const passwordValue = passwordInput.value.trim();
 
             emailInput.classList.remove('border-red-500','border-2','outline-red-500');
@@ -20,40 +22,34 @@ document.addEventListener('DOMContentLoaded', () => {
             passwordError.classList.add('hidden');
 
             let isValid = true;
-
             if (!emailValue) {
                 emailInput.classList.add('border-red-500','border-2','outline-red-500');
                 emailError.classList.remove('hidden');
                 isValid = false;
             }
-
             if (!passwordValue) {
                 passwordInput.classList.add('border-red-500','border-2','outline-red-500');
                 passwordError.classList.remove('hidden');
                 isValid = false;
             }
-
             if (!isValid) return;
 
             try {
-                const res = await fetch("http://127.0.0.1:5000/login", {
+                const res  = await fetch(`${BASE_URL}/login`, {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        email: emailValue,
-                        password: passwordValue
-                    })
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email: emailValue, password: passwordValue })
                 });
-
                 const data = await res.json();
-                alert(data.message);
 
                 if (res.ok) {
+                    // Simpan token & data user ke localStorage
+                    localStorage.setItem("token", data.data.token);
+                    localStorage.setItem("user",  JSON.stringify(data.data.user));
                     window.location.href = '../../customer/home.html';
+                } else {
+                    alert(data.message);
                 }
-
             } catch (err) {
                 alert("Tidak bisa connect ke backend!");
                 console.error(err);
@@ -66,19 +62,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (registerForm) {
         registerForm.addEventListener('submit', async function(e) {
             e.preventDefault();
-            
-            const emailInput = document.getElementById('email');
+
+            const emailInput    = document.getElementById('email');
             const passwordInput = document.getElementById('password');
-            const confirmInput = document.getElementById('confirm_password'); 
-            const emailError = document.getElementById('email-error');
-            const passwordError = document.getElementById('password-error');
+            const confirmInput  = document.getElementById('confirm_password');
+            const emailError           = document.getElementById('email-error');
+            const passwordError        = document.getElementById('password-error');
             const reEnterPasswordError = document.getElementById('reEnterPassword-error');
-            const passwordNotSame = document.getElementById('password-notSame');
+            const passwordNotSame      = document.getElementById('password-notSame');
             const reEnterPasswordNotSame = document.getElementById('reEnterPassword-notSame');
 
-            const emailValue = emailInput.value.trim();
+            const emailValue    = emailInput.value.trim();
             const passwordValue = passwordInput.value.trim();
-            const confirmValue = confirmInput.value.trim();
+            const confirmValue  = confirmInput.value.trim();
 
             emailInput.classList.remove('border-red-500','border-2','outline-red-500');
             passwordInput.classList.remove('border-red-500','border-2','outline-red-500');
@@ -90,25 +86,21 @@ document.addEventListener('DOMContentLoaded', () => {
             reEnterPasswordNotSame.classList.add('hidden');
 
             let isValid = true;
-
             if (!emailValue) {
                 emailInput.classList.add('border-red-500','border-2','outline-red-500');
                 emailError.classList.remove('hidden');
                 isValid = false;
             }
-
             if (!passwordValue) {
                 passwordInput.classList.add('border-red-500','border-2','outline-red-500');
                 passwordError.classList.remove('hidden');
                 isValid = false;
             }
-
             if (!confirmValue) {
                 confirmInput.classList.add('border-red-500','border-2','outline-red-500');
                 reEnterPasswordError.classList.remove('hidden');
                 isValid = false;
             }
-
             if (!isValid) return;
 
             if (passwordValue !== confirmValue) {
@@ -120,74 +112,64 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             try {
-                const res = await fetch("http://127.0.0.1:5000/register", {
+                const res  = await fetch(`${BASE_URL}/register`, {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        email: emailValue,
-                        password: passwordValue,
+                        email:            emailValue,
+                        password:         passwordValue,
                         confirm_password: confirmValue
                     })
                 });
-
                 const data = await res.json();
-                alert(data.message);
 
                 if (res.ok) {
+                    // Simpan token & user langsung setelah register
+                    localStorage.setItem("token", data.data.token);
+                    localStorage.setItem("user",  JSON.stringify(data.data.user));
+                    alert(data.message);
                     window.location.href = '../login/login.html';
+                } else {
+                    alert(data.message);
                 }
-
             } catch (err) {
                 alert("Tidak bisa connect ke backend!");
                 console.error(err);
             }
         });
     }
-    
+
     // ================= FORGOT PASSWORD =================
     const forgotPassword = document.getElementById('forgot-form');
     if (forgotPassword) {
         forgotPassword.addEventListener('submit', async function(e) {
             e.preventDefault();
-            
+
             const emailInput = document.getElementById('email');
             const emailError = document.getElementById('email-error');
-
             const emailValue = emailInput.value.trim();
 
             emailInput.classList.remove('border-red-500','border-2','outline-red-500');
             emailError.classList.add('hidden');
 
-            let isValid = true;
-
             if (!emailValue) {
                 emailInput.classList.add('border-red-500','border-2','outline-red-500');
                 emailError.classList.remove('hidden');
-                isValid = false;
+                return;
             }
 
-            if (!isValid) return;
-
             try {
-                const res = await fetch("http://127.0.0.1:5000/forgot-password", {
+                const res  = await fetch(`${BASE_URL}/forgot-password`, {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        email: emailValue
-                    })
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email: emailValue })
                 });
-
                 const data = await res.json();
                 alert(data.message);
 
                 if (res.ok) {
                     window.location.href = 'login.html';
                 }
-
             } catch (err) {
                 alert("Tidak bisa connect ke backend!");
                 console.error(err);
@@ -196,3 +178,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
+
+// ── Helper: ambil token dari localStorage ──────────────────────
+function getToken() {
+    return localStorage.getItem("token");
+}
+
+// ── Helper: ambil data user dari localStorage ─────────────────
+function getUser() {
+    const u = localStorage.getItem("user");
+    return u ? JSON.parse(u) : null;
+}
+
+// ── Helper: cek sudah login, kalau belum redirect ke login ────
+function requireLogin() {
+    if (!getToken()) {
+        alert("Silakan login terlebih dahulu.");
+        window.location.href = '../auth/login/login.html';
+        return false;
+    }
+    return true;
+}
+
+// ── Logout ────────────────────────────────────────────────────
+function logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.href = '../auth/login/login.html';
+}
