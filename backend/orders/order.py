@@ -26,12 +26,6 @@ def ensure_order_status_enum(cur):
         )
 
 
-def ensure_order_photo_column(cur):
-    cur.execute("SHOW COLUMNS FROM orders LIKE 'buktiFoto'")
-    if not cur.fetchone():
-        cur.execute("ALTER TABLE orders ADD COLUMN buktiFoto LONGTEXT NULL AFTER catatan")
-
-
 # Buat Pesanan (Customer)
 
 @order_bp.route("/orders", methods=["POST"])
@@ -44,13 +38,14 @@ def create_order():
     metode_pengambilan = data.get("metodePengambilan", "Self")
     metode_pembayaran  = data.get("metodePembayaran", "QRIS")
     biaya_pengambilan  = int(data.get("biayaPengambilan") or 0)
-    bukti_foto         = data.get("buktiFoto") or None
     catatan            = data.get("catatan", "")
     id_kasir           = data.get("idKasir", 1)
     id_toko            = data.get("idToko", 1)
 
     if not items:
         return err("Item pesanan tidak boleh kosong")
+    if metode_pengambilan == "Pickup" and metode_pembayaran.lower() == "cash":
+        return err("Bayar di kasir hanya tersedia untuk Self Service. Gunakan QRIS untuk Pickup Service.", 400)
 
     conn, cur = get_db()
     total     = 0
@@ -59,7 +54,6 @@ def create_order():
     ensure_frontend_services(cur)
     ensure_xendit_payment_columns(cur)
     ensure_order_status_enum(cur)
-    ensure_order_photo_column(cur)
 
     for item in items:
         cur.execute("SELECT * FROM services WHERE idService = %s", (item["idService"],))
@@ -87,9 +81,9 @@ def create_order():
 
     cur.execute(
         """INSERT INTO orders
-           (idUser, idKasir, idToko, tanggal, metodePengambilan, total, status, catatan, buktiFoto)
-           VALUES (%s, %s, %s, CURDATE(), %s, %s, 'DIPESAN', %s, %s)""",
-        (user_id, id_kasir, id_toko, metode_pengambilan, total, catatan, bukti_foto)
+           (idUser, idKasir, idToko, tanggal, metodePengambilan, total, status, catatan)
+           VALUES (%s, %s, %s, CURDATE(), %s, %s, 'DIPESAN', %s)""",
+        (user_id, id_kasir, id_toko, metode_pengambilan, total, catatan)
     )
     order_id = cur.lastrowid
 
@@ -334,10 +328,10 @@ def admin_update_status(order_id):
         payment = cur.fetchone() or {}
         payment_method = (payment.get("metode") or "").lower()
 
-        if payment_method == "cash" or order.get("metodePengambilan") == "Self":
-            allowed = ["DIANTAR", "DIBATALKAN"]
-        elif order.get("metodePengambilan") == "Pickup":
+        if order.get("metodePengambilan") == "Pickup":
             allowed = ["DIJEMPUT", "DIBATALKAN"]
+        elif payment_method == "cash" or order.get("metodePengambilan") == "Self":
+            allowed = ["DIANTAR", "DIBATALKAN"]
         else:
             allowed = ["DIANTAR", "DIBATALKAN"]
     if new_status not in allowed:

@@ -56,12 +56,28 @@ function setupComplaintProofUpload() {
 
         const reader = new FileReader();
         reader.onload = () => {
-            complaintProofPhoto = String(reader.result || "");
-            const image = preview.querySelector("img");
-            if (image) image.src = complaintProofPhoto;
-            if (name) name.textContent = file.name;
-            preview.classList.remove("hidden");
-            preview.classList.add("flex");
+            const uploadedImage = new Image();
+            uploadedImage.onload = () => {
+                const maxSide = 1000;
+                const scale = Math.min(1, maxSide / Math.max(uploadedImage.width, uploadedImage.height));
+                const canvas = document.createElement("canvas");
+                canvas.width = Math.max(1, Math.round(uploadedImage.width * scale));
+                canvas.height = Math.max(1, Math.round(uploadedImage.height * scale));
+                const context = canvas.getContext("2d");
+                context.drawImage(uploadedImage, 0, 0, canvas.width, canvas.height);
+                complaintProofPhoto = canvas.toDataURL("image/jpeg", 0.78);
+
+                const image = preview.querySelector("img");
+                if (image) image.src = complaintProofPhoto;
+                if (name) name.textContent = file.name;
+                preview.classList.remove("hidden");
+                preview.classList.add("flex");
+            };
+            uploadedImage.onerror = () => {
+                alert("Bukti foto tidak bisa dibaca. Coba gunakan gambar JPG atau PNG lain.");
+                input.value = "";
+            };
+            uploadedImage.src = String(reader.result || "");
         };
         reader.readAsDataURL(file);
     });
@@ -72,6 +88,30 @@ function setupComplaintProofUpload() {
         preview.classList.add("hidden");
         preview.classList.remove("flex");
     });
+}
+
+async function sendComplaint(payload, token) {
+    const response = await fetch(`${COMPLAINT_API_BASE_URL}/complaints`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
+    });
+
+    let result = null;
+    try {
+        result = await response.json();
+    } catch (error) {
+        throw new Error("Backend mengirim response yang tidak valid. Pastikan server Flask sudah direstart.");
+    }
+
+    if (!response.ok || !result.success) {
+        throw new Error(result.message || "Gagal mengirim complaint.");
+    }
+
+    return result;
 }
 
 async function loadComplaintOrders() {
@@ -120,29 +160,20 @@ async function submitComplaint(event) {
     }
 
     try {
-        const response = await fetch(`${COMPLAINT_API_BASE_URL}/complaints`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-                idOrder: Number(orderId),
-                jenisKeluhan,
-                keluhan,
-                buktiFoto: complaintProofPhoto,
-            }),
-        });
-        const result = await response.json();
-        if (!response.ok || !result.success) {
-            throw new Error(result.message || "Gagal mengirim complaint.");
-        }
+        await sendComplaint({
+            idOrder: Number(orderId),
+            jenisKeluhan,
+            keluhan,
+            buktiFoto: complaintProofPhoto,
+        }, token);
 
         document.getElementById("complaint-detail").value = "";
         document.getElementById("complaint-proof-remove")?.click();
         alert("Complaint berhasil dikirim. Admin akan menindaklanjuti keluhan anda.");
     } catch (error) {
-        alert(error.message);
+        alert(error.message === "Failed to fetch"
+            ? "Tidak bisa menghubungi backend. Pastikan server Flask berjalan di http://127.0.0.1:5000 dan sudah direstart."
+            : error.message);
     }
 }
 

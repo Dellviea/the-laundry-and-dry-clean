@@ -38,14 +38,8 @@ const saveCustomEmail  = document.getElementById("save-custom-email");
 const qrisOption       = document.getElementById("qris-option");
 const qrisPayment      = document.getElementById("qris-payment");
 const submitOrderButton = document.getElementById("submit-order");
-const qrisModal        = document.getElementById("qris-modal");
-const closeQrisModal   = document.getElementById("close-qris-modal");
 const pickupAddressPanel = document.getElementById("pickup-address-panel");
 const pickupAddressInput = document.getElementById("pickup-address-input");
-const orderProofInput = document.getElementById("order-proof-input");
-const orderProofPreview = document.getElementById("order-proof-preview");
-const orderProofName = document.getElementById("order-proof-name");
-const orderProofRemove = document.getElementById("order-proof-remove");
 
 const selectedServiceClasses = ["!bg-[#c7e3ff]"];
 const serviceIdBySlug = {
@@ -57,7 +51,6 @@ const serviceIdBySlug = {
 };
 let hasSavedAddress = Boolean((getUser()?.alamat || "").trim());
 let ironingService = null;
-let orderProofPhoto = "";
 
 function isIroningService(service) {
     const name = String(service.namaService || "").toLowerCase();
@@ -302,8 +295,28 @@ document.querySelectorAll('input[name="pickup-method"]').forEach((input) => {
     input.addEventListener("change", () => {
         updateTotals();
         setPickupAddressVisibility();
+        updatePaymentAvailability();
     });
 });
+
+function updatePaymentAvailability() {
+    const cashierPayment = document.getElementById("cashier-payment");
+    const cashierBox = cashierPayment?.closest(".payment-box");
+    const pickupSelected = isPickupSelected();
+
+    if (cashierPayment) {
+        cashierPayment.disabled = pickupSelected;
+        if (pickupSelected && cashierPayment.checked && qrisPayment) {
+            qrisPayment.checked = true;
+        }
+    }
+
+    if (cashierBox) {
+        cashierBox.classList.toggle("opacity-45", pickupSelected);
+        cashierBox.classList.toggle("cursor-not-allowed", pickupSelected);
+        cashierBox.title = pickupSelected ? "Bayar di kasir hanya tersedia untuk Self Service." : "";
+    }
+}
 
 // ── Custom email modal ────────────────────────────────────────
 if (customEmailRadio) {
@@ -360,55 +373,6 @@ customEmailModal?.addEventListener("click", (e) => {
 // ── QRIS modal ────────────────────────────────────────────────
 qrisOption?.addEventListener("click", () => {
     if (qrisPayment) qrisPayment.checked = true;
-    qrisModal?.classList.remove("hidden");
-    qrisModal?.classList.add("flex");
-});
-
-closeQrisModal?.addEventListener("click", () => {
-    qrisModal?.classList.add("hidden");
-    qrisModal?.classList.remove("flex");
-});
-
-qrisModal?.addEventListener("click", (e) => {
-    if (e.target === qrisModal) {
-        qrisModal.classList.add("hidden");
-        qrisModal.classList.remove("flex");
-    }
-});
-
-orderProofInput?.addEventListener("change", () => {
-    const file = orderProofInput.files?.[0];
-    if (!file) return;
-
-    if (!file.type.startsWith("image/")) {
-        alert("Bukti foto harus berupa file gambar.");
-        orderProofInput.value = "";
-        return;
-    }
-
-    if (file.size > 2 * 1024 * 1024) {
-        alert("Ukuran foto maksimal 2MB.");
-        orderProofInput.value = "";
-        return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = () => {
-        orderProofPhoto = String(reader.result || "");
-        const image = orderProofPreview?.querySelector("img");
-        if (image) image.src = orderProofPhoto;
-        if (orderProofName) orderProofName.textContent = file.name;
-        orderProofPreview?.classList.remove("hidden");
-        orderProofPreview?.classList.add("flex");
-    };
-    reader.readAsDataURL(file);
-});
-
-orderProofRemove?.addEventListener("click", () => {
-    orderProofPhoto = "";
-    if (orderProofInput) orderProofInput.value = "";
-    orderProofPreview?.classList.add("hidden");
-    orderProofPreview?.classList.remove("flex");
 });
 
 // ── Submit order → kirim ke backend ──────────────────────────
@@ -437,6 +401,13 @@ if (submitOrderButton) {
         const metodePengambilan = pickupEl?.id === "pickup" ? "Pickup" : "Self";
         const metodePembayaran = qrisPayment?.checked ? "QRIS" : "Cash";
         const biayaPengambilan = getPickupFee();
+
+        if (metodePengambilan === "Pickup" && metodePembayaran === "Cash") {
+            alert("Bayar di kasir hanya tersedia untuk Self Service. Gunakan QRIS untuk Pickup Service.");
+            if (qrisPayment) qrisPayment.checked = true;
+            updatePaymentAvailability();
+            return;
+        }
 
         const items = [];
         orderItems.forEach((item, id) => {
@@ -472,7 +443,6 @@ if (submitOrderButton) {
                     metodePengambilan,
                     metodePembayaran,
                     biayaPengambilan,
-                    buktiFoto: orderProofPhoto,
                     catatan:            document.getElementById("catatan")?.value || "",
                     notification_email: notifEmail,
                 }),
@@ -518,4 +488,5 @@ if (submitOrderButton) {
 syncServiceCardsFromBackend();
 loadAccountAddress();
 setPickupAddressVisibility();
+updatePaymentAvailability();
 renderItems();

@@ -4,7 +4,6 @@ const ADMIN_PAGE_SIZE = 5;
 let adminOrdersCache = [];
 let adminReviewsCache = [];
 let adminCurrentPage = 1;
-let activeOrderPhoto = "";
 const complaintPhotos = new Map();
 
 function getAdminToken() {
@@ -152,9 +151,10 @@ async function initOrdersPage() {
 
 function nextApproveStatus(order) {
     if (order.status !== "DIPESAN") return null;
+    if (order.metodePengambilan === "Pickup") return "DIJEMPUT";
     const paymentMethod = (order.payment?.metode || "").toLowerCase();
     if (paymentMethod === "cash" || order.metodePengambilan === "Self") return "DIANTAR";
-    return order.metodePengambilan === "Pickup" ? "DIJEMPUT" : "DIANTAR";
+    return "DIANTAR";
 }
 
 function renderApprovalPage() {
@@ -191,49 +191,16 @@ async function initApprovalPage() {
     renderApprovalPage();
 }
 
-function renderDeliveryPage() {
-    const tbody = document.querySelector(".admin-table tbody");
-    if (!tbody) return;
-
-    const deliveryOrders = adminOrdersCache.filter((order) => order.status === "DICUCI");
-    const visible = currentPageItems(deliveryOrders);
-    if (visible.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" class="text-center text-gray-400 py-8">Belum ada pesanan yang siap dikonfirmasi selesai.</td></tr>';
-        renderAdminPagination(0, renderDeliveryPage);
-        return;
-    }
-
-    tbody.innerHTML = visible.map((order) => `
-        <tr>
-            <td>${orderCode(order.idOrder)}</td>
-            <td>${escapeHtml(order.nama || "-")}</td>
-            <td>${escapeHtml(order.alamat || "-")}</td>
-            <td>${escapeHtml(order.metodePengambilan || "-")}</td>
-            <td>
-                <div class="admin-table-actions flex flex-nowrap gap-2">
-                    <button class="admin-mini-action h-9 whitespace-nowrap border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-admin-update-status="SELESAI" data-order-id="${order.idOrder}">Confirm</button>
-                    <button class="admin-mini-action h-9 whitespace-nowrap border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-popup="Jadwal ${orderCode(order.idOrder)} dapat diubah setelah field jadwal backend tersedia.">Reschedule</button>
-                </div>
-            </td>
-        </tr>
-    `).join("");
-
-    renderAdminPagination(deliveryOrders.length, renderDeliveryPage);
-}
-
-async function initDeliveryPage() {
-    adminOrdersCache = await fetchAdminOrders();
-    adminCurrentPage = 1;
-    renderDeliveryPage();
-}
-
 function allowedNextStatuses(order) {
     if (!order) return [];
     if (order.status === "DIPESAN") {
         const paymentMethod = (order.payment?.metode || "").toLowerCase();
+        if (order.metodePengambilan === "Pickup") {
+            return [["DIJEMPUT", "Dijemput"], ["DIBATALKAN", "Dibatalkan"]];
+        }
         return paymentMethod === "cash" || order.metodePengambilan === "Self"
             ? [["DIANTAR", "Diantar"], ["DIBATALKAN", "Dibatalkan"]]
-            : [["DIJEMPUT", "Dijemput"], ["DIBATALKAN", "Dibatalkan"]];
+            : [["DIANTAR", "Diantar"], ["DIBATALKAN", "Dibatalkan"]];
     }
     if (order.status === "DIJEMPUT") return [["DICUCI", "Dicuci"]];
     if (order.status === "DIANTAR") return [["DICUCI", "Dicuci"]];
@@ -341,7 +308,6 @@ async function initOrderDetailPage() {
     });
 
     const detailGrid = document.querySelector(".detail-grid");
-    activeOrderPhoto = order.buktiFoto || "";
     if (detailGrid) {
         detailGrid.innerHTML = `
             <div class="detail-box bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg p-[18px] [&_strong]:block [&_strong]:font-bold [&_strong]:mb-2"><strong>ID Pesanan</strong>${orderCode(order.idOrder)}</div>
@@ -350,7 +316,6 @@ async function initOrderDetailPage() {
             <div class="detail-box bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg p-[18px] [&_strong]:block [&_strong]:font-bold [&_strong]:mb-2"><strong>Alamat</strong>${escapeHtml(order.alamat || "-")}</div>
             <div class="detail-box bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg p-[18px] [&_strong]:block [&_strong]:font-bold [&_strong]:mb-2"><strong>Status</strong>${statusPill(order.status)}</div>
             <div class="detail-box bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg p-[18px] [&_strong]:block [&_strong]:font-bold [&_strong]:mb-2"><strong>Pembayaran</strong>${escapeHtml(order.payment?.metode || "-")} - ${escapeHtml(order.payment?.status || "-")}</div>
-            <div class="detail-box bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg p-[18px] [&_strong]:block [&_strong]:font-bold [&_strong]:mb-2"><strong>Bukti Foto</strong>${activeOrderPhoto ? '<button id="preview-order-photo" class="h-9 rounded-lg border border-[#0080ff] bg-white px-4 font-bold text-[#0080ff] cursor-pointer" type="button">Lihat Foto</button>' : 'Tidak ada bukti foto'}</div>
         `;
     }
 
@@ -365,9 +330,6 @@ async function initOrderDetailPage() {
         if (button.textContent.trim() === "Update Status") {
             button.onclick = () => { window.location.href = `status.html?order_id=${order.idOrder}`; };
         }
-    });
-    document.getElementById("preview-order-photo")?.addEventListener("click", () => {
-        if (activeOrderPhoto) showOrderPhotoPreview(activeOrderPhoto);
     });
 }
 
@@ -480,7 +442,6 @@ async function initAdminSync() {
     try {
         if (path.endsWith("/orders.html")) await initOrdersPage();
         if (path.endsWith("/approval.html")) await initApprovalPage();
-        if (path.endsWith("/delivery.html")) await initDeliveryPage();
         if (path.endsWith("/status.html")) await initStatusPage();
         if (path.endsWith("/order-detail.html")) await initOrderDetailPage();
         if (path.endsWith("/reviews.html")) await initReviewsPage();
