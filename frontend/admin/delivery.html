@@ -32,9 +32,42 @@
                     <table class="admin-table w-full border-collapse text-sm [&_th]:py-3.5 [&_th]:px-3 [&_th]:border-b [&_th]:border-[#e3e3e3] [&_th]:text-left [&_th]:align-middle [&_th]:text-[#0080ff] [&_th]:font-bold [&_th]:bg-[#f7f7f7] [&_td]:py-3.5 [&_td]:px-3 [&_td]:border-b [&_td]:border-[#e3e3e3] [&_td]:text-left [&_td]:align-middle">
                         <thead><tr><th>ID</th><th>Customer</th><th>Alamat</th><th>Jadwal</th><th>Aksi</th></tr></thead>
                         <tbody>
-                            <tr><td>ORD-030526</td><td>Thasya Jasmine</td><td>Jl. Melati No.8</td><td>Hari ini, 17.00</td><td><button class="admin-mini-action h-9 border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-popup="Delivery ORD-030526 dikonfirmasi.">Confirm</button></td></tr>
-                            <tr><td>ORD-040526</td><td>Restu Bagas</td><td>Jl. Mawar No.12</td><td>Besok, 10.00</td><td><button class="admin-mini-action h-9 border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-popup="Delivery ORD-040526 dikonfirmasi.">Confirm</button></td></tr>
-                            <tr><td>ORD-050526</td><td>Syahrial Affansyah</td><td>Jl. Anggrek No.4</td><td>Besok, 15.00</td><td><button class="admin-mini-action h-9 border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-popup="Delivery ORD-050526 dijadwalkan ulang sementara.">Reschedule</button></td></tr>
+                            <tr>
+                                <td>ORD-030526</td>
+                                <td>Thasya Jasmine</td>
+                                <td>Jl. Melati No.8</td>
+                                <td>Hari ini, 17.00</td>
+                                <td>
+                                    <div class="admin-table-actions flex flex-nowrap gap-2">
+                                        <button class="admin-mini-action h-9 whitespace-nowrap border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-popup="Delivery ORD-030526 dikonfirmasi.">Confirm</button>
+                                        <button class="admin-mini-action h-9 whitespace-nowrap border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-popup="Delivery ORD-030526 dijadwalkan ulang sementara.">Reschedule</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ORD-040526</td>
+                                <td>Restu Bagas</td>
+                                <td>Jl. Mawar No.12</td>
+                                <td>Besok, 10.00</td>
+                                <td>
+                                    <div class="admin-table-actions flex flex-nowrap gap-2">
+                                        <button class="admin-mini-action h-9 whitespace-nowrap border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-popup="Delivery ORD-040526 dikonfirmasi.">Confirm</button>
+                                        <button class="admin-mini-action h-9 whitespace-nowrap border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-popup="Delivery ORD-040526 dijadwalkan ulang sementara.">Reschedule</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ORD-050526</td>
+                                <td>Syahrial Affansyah</td>
+                                <td>Jl. Anggrek No.4</td>
+                                <td>Besok, 15.00</td>
+                                <td>
+                                    <div class="admin-table-actions flex flex-nowrap gap-2">
+                                        <button class="admin-mini-action h-9 whitespace-nowrap border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-popup="Delivery ORD-050526 dikonfirmasi.">Confirm</button>
+                                        <button class="admin-mini-action h-9 whitespace-nowrap border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-popup="Delivery ORD-050526 dijadwalkan ulang sementara.">Reschedule</button>
+                                    </div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -44,9 +77,7 @@
             <nav class="app-nav flex flex-col gap-2.5 sticky top-6 z-[5] max-h-[calc(100vh-48px)] overflow-y-auto pr-0.5" aria-label="Admin navigation">
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="analytics.html">Dashboard</a>
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="orders.html">Daftar Pesanan</a>
-                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="order-detail.html">Detail Pesanan</a>
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="approval.html">Approve Order</a>
-                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="status.html">Update Status</a>
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md is-active !bg-[#0080ff] !text-white !border-white" href="delivery.html">Confirm Delivery</a>
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="laundry-data.html">Data Laundry</a>
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="chat.html">Chat Customers</a>

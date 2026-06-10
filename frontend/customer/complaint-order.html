@@ -62,14 +62,16 @@
                         </select>
                     </div>
 
-                    <div class="form-field flex flex-col gap-2 mb-[18px] [&_label]:font-semibold [&_label]:text-[15px] [&_input]:w-full [&_input]:border [&_input]:border-[#bdbdbd] [&_input]:rounded-lg [&_input]:py-3.5 [&_input]:px-4 [&_select]:w-full [&_select]:border [&_select]:border-[#bdbdbd] [&_select]:rounded-lg [&_select]:py-3.5 [&_select]:px-4 [&_textarea]:w-full [&_textarea]:min-h-[140px] [&_textarea]:border [&_textarea]:border-[#bdbdbd] [&_textarea]:rounded-lg [&_textarea]:py-3.5 [&_textarea]:px-4 [&_textarea]:resize-y">
-                        <label for="customer-name">Nama</label>
-                        <input id="customer-name" name="customer-name" type="text" placeholder="Masukkan nama anda">
+                    <div class="form-field flex flex-col gap-2 mb-[18px] [&_label]:font-semibold [&_label]:text-[15px]">
+                        <label>Nama</label>
+                        <div id="fixed-customer-name" class="w-full rounded-lg border border-[#e0e0e0] bg-[#f7f7f7] px-4 py-3.5 font-semibold text-[#4b4b4b]">-</div>
+                        <input id="customer-name" name="customer-name" type="hidden">
                     </div>
 
-                    <div class="form-field flex flex-col gap-2 mb-[18px] [&_label]:font-semibold [&_label]:text-[15px] [&_input]:w-full [&_input]:border [&_input]:border-[#bdbdbd] [&_input]:rounded-lg [&_input]:py-3.5 [&_input]:px-4 [&_select]:w-full [&_select]:border [&_select]:border-[#bdbdbd] [&_select]:rounded-lg [&_select]:py-3.5 [&_select]:px-4 [&_textarea]:w-full [&_textarea]:min-h-[140px] [&_textarea]:border [&_textarea]:border-[#bdbdbd] [&_textarea]:rounded-lg [&_textarea]:py-3.5 [&_textarea]:px-4 [&_textarea]:resize-y">
-                        <label for="customer-email">Email</label>
-                        <input id="customer-email" name="customer-email" type="email" placeholder="example@gmail.com">
+                    <div class="form-field flex flex-col gap-2 mb-[18px] [&_label]:font-semibold [&_label]:text-[15px]">
+                        <label>Email</label>
+                        <div id="fixed-customer-email" class="w-full rounded-lg border border-[#e0e0e0] bg-[#f7f7f7] px-4 py-3.5 font-semibold text-[#4b4b4b]">-</div>
+                        <input id="customer-email" name="customer-email" type="hidden">
                     </div>
 
                     <div class="form-field flex flex-col gap-2 mb-[18px] [&_label]:font-semibold [&_label]:text-[15px] [&_input]:w-full [&_input]:border [&_input]:border-[#bdbdbd] [&_input]:rounded-lg [&_input]:py-3.5 [&_input]:px-4 [&_select]:w-full [&_select]:border [&_select]:border-[#bdbdbd] [&_select]:rounded-lg [&_select]:py-3.5 [&_select]:px-4 [&_textarea]:w-full [&_textarea]:min-h-[140px] [&_textarea]:border [&_textarea]:border-[#bdbdbd] [&_textarea]:rounded-lg [&_textarea]:py-3.5 [&_textarea]:px-4 [&_textarea]:resize-y full col-span-full">
@@ -100,5 +102,27 @@
             </nav>
         </div>
     </main>
+    <script>
+        function getStoredUser() {
+            const user = localStorage.getItem("user");
+            return user ? JSON.parse(user) : null;
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const user = getStoredUser();
+            const fixedName = document.getElementById("fixed-customer-name");
+            const fixedEmail = document.getElementById("fixed-customer-email");
+            const nameInput = document.getElementById("customer-name");
+            const emailInput = document.getElementById("customer-email");
+
+            const customerName = user?.nama || user?.email || "Customer";
+            const customerEmail = localStorage.getItem("last_order_email") || user?.email || "-";
+
+            fixedName.textContent = customerName;
+            fixedEmail.textContent = customerEmail;
+            nameInput.value = customerName;
+            emailInput.value = customerEmail;
+        });
+    </script>
 </body>
 </html>

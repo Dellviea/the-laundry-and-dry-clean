@@ -5,16 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="../index.css">
-    <script src="../handlers/ui_actions.js" defer></script>
     <title>Complaints</title>
 </head>
 <body class="app-body min-h-screen m-0 text-[#4b4b4b] bg-gradient-to-b from-[#087de9] to-[#0063b7]">
-    <header class="app-topbar h-[72px] bg-white flex items-center justify-between px-12">
-        <a class="app-brand flex items-center gap-[18px] text-[#0080ff] no-underline [&_img]:h-10 [&_img]:w-10 [&_span]:font-bold [&_span]:text-2xl [&_span]:leading-none" href="analytics.html">
+    <header class="app-topbar h-[72px] bg-white flex items-center px-12">
+        <div class="app-brand flex items-center gap-[18px] text-[#0080ff] no-underline [&_img]:h-10 [&_img]:w-10 [&_span]:font-bold [&_span]:text-2xl [&_span]:leading-none">
             <img src="../image/shirt.svg" alt="">
             <span>Laundry &amp; Dry Clean</span>
-        </a>
-        <button class="h-10 rounded-lg border border-[#0080ff] bg-white px-5 font-bold text-[#0080ff] cursor-pointer" type="button" data-logout>Log out</button>
+        </div>
     </header>
 
     <main>
@@ -27,62 +25,64 @@
                 </button>
                 <div class="role-card bg-white rounded-lg p-[18px] shadow-md [&_strong]:block [&_strong]:text-[#0080ff] [&_strong]:font-bold [&_strong]:mb-2 [&_span]:block [&_span]:text-sm [&_span]:leading-snug">
                     <strong>Admin Mode</strong>
-                    <span>Keluhan customer bisa dibuka dan ditandai selesai dari halaman ini.</span>
+                    <span>Halaman ini hanya digunakan untuk melihat daftar keluhan customer.</span>
                 </div>
             </aside>
 
             <section class="page-card bg-white rounded-lg overflow-hidden shadow-md admin-card py-6 px-7 pb-10">
                 <h2 class="section-title font-bold text-[22px] leading-tight m-0 pb-1.5 border-b-2 border-[#0080ff]">Lihat Complaints</h2>
                 <div class="admin-panel-body mt-5 overflow-x-auto admin-complaint-list flex flex-col gap-3.5">
-                    <article class="admin-complaint-row grid grid-cols-[52px_minmax(0,1fr)_auto] gap-4 items-center bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg py-4 px-[18px]">
+                    <article class="admin-complaint-row grid grid-cols-[52px_minmax(0,1fr)_150px] gap-4 items-center bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg py-4 px-[18px]">
                         <div class="admin-avatar w-11 h-11 rounded-full bg-[#d8ebff] text-[#0080ff] font-bold flex items-center justify-center">A</div>
                         <div>
                             <div class="admin-row-title font-bold mb-1">Arthur Donzel - ORD-070526</div>
                             <div class="admin-row-copy text-sm leading-snug">Keluhan: pakaian belum selesai sesuai estimasi.</div>
                         </div>
-                        <button class="admin-mini-action h-9 border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-popup="Complaint ORD-070526 dibuka untuk tindak lanjut admin.">Tindak Lanjut</button>
+                        <label class="complaint-status-toggle justify-self-end inline-flex min-w-[142px] cursor-pointer items-center justify-center rounded-lg border border-[#df0000] bg-white px-3 py-2 text-sm font-bold text-[#df0000]" data-status-key="ord-070526">
+                            <input class="sr-only" type="checkbox" data-status-toggle>
+                            <span data-status-label>Belum selesai</span>
+                        </label>
                     </article>
-                    <article class="admin-complaint-row grid grid-cols-[52px_minmax(0,1fr)_auto] gap-4 items-center bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg py-4 px-[18px]">
+                    <article class="admin-complaint-row grid grid-cols-[52px_minmax(0,1fr)_150px] gap-4 items-center bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg py-4 px-[18px]">
                         <div class="admin-avatar w-11 h-11 rounded-full bg-[#d8ebff] text-[#0080ff] font-bold flex items-center justify-center">D</div>
                         <div>
                             <div class="admin-row-title font-bold mb-1">Della Oktavia - ORD-050526</div>
                             <div class="admin-row-copy text-sm leading-snug">Keluhan: tagihan pickup service perlu dikonfirmasi.</div>
                         </div>
-                        <button class="admin-mini-action h-9 border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-popup="Complaint ORD-050526 ditandai sedang diproses.">Tindak Lanjut</button>
+                        <label class="complaint-status-toggle justify-self-end inline-flex min-w-[142px] cursor-pointer items-center justify-center rounded-lg border border-[#df0000] bg-white px-3 py-2 text-sm font-bold text-[#df0000]" data-status-key="ord-050526">
+                            <input class="sr-only" type="checkbox" data-status-toggle>
+                            <span data-status-label>Belum selesai</span>
+                        </label>
                     </article>
-                    <article class="admin-complaint-row grid grid-cols-[52px_minmax(0,1fr)_auto] gap-4 items-center bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg py-4 px-[18px]">
+                    <article class="admin-complaint-row grid grid-cols-[52px_minmax(0,1fr)_150px] gap-4 items-center bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg py-4 px-[18px]">
                         <div class="admin-avatar w-11 h-11 rounded-full bg-[#d8ebff] text-[#0080ff] font-bold flex items-center justify-center">S</div>
                         <div>
                             <div class="admin-row-title font-bold mb-1">Syahrial Affansyah - ORD-030526</div>
                             <div class="admin-row-copy text-sm leading-snug">Keluhan: jadwal pengiriman ingin diubah.</div>
                         </div>
-                        <button class="admin-mini-action h-9 border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-popup="Complaint ORD-030526 dibuka untuk perubahan jadwal.">Tindak Lanjut</button>
+                        <label class="complaint-status-toggle justify-self-end inline-flex min-w-[142px] cursor-pointer items-center justify-center rounded-lg border border-[#df0000] bg-white px-3 py-2 text-sm font-bold text-[#df0000]" data-status-key="ord-030526">
+                            <input class="sr-only" type="checkbox" data-status-toggle>
+                            <span data-status-label>Belum selesai</span>
+                        </label>
                     </article>
-                    <article class="admin-complaint-row grid grid-cols-[52px_minmax(0,1fr)_auto] gap-4 items-center bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg py-4 px-[18px]">
+                    <article class="admin-complaint-row grid grid-cols-[52px_minmax(0,1fr)_150px] gap-4 items-center bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg py-4 px-[18px]">
                         <div class="admin-avatar w-11 h-11 rounded-full bg-[#d8ebff] text-[#0080ff] font-bold flex items-center justify-center">T</div>
                         <div>
                             <div class="admin-row-title font-bold mb-1">Thasya Jasmine - ORD-010526</div>
                             <div class="admin-row-copy text-sm leading-snug">Keluhan: request parfum laundry belum sesuai.</div>
                         </div>
-                        <button class="admin-mini-action h-9 border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-popup="Complaint ORD-010526 ditandai selesai sementara.">Tandai Selesai</button>
+                        <label class="complaint-status-toggle justify-self-end inline-flex min-w-[142px] cursor-pointer items-center justify-center rounded-lg border border-[#1a7a3c] bg-[#e9f7ee] px-3 py-2 text-sm font-bold text-[#1a7a3c]" data-status-key="ord-010526" data-default-done="true">
+                            <input class="sr-only" type="checkbox" data-status-toggle checked>
+                            <span data-status-label>Selesai</span>
+                        </label>
                     </article>
-                </div>
-
-                <div class="pagination flex justify-center gap-4 pt-[34px] pb-[78px]" aria-label="Pagination">
-                    <button class="page-number w-8 h-8 rounded-lg border-0 bg-[#d2d2d2] text-white font-bold cursor-pointer is-active !bg-[#0080ff] !border-white" type="button">1</button>
-                    <button class="page-number w-8 h-8 rounded-lg border-0 bg-[#d2d2d2] text-white font-bold cursor-pointer" type="button">2</button>
-                    <button class="page-number w-8 h-8 rounded-lg border-0 bg-[#d2d2d2] text-white font-bold cursor-pointer" type="button">3</button>
-                    <button class="page-number w-8 h-8 rounded-lg border-0 bg-[#d2d2d2] text-white font-bold cursor-pointer" type="button">4</button>
-                    <button class="page-number w-8 h-8 rounded-lg border-0 bg-[#d2d2d2] text-white font-bold cursor-pointer" type="button">5</button>
                 </div>
             </section>
 
             <nav class="app-nav flex flex-col gap-2.5 sticky top-6 z-[5] max-h-[calc(100vh-48px)] overflow-y-auto pr-0.5" aria-label="Admin navigation">
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="analytics.html">Dashboard</a>
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="orders.html">Daftar Pesanan</a>
-                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="order-detail.html">Detail Pesanan</a>
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="approval.html">Approve Order</a>
-                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="status.html">Update Status</a>
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="delivery.html">Confirm Delivery</a>
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="laundry-data.html">Data Laundry</a>
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="chat.html">Chat Customers</a>
@@ -91,5 +91,32 @@
             </nav>
         </div>
     </main>
+    <script>
+        document.querySelectorAll(".complaint-status-toggle").forEach((toggle) => {
+            const input = toggle.querySelector("[data-status-toggle]");
+            const label = toggle.querySelector("[data-status-label]");
+            const key = `complaint-status:${toggle.dataset.statusKey}`;
+            const saved = localStorage.getItem(key);
+
+            if (saved !== null) {
+                input.checked = saved === "done";
+            }
+
+            function renderStatus() {
+                const done = input.checked;
+                label.textContent = done ? "Selesai" : "Belum selesai";
+                toggle.classList.toggle("border-[#1a7a3c]", done);
+                toggle.classList.toggle("bg-[#e9f7ee]", done);
+                toggle.classList.toggle("text-[#1a7a3c]", done);
+                toggle.classList.toggle("border-[#df0000]", !done);
+                toggle.classList.toggle("bg-white", !done);
+                toggle.classList.toggle("text-[#df0000]", !done);
+                localStorage.setItem(key, done ? "done" : "pending");
+            }
+
+            input.addEventListener("change", renderStatus);
+            renderStatus();
+        });
+    </script>
 </body>
 </html>

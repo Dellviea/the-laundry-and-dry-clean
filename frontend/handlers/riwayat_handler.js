@@ -11,7 +11,7 @@ function statusLabel(status) {
         "DIPESAN":  { text: "Dipesan",         color: "bg-[#9d9823]" },
         "DIJEMPUT": { text: "Dijemput",         color: "bg-[#2596a5]" },
         "DICUCI":   { text: "Sedang Dicuci",    color: "bg-[#2596a5]" },
-        "DIKIRIM":  { text: "Sedang Dikirim",   color: "bg-[#2596a5]" },
+        "DIKIRIM":  { text: "Selesai",          color: "bg-[#1a7a3c]" },
         "SELESAI":  { text: "Selesai",          color: "bg-[#1a7a3c]" },
         "DIBATALKAN": { text: "Dibatalkan",     color: "bg-[#df0000]" },
     };

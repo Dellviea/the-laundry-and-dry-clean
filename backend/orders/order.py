@@ -5,10 +5,9 @@ from utils.helpers import login_required, admin_required, ok, err
 order_bp = Blueprint("order", __name__)
 
 VALID_TRANSITIONS = {
-    "DIPESAN":  ["DIJEMPUT", "DIBATALKAN"],
+    "DIPESAN":  ["DIJEMPUT", "DICUCI", "DIBATALKAN"],
     "DIJEMPUT": ["DICUCI"],
-    "DICUCI":   ["DIKIRIM"],
-    "DIKIRIM":  ["SELESAI"],
+    "DICUCI":   ["SELESAI"],
 }
 
 
@@ -253,6 +252,11 @@ def admin_update_status(order_id):
         return err("Pesanan tidak ditemukan", 404)
 
     allowed = VALID_TRANSITIONS.get(order["status"], [])
+    if order["status"] == "DIPESAN":
+        if order.get("metodePengambilan") == "Pickup":
+            allowed = ["DIJEMPUT", "DIBATALKAN"]
+        else:
+            allowed = ["DICUCI", "DIBATALKAN"]
     if new_status not in allowed:
         conn.close()
         return err(f"Status tidak bisa diubah dari '{order['status']}' ke '{new_status}'", 400)

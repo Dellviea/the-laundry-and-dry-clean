@@ -64,22 +64,29 @@ document.addEventListener('DOMContentLoaded', () => {
         registerForm.addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            const emailInput    = document.getElementById('email');
-            const passwordInput = document.getElementById('password');
-            const confirmInput  = document.getElementById('confirm_password');
+            const firstNameInput = document.getElementById('first_name');
+            const lastNameInput  = document.getElementById('last_name');
+            const emailInput     = document.getElementById('email');
+            const passwordInput  = document.getElementById('password');
+            const confirmInput   = document.getElementById('confirm_password');
+            const firstNameError = document.getElementById('first-name-error');
             const emailError           = document.getElementById('email-error');
             const passwordError        = document.getElementById('password-error');
             const reEnterPasswordError = document.getElementById('reEnterPassword-error');
             const passwordNotSame      = document.getElementById('password-notSame');
             const reEnterPasswordNotSame = document.getElementById('reEnterPassword-notSame');
 
-            const emailValue    = emailInput.value.trim();
-            const passwordValue = passwordInput.value.trim();
-            const confirmValue  = confirmInput.value.trim();
+            const firstNameValue = firstNameInput.value.trim();
+            const lastNameValue  = lastNameInput.value.trim();
+            const emailValue     = emailInput.value.trim();
+            const passwordValue  = passwordInput.value.trim();
+            const confirmValue   = confirmInput.value.trim();
 
+            firstNameInput.classList.remove('border-red-500','border-2','outline-red-500');
             emailInput.classList.remove('border-red-500','border-2','outline-red-500');
             passwordInput.classList.remove('border-red-500','border-2','outline-red-500');
             confirmInput.classList.remove('border-red-500','border-2','outline-red-500');
+            firstNameError.classList.add('hidden');
             emailError.classList.add('hidden');
             passwordError.classList.add('hidden');
             reEnterPasswordError.classList.add('hidden');
@@ -87,6 +94,11 @@ document.addEventListener('DOMContentLoaded', () => {
             reEnterPasswordNotSame.classList.add('hidden');
 
             let isValid = true;
+            if (!firstNameValue) {
+                firstNameInput.classList.add('border-red-500','border-2','outline-red-500');
+                firstNameError.classList.remove('hidden');
+                isValid = false;
+            }
             if (!emailValue) {
                 emailInput.classList.add('border-red-500','border-2','outline-red-500');
                 emailError.classList.remove('hidden');
@@ -119,7 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: JSON.stringify({
                         email:            emailValue,
                         password:         passwordValue,
-                        confirm_password: confirmValue
+                        confirm_password: confirmValue,
+                        nama:             `${firstNameValue} ${lastNameValue}`.trim()
                     })
                 });
                 const data = await res.json();

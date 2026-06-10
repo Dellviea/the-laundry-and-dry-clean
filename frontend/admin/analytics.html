@@ -28,15 +28,28 @@
                     <strong>Admin Mode</strong>
                     <span>Ringkasan operasional laundry untuk presentasi frontend.</span>
                 </div>
+                <div class="period-card bg-white rounded-lg p-[18px] shadow-md">
+                    <strong id="period-filter-title" class="block text-[#0080ff] font-bold mb-2">Tanggal Harian</strong>
+                    <select id="period-filter-select" class="w-full h-10 rounded-lg border border-[#0080ff] bg-white px-3 text-sm font-bold text-[#0080ff] cursor-pointer"></select>
+                    <span id="period-filter-note" class="mt-1 block text-xs leading-snug text-[#4b4b4b]">Maksimal 30 hari ke belakang.</span>
+                </div>
             </aside>
 
             <section class="page-card bg-white rounded-lg overflow-hidden shadow-md admin-card py-6 px-7 pb-10">
-                <h2 class="section-title font-bold text-[22px] leading-tight m-0 pb-1.5 border-b-2 border-[#0080ff]">Lihat Dashboard Analytics</h2>
+                <div class="flex items-center justify-between gap-4 pb-1.5 border-b-2 border-[#0080ff]">
+                    <h2 class="section-title font-bold text-[22px] leading-tight m-0">Lihat Dashboard Analytics</h2>
+                    <div class="report-tabs inline-flex shrink-0 items-center gap-1 rounded-lg border border-[#0080ff] bg-white p-1" role="tablist" aria-label="Periode laporan">
+                        <button class="report-tab h-8 rounded-md border-0 bg-[#0080ff] px-3 text-white font-bold text-xs cursor-pointer transition shadow-sm" type="button" data-period="harian">Harian</button>
+                        <button class="report-tab h-8 rounded-md border-0 bg-white px-3 text-[#0080ff] font-bold text-xs cursor-pointer transition" type="button" data-period="mingguan">Mingguan</button>
+                        <button class="report-tab h-8 rounded-md border-0 bg-white px-3 text-[#0080ff] font-bold text-xs cursor-pointer transition" type="button" data-period="bulanan">Bulanan</button>
+                        <button class="report-tab h-8 rounded-md border-0 bg-white px-3 text-[#0080ff] font-bold text-xs cursor-pointer transition" type="button" data-period="tahunan">Tahunan</button>
+                    </div>
+                </div>
                 <div class="stats-grid grid grid-cols-4 gap-3.5 mt-5">
-                    <div class="stat-box bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg p-[18px] [&_span]:block [&_span]:text-[13px] [&_span]:mb-2.5 [&_strong]:text-[#0080ff] [&_strong]:font-bold [&_strong]:text-[26px]"><span>Total Pesanan</span><strong>128</strong></div>
-                    <div class="stat-box bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg p-[18px] [&_span]:block [&_span]:text-[13px] [&_span]:mb-2.5 [&_strong]:text-[#0080ff] [&_strong]:font-bold [&_strong]:text-[26px]"><span>Pesanan Diproses</span><strong>24</strong></div>
-                    <div class="stat-box bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg p-[18px] [&_span]:block [&_span]:text-[13px] [&_span]:mb-2.5 [&_strong]:text-[#0080ff] [&_strong]:font-bold [&_strong]:text-[26px]"><span>Pesanan Selesai</span><strong>96</strong></div>
-                    <div class="stat-box bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg p-[18px] [&_span]:block [&_span]:text-[13px] [&_span]:mb-2.5 [&_strong]:text-[#0080ff] [&_strong]:font-bold [&_strong]:text-[26px]"><span>Pendapatan</span><strong>Rp.8,4jt</strong></div>
+                    <div class="stat-box bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg p-[18px] [&_span]:block [&_span]:text-[13px] [&_span]:mb-2.5 [&_strong]:text-[#0080ff] [&_strong]:font-bold [&_strong]:text-[26px]"><span>Total Pesanan</span><strong data-stat="total">18</strong></div>
+                    <div class="stat-box bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg p-[18px] [&_span]:block [&_span]:text-[13px] [&_span]:mb-2.5 [&_strong]:text-[#0080ff] [&_strong]:font-bold [&_strong]:text-[26px]"><span>Pesanan Diproses</span><strong data-stat="processed">5</strong></div>
+                    <div class="stat-box bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg p-[18px] [&_span]:block [&_span]:text-[13px] [&_span]:mb-2.5 [&_strong]:text-[#0080ff] [&_strong]:font-bold [&_strong]:text-[26px]"><span>Pesanan Selesai</span><strong data-stat="done">12</strong></div>
+                    <div class="stat-box bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg p-[18px] [&_span]:block [&_span]:text-[13px] [&_span]:mb-2.5 [&_strong]:text-[#0080ff] [&_strong]:font-bold [&_strong]:text-[26px]"><span>Pendapatan</span><strong data-stat="revenue">Rp.960rb</strong></div>
                 </div>
                 <div class="admin-panel-body mt-5 overflow-x-auto">
                     <table class="admin-table w-full border-collapse text-sm [&_th]:py-3.5 [&_th]:px-3 [&_th]:border-b [&_th]:border-[#e3e3e3] [&_th]:text-left [&_th]:align-middle [&_th]:text-[#0080ff] [&_th]:font-bold [&_th]:bg-[#f7f7f7] [&_td]:py-3.5 [&_td]:px-3 [&_td]:border-b [&_td]:border-[#e3e3e3] [&_td]:text-left [&_td]:align-middle">
@@ -48,25 +61,23 @@
                                 <th>Trend</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr><td>Cuci Regular</td><td>58</td><td class="amount text-[#0080ff] font-bold">Rp.2.900.000</td><td>Naik</td></tr>
-                            <tr><td>Cuci Express</td><td>32</td><td class="amount text-[#0080ff] font-bold">Rp.1.920.000</td><td>Stabil</td></tr>
-                            <tr><td>Dry Clean Jas</td><td>18</td><td class="amount text-[#0080ff] font-bold">Rp.1.800.000</td><td>Naik</td></tr>
-                            <tr><td>Setrika</td><td>20</td><td class="amount text-[#0080ff] font-bold">Rp.600.000</td><td>Turun</td></tr>
+                        <tbody id="report-table-body">
+                            <tr><td>Cuci Regular</td><td>8</td><td class="amount text-[#0080ff] font-bold">Rp.400.000</td><td>Naik</td></tr>
+                            <tr><td>Cuci Express</td><td>4</td><td class="amount text-[#0080ff] font-bold">Rp.240.000</td><td>Stabil</td></tr>
+                            <tr><td>Dry Clean Jas</td><td>2</td><td class="amount text-[#0080ff] font-bold">Rp.200.000</td><td>Naik</td></tr>
+                            <tr><td>Setrika</td><td>4</td><td class="amount text-[#0080ff] font-bold">Rp.120.000</td><td>Stabil</td></tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="compact-actions flex flex-wrap gap-2.5 mt-[18px]">
-                    <button class="primary-action h-12 border-0 rounded-lg bg-[#0080ff] text-white font-bold text-base px-7 cursor-pointer shadow-md" type="button" data-popup="Laporan analytics berhasil dibuat sementara.">Export Laporan</button>
+                    <button id="export-report" class="primary-action h-12 border-0 rounded-lg bg-[#0080ff] text-white font-bold text-base px-7 cursor-pointer shadow-md" type="button" data-popup="Laporan harian berhasil dibuat sementara.">Export Laporan Harian</button>
                 </div>
             </section>
 
             <nav class="app-nav flex flex-col gap-2.5 sticky top-6 z-[5] max-h-[calc(100vh-48px)] overflow-y-auto pr-0.5" aria-label="Admin navigation">
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md is-active !bg-[#0080ff] !text-white !border-white" href="analytics.html">Dashboard</a>
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="orders.html">Daftar Pesanan</a>
-                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="order-detail.html">Detail Pesanan</a>
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="approval.html">Approve Order</a>
-                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="status.html">Update Status</a>
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="delivery.html">Confirm Delivery</a>
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="laundry-data.html">Data Laundry</a>
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="chat.html">Chat Customers</a>
@@ -75,5 +86,200 @@
             </nav>
         </div>
     </main>
+    <script>
+        const reportData = {
+            harian: {
+                label: "Harian",
+                stats: { total: "18", processed: "5", done: "12", revenue: "Rp.960rb" },
+                rows: [
+                    ["Cuci Regular", "8", "Rp.400.000", "Naik"],
+                    ["Cuci Express", "4", "Rp.240.000", "Stabil"],
+                    ["Dry Clean Jas", "2", "Rp.200.000", "Naik"],
+                    ["Setrika", "4", "Rp.120.000", "Stabil"]
+                ]
+            },
+            mingguan: {
+                label: "Mingguan",
+                stats: { total: "64", processed: "12", done: "47", revenue: "Rp.3,7jt" },
+                rows: [
+                    ["Cuci Regular", "28", "Rp.1.400.000", "Naik"],
+                    ["Cuci Express", "15", "Rp.900.000", "Naik"],
+                    ["Dry Clean Jas", "8", "Rp.800.000", "Stabil"],
+                    ["Setrika", "13", "Rp.390.000", "Turun"]
+                ]
+            },
+            bulanan: {
+                label: "Bulanan",
+                stats: { total: "128", processed: "24", done: "96", revenue: "Rp.8,4jt" },
+                rows: [
+                    ["Cuci Regular", "58", "Rp.2.900.000", "Naik"],
+                    ["Cuci Express", "32", "Rp.1.920.000", "Stabil"],
+                    ["Dry Clean Jas", "18", "Rp.1.800.000", "Naik"],
+                    ["Setrika", "20", "Rp.600.000", "Turun"]
+                ]
+            },
+            tahunan: {
+                label: "Tahunan",
+                stats: { total: "1470", processed: "180", done: "1238", revenue: "Rp.96,5jt" },
+                rows: [
+                    ["Cuci Regular", "640", "Rp.32.000.000", "Naik"],
+                    ["Cuci Express", "385", "Rp.23.100.000", "Naik"],
+                    ["Dry Clean Jas", "260", "Rp.26.000.000", "Stabil"],
+                    ["Setrika", "185", "Rp.5.550.000", "Turun"]
+                ]
+            }
+        };
+
+        const reportTabs = document.querySelectorAll(".report-tab");
+        const reportTableBody = document.getElementById("report-table-body");
+        const exportButton = document.getElementById("export-report");
+        const periodFilterTitle = document.getElementById("period-filter-title");
+        const periodFilterSelect = document.getElementById("period-filter-select");
+        const periodFilterSummary = document.getElementById("period-filter-summary");
+        const periodFilterNote = document.getElementById("period-filter-note");
+        let activePeriod = "harian";
+
+        const monthNames = [
+            "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+        ];
+        const dayNames = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+
+        function addDays(date, days) {
+            const result = new Date(date);
+            result.setDate(result.getDate() + days);
+            return result;
+        }
+
+        function formatDateValue(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, "0");
+            const day = String(date.getDate()).padStart(2, "0");
+            return `${year}-${month}-${day}`;
+        }
+
+        function formatLongDate(date) {
+            return `${dayNames[date.getDay()]}, ${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+        }
+
+        function formatShortDate(date) {
+            return `${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+        }
+
+        function makeDailyOptions(today) {
+            return Array.from({ length: 30 }, (_, index) => {
+                const date = addDays(today, -index);
+                return { value: formatDateValue(date), text: formatLongDate(date) };
+            });
+        }
+
+        function makeWeeklyOptions(today) {
+            const cutoff = addDays(today, -29);
+            return Array.from({ length: 5 }, (_, index) => {
+                const endDate = addDays(today, -(index * 7));
+                let startDate = addDays(endDate, -6);
+                if (startDate < cutoff) startDate = cutoff;
+
+                return {
+                    value: `${formatDateValue(startDate)}_${formatDateValue(endDate)}`,
+                    text: `${formatShortDate(startDate)} - ${formatShortDate(endDate)}`
+                };
+            });
+        }
+
+        function makeMonthlyOptions(today) {
+            const year = today.getFullYear();
+            return monthNames.map((month, index) => ({
+                value: `${year}-${String(index + 1).padStart(2, "0")}`,
+                text: `${month} ${year}`
+            }));
+        }
+
+        function makeYearlyOptions(today) {
+            const year = today.getFullYear();
+            return Array.from({ length: 5 }, (_, index) => {
+                const reportYear = year - index;
+                return { value: String(reportYear), text: String(reportYear) };
+            });
+        }
+
+        function updatePeriodSummary() {
+            const selectedText = periodFilterSelect.options[periodFilterSelect.selectedIndex]?.text || "";
+            periodFilterSummary.textContent = `Ditampilkan: ${selectedText}`;
+            exportButton.dataset.popup = `Laporan ${reportData[activePeriod].label.toLowerCase()} untuk ${selectedText} berhasil dibuat sementara.`;
+        }
+
+        function renderPeriodFilter(period) {
+            const today = new Date();
+            const filterConfig = {
+                harian: {
+                    title: "Tanggal Harian",
+                    note: "Pilih tanggal, maksimal 30 hari ke belakang.",
+                    options: makeDailyOptions(today)
+                },
+                mingguan: {
+                    title: "Minggu Laporan",
+                    note: "Pilih rentang minggu dalam batas 30 hari ke belakang.",
+                    options: makeWeeklyOptions(today)
+                },
+                bulanan: {
+                    title: "Bulan Laporan",
+                    note: "Pilih bulan laporan pada tahun berjalan.",
+                    options: makeMonthlyOptions(today)
+                },
+                tahunan: {
+                    title: "Tahun Laporan",
+                    note: "Pilih tahun laporan yang ingin ditampilkan.",
+                    options: makeYearlyOptions(today)
+                }
+            };
+
+            const config = filterConfig[period];
+            periodFilterTitle.textContent = config.title;
+            periodFilterNote.textContent = config.note;
+            periodFilterSelect.innerHTML = config.options.map((option) => (
+                `<option value="${option.value}">${option.text}</option>`
+            )).join("");
+            updatePeriodSummary();
+        }
+
+        function setActiveReport(period) {
+            const report = reportData[period];
+            if (!report) return;
+            activePeriod = period;
+
+            document.querySelector('[data-stat="total"]').textContent = report.stats.total;
+            document.querySelector('[data-stat="processed"]').textContent = report.stats.processed;
+            document.querySelector('[data-stat="done"]').textContent = report.stats.done;
+            document.querySelector('[data-stat="revenue"]').textContent = report.stats.revenue;
+
+            reportTableBody.innerHTML = report.rows.map(([service, total, revenue, trend]) => `
+                <tr>
+                    <td>${service}</td>
+                    <td>${total}</td>
+                    <td class="amount text-[#0080ff] font-bold">${revenue}</td>
+                    <td>${trend}</td>
+                </tr>
+            `).join("");
+
+            reportTabs.forEach((tab) => {
+                const isActive = tab.dataset.period === period;
+                tab.classList.toggle("bg-[#0080ff]", isActive);
+                tab.classList.toggle("text-white", isActive);
+                tab.classList.toggle("shadow-sm", isActive);
+                tab.classList.toggle("bg-white", !isActive);
+                tab.classList.toggle("text-[#0080ff]", !isActive);
+            });
+
+            exportButton.textContent = `Export Laporan ${report.label}`;
+            renderPeriodFilter(period);
+        }
+
+        reportTabs.forEach((tab) => {
+            tab.addEventListener("click", () => setActiveReport(tab.dataset.period));
+        });
+        periodFilterSelect.addEventListener("change", updatePeriodSummary);
+        setActiveReport("harian");
+    </script>
 </body>
 </html>

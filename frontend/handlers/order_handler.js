@@ -254,6 +254,7 @@ if (submitOrderButton) {
         const notifEmail = customEmailRadio?.checked
             ? customEmailInput?.value.trim()
             : getUser()?.email || "";
+        localStorage.setItem("last_order_email", notifEmail);
 
         try {
             const res  = await fetch(`${BASE_URL}/orders`, {

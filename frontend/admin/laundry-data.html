@@ -63,10 +63,10 @@
                 <div class="admin-panel-body mt-5 overflow-x-auto">
                     <table class="admin-table w-full border-collapse text-sm [&_th]:py-3.5 [&_th]:px-3 [&_th]:border-b [&_th]:border-[#e3e3e3] [&_th]:text-left [&_th]:align-middle [&_th]:text-[#0080ff] [&_th]:font-bold [&_th]:bg-[#f7f7f7] [&_td]:py-3.5 [&_td]:px-3 [&_td]:border-b [&_td]:border-[#e3e3e3] [&_td]:text-left [&_td]:align-middle">
                         <thead><tr><th>Layanan</th><th>Harga</th><th>Satuan</th><th>Kategori</th><th>Aksi</th></tr></thead>
-                        <tbody>
-                            <tr><td>Cuci Regular</td><td class="amount text-[#0080ff] font-bold">Rp.5.000</td><td>Kg</td><td>Reguler</td><td><button class="admin-mini-action h-9 border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-popup="Data Cuci Regular siap diedit.">Edit</button></td></tr>
-                            <tr><td>Cuci Express</td><td class="amount text-[#0080ff] font-bold">Rp.8.000</td><td>Kg</td><td>Express</td><td><button class="admin-mini-action h-9 border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-popup="Data Cuci Express siap diedit.">Edit</button></td></tr>
-                            <tr><td>Dry Clean Jas</td><td class="amount text-[#0080ff] font-bold">Rp.25.000</td><td>Kg</td><td>Dry Clean</td><td><button class="admin-mini-action h-9 border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-popup="Data Dry Clean Jas siap diedit.">Edit</button></td></tr>
+                        <tbody id="service-table-body">
+                            <tr><td>Cuci Regular</td><td class="amount text-[#0080ff] font-bold">Rp.5.000</td><td>Kg</td><td>Reguler</td><td><button class="admin-mini-action h-9 border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-edit-service>Edit</button></td></tr>
+                            <tr><td>Cuci Express</td><td class="amount text-[#0080ff] font-bold">Rp.8.000</td><td>Kg</td><td>Express</td><td><button class="admin-mini-action h-9 border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-edit-service>Edit</button></td></tr>
+                            <tr><td>Dry Clean Jas</td><td class="amount text-[#0080ff] font-bold">Rp.25.000</td><td>pcs</td><td>Dry Clean</td><td><button class="admin-mini-action h-9 border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-edit-service>Edit</button></td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -75,9 +75,7 @@
             <nav class="app-nav flex flex-col gap-2.5 sticky top-6 z-[5] max-h-[calc(100vh-48px)] overflow-y-auto pr-0.5" aria-label="Admin navigation">
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="analytics.html">Dashboard</a>
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="orders.html">Daftar Pesanan</a>
-                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="order-detail.html">Detail Pesanan</a>
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="approval.html">Approve Order</a>
-                <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="status.html">Update Status</a>
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="delivery.html">Confirm Delivery</a>
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md is-active !bg-[#0080ff] !text-white !border-white" href="laundry-data.html">Data Laundry</a>
                 <a class="nav-button h-[50px] border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold text-[17px] no-underline flex items-center justify-center shadow-md" href="chat.html">Chat Customers</a>
@@ -86,5 +84,114 @@
             </nav>
         </div>
     </main>
+    <div id="service-edit-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/45 px-5">
+        <div class="w-full max-w-[560px] rounded-lg bg-white p-6 shadow-xl">
+            <div class="mb-5 flex items-center justify-between gap-4 border-b-2 border-[#0080ff] pb-2">
+                <h2 class="m-0 text-[22px] font-bold leading-tight text-[#4b4b4b]">Edit Layanan</h2>
+                <button id="close-service-modal" class="h-9 w-9 rounded-lg border border-[#0080ff] bg-white text-xl font-bold leading-none text-[#0080ff] cursor-pointer" type="button" aria-label="Tutup">x</button>
+            </div>
+            <form id="service-edit-form" class="grid grid-cols-2 gap-4">
+                <div class="flex flex-col gap-2">
+                    <label for="edit-service-name" class="font-semibold text-[15px]">Nama Layanan</label>
+                    <input id="edit-service-name" class="w-full rounded-lg border border-[#bdbdbd] px-4 py-3" type="text">
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="edit-service-price" class="font-semibold text-[15px]">Harga</label>
+                    <input id="edit-service-price" class="w-full rounded-lg border border-[#bdbdbd] px-4 py-3" type="text">
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="edit-service-unit" class="font-semibold text-[15px]">Satuan</label>
+                    <select id="edit-service-unit" class="w-full rounded-lg border border-[#bdbdbd] px-4 py-3">
+                        <option>Kg</option>
+                        <option>pcs</option>
+                    </select>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="edit-service-category" class="font-semibold text-[15px]">Kategori</label>
+                    <select id="edit-service-category" class="w-full rounded-lg border border-[#bdbdbd] px-4 py-3">
+                        <option>Reguler</option>
+                        <option>Express</option>
+                        <option>Dry Clean</option>
+                    </select>
+                </div>
+                <div class="col-span-full mt-2 flex justify-end gap-3">
+                    <button id="cancel-service-edit" class="h-11 rounded-lg border border-[#0080ff] bg-white px-6 font-bold text-[#0080ff] cursor-pointer" type="button">Batal</button>
+                    <button class="h-11 rounded-lg border-0 bg-[#0080ff] px-6 font-bold text-white shadow-md cursor-pointer" type="submit">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        const serviceEditModal = document.getElementById("service-edit-modal");
+        const serviceEditForm = document.getElementById("service-edit-form");
+        const closeServiceModal = document.getElementById("close-service-modal");
+        const cancelServiceEdit = document.getElementById("cancel-service-edit");
+        const editServiceName = document.getElementById("edit-service-name");
+        const editServicePrice = document.getElementById("edit-service-price");
+        const editServiceUnit = document.getElementById("edit-service-unit");
+        const editServiceCategory = document.getElementById("edit-service-category");
+        let activeServiceRow = null;
+
+        function parsePrice(priceText) {
+            return priceText.replace(/[^\d]/g, "");
+        }
+
+        function formatPrice(priceValue) {
+            const numberValue = Number(String(priceValue).replace(/[^\d]/g, ""));
+            return `Rp.${new Intl.NumberFormat("id-ID").format(numberValue || 0)}`;
+        }
+
+        function openServiceModal(row) {
+            const cells = row.querySelectorAll("td");
+            activeServiceRow = row;
+            editServiceName.value = cells[0].textContent.trim();
+            editServicePrice.value = parsePrice(cells[1].textContent);
+            editServiceUnit.value = cells[2].textContent.trim();
+            editServiceCategory.value = cells[3].textContent.trim();
+            serviceEditModal.classList.remove("hidden");
+            serviceEditModal.classList.add("flex");
+            editServiceName.focus();
+        }
+
+        function closeModal() {
+            serviceEditModal.classList.add("hidden");
+            serviceEditModal.classList.remove("flex");
+            activeServiceRow = null;
+        }
+
+        document.addEventListener("click", (event) => {
+            const editButton = event.target.closest("[data-edit-service]");
+            if (editButton) {
+                openServiceModal(editButton.closest("tr"));
+            }
+        });
+
+        serviceEditModal.addEventListener("click", (event) => {
+            if (event.target === serviceEditModal) closeModal();
+        });
+
+        closeServiceModal.addEventListener("click", closeModal);
+        cancelServiceEdit.addEventListener("click", closeModal);
+
+        serviceEditForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            if (!activeServiceRow) return;
+
+            const nameValue = editServiceName.value.trim();
+            const priceValue = editServicePrice.value.trim();
+            if (!nameValue || !priceValue) {
+                alert("Nama layanan dan harga wajib diisi.");
+                return;
+            }
+
+            const cells = activeServiceRow.querySelectorAll("td");
+            cells[0].textContent = nameValue;
+            cells[1].textContent = formatPrice(priceValue);
+            cells[2].textContent = editServiceUnit.value;
+            cells[3].textContent = editServiceCategory.value;
+            closeModal();
+            alert("Data layanan berhasil diperbarui.");
+        });
+    </script>
 </body>
 </html>
