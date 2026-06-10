@@ -6,6 +6,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="../index.css">
     <script src="../handlers/ui_actions.js" defer></script>
+    <script src="../handlers/admin_services_handler.js" defer></script>
     <title>Kelola Data Laundry</title>
 </head>
 <body class="app-body min-h-screen m-0 text-[#4b4b4b] bg-gradient-to-b from-[#087de9] to-[#0063b7]">
@@ -32,7 +33,7 @@
 
             <section class="page-card bg-white rounded-lg overflow-hidden shadow-md admin-card py-6 px-7 pb-10">
                 <h2 class="section-title font-bold text-[22px] leading-tight m-0 pb-1.5 border-b-2 border-[#0080ff]">Kelola Data Laundry</h2>
-                <form class="complaint-grid grid grid-cols-2 gap-4 mt-[22px]" data-demo-form data-success="Layanan laundry berhasil disimpan sementara.">
+                <form id="service-create-form" class="complaint-grid grid grid-cols-2 gap-4 mt-[22px]">
                     <div class="form-field flex flex-col gap-2 mb-[18px] [&_label]:font-semibold [&_label]:text-[15px] [&_input]:w-full [&_input]:border [&_input]:border-[#bdbdbd] [&_input]:rounded-lg [&_input]:py-3.5 [&_input]:px-4 [&_select]:w-full [&_select]:border [&_select]:border-[#bdbdbd] [&_select]:rounded-lg [&_select]:py-3.5 [&_select]:px-4 [&_textarea]:w-full [&_textarea]:min-h-[140px] [&_textarea]:border [&_textarea]:border-[#bdbdbd] [&_textarea]:rounded-lg [&_textarea]:py-3.5 [&_textarea]:px-4 [&_textarea]:resize-y">
                         <label for="service-name">Nama Layanan</label>
                         <input id="service-name" type="text" placeholder="Contoh: Cuci Hemat">
@@ -121,77 +122,5 @@
             </form>
         </div>
     </div>
-    <script>
-        const serviceEditModal = document.getElementById("service-edit-modal");
-        const serviceEditForm = document.getElementById("service-edit-form");
-        const closeServiceModal = document.getElementById("close-service-modal");
-        const cancelServiceEdit = document.getElementById("cancel-service-edit");
-        const editServiceName = document.getElementById("edit-service-name");
-        const editServicePrice = document.getElementById("edit-service-price");
-        const editServiceUnit = document.getElementById("edit-service-unit");
-        const editServiceCategory = document.getElementById("edit-service-category");
-        let activeServiceRow = null;
-
-        function parsePrice(priceText) {
-            return priceText.replace(/[^\d]/g, "");
-        }
-
-        function formatPrice(priceValue) {
-            const numberValue = Number(String(priceValue).replace(/[^\d]/g, ""));
-            return `Rp.${new Intl.NumberFormat("id-ID").format(numberValue || 0)}`;
-        }
-
-        function openServiceModal(row) {
-            const cells = row.querySelectorAll("td");
-            activeServiceRow = row;
-            editServiceName.value = cells[0].textContent.trim();
-            editServicePrice.value = parsePrice(cells[1].textContent);
-            editServiceUnit.value = cells[2].textContent.trim();
-            editServiceCategory.value = cells[3].textContent.trim();
-            serviceEditModal.classList.remove("hidden");
-            serviceEditModal.classList.add("flex");
-            editServiceName.focus();
-        }
-
-        function closeModal() {
-            serviceEditModal.classList.add("hidden");
-            serviceEditModal.classList.remove("flex");
-            activeServiceRow = null;
-        }
-
-        document.addEventListener("click", (event) => {
-            const editButton = event.target.closest("[data-edit-service]");
-            if (editButton) {
-                openServiceModal(editButton.closest("tr"));
-            }
-        });
-
-        serviceEditModal.addEventListener("click", (event) => {
-            if (event.target === serviceEditModal) closeModal();
-        });
-
-        closeServiceModal.addEventListener("click", closeModal);
-        cancelServiceEdit.addEventListener("click", closeModal);
-
-        serviceEditForm.addEventListener("submit", (event) => {
-            event.preventDefault();
-            if (!activeServiceRow) return;
-
-            const nameValue = editServiceName.value.trim();
-            const priceValue = editServicePrice.value.trim();
-            if (!nameValue || !priceValue) {
-                alert("Nama layanan dan harga wajib diisi.");
-                return;
-            }
-
-            const cells = activeServiceRow.querySelectorAll("td");
-            cells[0].textContent = nameValue;
-            cells[1].textContent = formatPrice(priceValue);
-            cells[2].textContent = editServiceUnit.value;
-            cells[3].textContent = editServiceCategory.value;
-            closeModal();
-            alert("Data layanan berhasil diperbarui.");
-        });
-    </script>
 </body>
 </html>

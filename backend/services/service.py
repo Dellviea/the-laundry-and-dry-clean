@@ -1,6 +1,7 @@
 from flask import Blueprint, request
 from database import get_db
 from utils.helpers import admin_required, ok, err
+from utils.frontend_contract import ensure_frontend_services
 
 service_bp = Blueprint("service", __name__)
 
@@ -8,6 +9,8 @@ service_bp = Blueprint("service", __name__)
 @service_bp.route("/services", methods=["GET"])
 def get_services():
     conn, cur = get_db()
+    ensure_frontend_services(cur)
+    conn.commit()
     cur.execute("SELECT * FROM services ORDER BY kategori, namaService")
     data = cur.fetchall()
     conn.close()
@@ -17,6 +20,8 @@ def get_services():
 @service_bp.route("/services/recommended", methods=["GET"])
 def get_recommended():
     conn, cur = get_db()
+    ensure_frontend_services(cur)
+    conn.commit()
     cur.execute("SELECT * FROM services WHERE isRecommended=1 ORDER BY namaService")
     data = cur.fetchall()
     conn.close()

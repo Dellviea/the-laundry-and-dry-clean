@@ -1,14 +1,35 @@
 from flask import Blueprint, request
 from database import get_db
 from utils.helpers import login_required, admin_required, ok, err
+from utils.frontend_contract import ensure_frontend_services
+from payments.schema import ensure_xendit_payment_columns
+from payments.xendit_client import XenditError, create_qris_invoice
 
 order_bp = Blueprint("order", __name__)
 
 VALID_TRANSITIONS = {
-    "DIPESAN":  ["DIJEMPUT", "DICUCI", "DIBATALKAN"],
+    "DIPESAN":  ["DIJEMPUT", "DIANTAR", "DICUCI", "DIBATALKAN"],
     "DIJEMPUT": ["DICUCI"],
+    "DIANTAR":  ["DICUCI"],
     "DICUCI":   ["SELESAI"],
 }
+
+
+def ensure_order_status_enum(cur):
+    cur.execute("SHOW COLUMNS FROM orders LIKE 'status'")
+    column = cur.fetchone()
+    if column and "DIANTAR" not in column.get("Type", ""):
+        cur.execute(
+            """ALTER TABLE orders
+               MODIFY status ENUM('DIPESAN','DIJEMPUT','DIANTAR','DICUCI','DIKIRIM','SELESAI','DIBATALKAN')
+               DEFAULT 'DIPESAN'"""
+        )
+
+
+def ensure_order_photo_column(cur):
+    cur.execute("SHOW COLUMNS FROM orders LIKE 'buktiFoto'")
+    if not cur.fetchone():
+        cur.execute("ALTER TABLE orders ADD COLUMN buktiFoto LONGTEXT NULL AFTER catatan")
 
 
 # Buat Pesanan (Customer)
@@ -21,6 +42,9 @@ def create_order():
 
     items              = data.get("items", [])
     metode_pengambilan = data.get("metodePengambilan", "Self")
+    metode_pembayaran  = data.get("metodePembayaran", "QRIS")
+    biaya_pengambilan  = int(data.get("biayaPengambilan") or 0)
+    bukti_foto         = data.get("buktiFoto") or None
     catatan            = data.get("catatan", "")
     id_kasir           = data.get("idKasir", 1)
     id_toko            = data.get("idToko", 1)
@@ -31,6 +55,11 @@ def create_order():
     conn, cur = get_db()
     total     = 0
     item_rows = []
+    invoice_items = []
+    ensure_frontend_services(cur)
+    ensure_xendit_payment_columns(cur)
+    ensure_order_status_enum(cur)
+    ensure_order_photo_column(cur)
 
     for item in items:
         cur.execute("SELECT * FROM services WHERE idService = %s", (item["idService"],))
@@ -42,14 +71,26 @@ def create_order():
         subtotal = svc["harga"] * qty
         total   += subtotal
         item_rows.append((item["idService"], qty, subtotal))
+        invoice_items.append({
+            "name": svc["namaService"],
+            "quantity": qty,
+            "price": svc["harga"],
+        })
+
+    total += biaya_pengambilan
+    if biaya_pengambilan:
+        invoice_items.append({
+            "name": "Pickup Service",
+            "quantity": 1,
+            "price": biaya_pengambilan,
+        })
 
     cur.execute(
         """INSERT INTO orders
-           (idUser, idKasir, idToko, tanggal, metodePengambilan, total, status, catatan)
-           VALUES (%s, %s, %s, CURDATE(), %s, %s, 'DIPESAN', %s)""",
-        (user_id, id_kasir, id_toko, metode_pengambilan, total, catatan)
+           (idUser, idKasir, idToko, tanggal, metodePengambilan, total, status, catatan, buktiFoto)
+           VALUES (%s, %s, %s, CURDATE(), %s, %s, 'DIPESAN', %s, %s)""",
+        (user_id, id_kasir, id_toko, metode_pengambilan, total, catatan, bukti_foto)
     )
-    conn.commit()
     order_id = cur.lastrowid
 
     for (id_service, qty, subtotal) in item_rows:
@@ -59,14 +100,49 @@ def create_order():
         )
 
     cur.execute(
-        "INSERT INTO payments (idOrder, metode, status, tanggalBayar) VALUES (%s,'QRIS','PENDING',CURDATE())",
-        (order_id,)
+        "INSERT INTO payments (idOrder, metode, status, tanggalBayar) VALUES (%s,%s,'PENDING',CURDATE())",
+        (order_id, metode_pembayaran)
     )
+
+    payment_id = cur.lastrowid
+
+    if metode_pembayaran.upper() == "QRIS":
+        cur.execute("SELECT * FROM orders WHERE idOrder = %s", (order_id,))
+        order = cur.fetchone()
+        cur.execute("SELECT idUser, nama, email, noHP FROM users WHERE idUser = %s", (user_id,))
+        user = cur.fetchone()
+
+        try:
+            invoice = create_qris_invoice(order, user or {}, invoice_items)
+        except XenditError as exc:
+            conn.rollback()
+            conn.close()
+            return err(str(exc), 502)
+
+        cur.execute(
+            """UPDATE payments
+               SET xendit_invoice_id=%s,
+                   xendit_external_id=%s,
+                   xendit_invoice_url=%s,
+                   xendit_status=%s
+               WHERE idPayment=%s""",
+            (
+                invoice.get("id"),
+                invoice.get("external_id"),
+                invoice.get("invoice_url"),
+                invoice.get("status"),
+                payment_id,
+            ),
+        )
+
     conn.commit()
 
     cur.execute("SELECT * FROM orders WHERE idOrder = %s", (order_id,))
     order = cur.fetchone()
+    cur.execute("SELECT * FROM payments WHERE idPayment = %s", (payment_id,))
+    payment = cur.fetchone()
     conn.close()
+    order["payment"] = payment
     return ok(order, "Pesanan berhasil dibuat", 201)
 
 
@@ -127,7 +203,7 @@ def order_history():
         o["payment"] = cur.fetchone()
 
     conn.close()
-    return ok(orders)
+    return ok({"orders": orders})
 
 
 # Detail Pesanan (Customer) 
@@ -186,7 +262,7 @@ def admin_get_orders():
     search        = request.args.get("search", "")
 
     conn, cur = get_db()
-    sql    = "SELECT o.*, u.nama, u.email, u.noHP FROM orders o JOIN users u ON o.idUser=u.idUser WHERE 1=1"
+    sql    = "SELECT o.*, u.nama, u.email, u.noHP, u.alamat FROM orders o JOIN users u ON o.idUser=u.idUser WHERE 1=1"
     params = []
     if status_filter:
         sql += " AND o.status=%s"; params.append(status_filter)
@@ -245,6 +321,7 @@ def admin_update_status(order_id):
     new_status = data.get("status", "")
 
     conn, cur = get_db()
+    ensure_order_status_enum(cur)
     cur.execute("SELECT * FROM orders WHERE idOrder=%s", (order_id,))
     order = cur.fetchone()
     if not order:
@@ -253,15 +330,26 @@ def admin_update_status(order_id):
 
     allowed = VALID_TRANSITIONS.get(order["status"], [])
     if order["status"] == "DIPESAN":
-        if order.get("metodePengambilan") == "Pickup":
+        cur.execute("SELECT metode FROM payments WHERE idOrder=%s", (order_id,))
+        payment = cur.fetchone() or {}
+        payment_method = (payment.get("metode") or "").lower()
+
+        if payment_method == "cash" or order.get("metodePengambilan") == "Self":
+            allowed = ["DIANTAR", "DIBATALKAN"]
+        elif order.get("metodePengambilan") == "Pickup":
             allowed = ["DIJEMPUT", "DIBATALKAN"]
         else:
-            allowed = ["DICUCI", "DIBATALKAN"]
+            allowed = ["DIANTAR", "DIBATALKAN"]
     if new_status not in allowed:
         conn.close()
         return err(f"Status tidak bisa diubah dari '{order['status']}' ke '{new_status}'", 400)
 
     cur.execute("UPDATE orders SET status=%s WHERE idOrder=%s", (new_status, order_id))
+    if new_status == "DIANTAR":
+        cur.execute(
+            "UPDATE payments SET status='PAID', tanggalBayar=CURDATE() WHERE idOrder=%s",
+            (order_id,)
+        )
     cur.execute(
         "INSERT INTO notifications (idUser, pesan, waktu) VALUES (%s, %s, NOW())",
         (order["idUser"], f"Pesanan #{order_id} diperbarui menjadi {new_status}")

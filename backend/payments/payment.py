@@ -1,6 +1,8 @@
 from flask import Blueprint, request
 from database import get_db
 from utils.helpers import login_required, admin_required, ok, err
+from payments.schema import ensure_xendit_payment_columns
+from payments.xendit_client import XenditError, get_invoice
 
 payment_bp = Blueprint("payment", __name__)
 
@@ -20,6 +22,55 @@ def get_payment(order_id):
     if not data:
         return err("Data pembayaran tidak ditemukan", 404)
     return ok(data)
+
+
+@payment_bp.route("/payments/xendit/status/<int:order_id>", methods=["GET"])
+@login_required
+def get_xendit_payment_status(order_id):
+    user_id = int(request.user["sub"])
+    conn, cur = get_db()
+    ensure_xendit_payment_columns(cur)
+    cur.execute("SELECT idOrder FROM orders WHERE idOrder=%s AND idUser=%s", (order_id, user_id))
+    if not cur.fetchone():
+        conn.close()
+        return err("Pesanan tidak ditemukan", 404)
+
+    cur.execute("SELECT * FROM payments WHERE idOrder=%s", (order_id,))
+    payment = cur.fetchone()
+
+    if not payment:
+        conn.close()
+        return err("Data pembayaran tidak ditemukan", 404)
+
+    invoice_id = payment.get("xendit_invoice_id")
+    if invoice_id and payment.get("status") != "PAID":
+        try:
+            invoice = get_invoice(invoice_id)
+            xendit_status = invoice.get("status")
+            payment_status = "PAID" if xendit_status in ("PAID", "SETTLED") else payment.get("status")
+            cur.execute(
+                """UPDATE payments
+                   SET status=%s,
+                       xendit_status=%s,
+                       xendit_paid_at=%s,
+                       tanggalBayar=IF(%s='PAID', CURDATE(), tanggalBayar)
+                   WHERE idPayment=%s""",
+                (
+                    payment_status,
+                    xendit_status,
+                    invoice.get("paid_at"),
+                    payment_status,
+                    payment["idPayment"],
+                ),
+            )
+            conn.commit()
+            cur.execute("SELECT * FROM payments WHERE idPayment=%s", (payment["idPayment"],))
+            payment = cur.fetchone()
+        except XenditError:
+            pass
+
+    conn.close()
+    return ok(payment)
 
 
 @payment_bp.route("/admin/payments", methods=["GET"])

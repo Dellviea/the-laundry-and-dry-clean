@@ -67,7 +67,22 @@ def admin_required(f):
             return jsonify({"success": False, "message": "Token tidak ditemukan"}), 401
         try:
             payload = decode_token(auth.split(" ", 1)[1])
-            if payload.get("role") not in ("admin", "ADMIN"):
+
+            # Role dapat berubah di database setelah token dibuat, jadi baca ulang
+            # role terbaru dari users agar akses admin tetap sinkron dengan backend.
+            role = payload.get("role")
+            user_id = payload.get("sub")
+            if user_id:
+                from database import get_db
+                conn, cur = get_db()
+                cur.execute("SELECT role FROM users WHERE idUser=%s", (user_id,))
+                user = cur.fetchone()
+                conn.close()
+                if user:
+                    role = user.get("role")
+                    payload["role"] = role
+
+            if str(role).lower() != "admin":
                 return jsonify({"success": False, "message": "Akses ditolak: hanya admin"}), 403
             request.user = payload
         except jwt.ExpiredSignatureError:

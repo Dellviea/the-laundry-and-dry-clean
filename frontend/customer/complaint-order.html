@@ -6,6 +6,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="../index.css">
     <script src="../handlers/ui_actions.js" defer></script>
+    <script src="../handlers/complaint_handler.js" defer></script>
     <title>Complaint Order</title>
 </head>
 <body class="app-body min-h-screen m-0 text-[#4b4b4b] bg-gradient-to-b from-[#087de9] to-[#0063b7]">
@@ -41,7 +42,7 @@
                     </div>
                 </div>
 
-                <form class="complaint-grid grid grid-cols-2 gap-4 mt-[22px]" action="#" method="post" data-demo-form data-success="Complaint berhasil dikirim. Admin akan menindaklanjuti keluhan anda.">
+                <form id="complaint-form" class="complaint-grid grid grid-cols-2 gap-4 mt-[22px]" action="#" method="post">
                     <div class="form-field flex flex-col gap-2 mb-[18px] [&_label]:font-semibold [&_label]:text-[15px] [&_input]:w-full [&_input]:border [&_input]:border-[#bdbdbd] [&_input]:rounded-lg [&_input]:py-3.5 [&_input]:px-4 [&_select]:w-full [&_select]:border [&_select]:border-[#bdbdbd] [&_select]:rounded-lg [&_select]:py-3.5 [&_select]:px-4 [&_textarea]:w-full [&_textarea]:min-h-[140px] [&_textarea]:border [&_textarea]:border-[#bdbdbd] [&_textarea]:rounded-lg [&_textarea]:py-3.5 [&_textarea]:px-4 [&_textarea]:resize-y">
                         <label for="order-id">Pilih Pesanan</label>
                         <select id="order-id" name="order-id">
@@ -80,9 +81,18 @@
                     </div>
 
                     <div class="form-field flex flex-col gap-2 mb-[18px] [&_label]:font-semibold [&_label]:text-[15px] [&_input]:w-full [&_input]:border [&_input]:border-[#bdbdbd] [&_input]:rounded-lg [&_input]:py-3.5 [&_input]:px-4 [&_select]:w-full [&_select]:border [&_select]:border-[#bdbdbd] [&_select]:rounded-lg [&_select]:py-3.5 [&_select]:px-4 [&_textarea]:w-full [&_textarea]:min-h-[140px] [&_textarea]:border [&_textarea]:border-[#bdbdbd] [&_textarea]:rounded-lg [&_textarea]:py-3.5 [&_textarea]:px-4 [&_textarea]:resize-y full col-span-full">
-                        <label>Bukti Foto</label>
-                        <div class="upload-box min-h-[108px] border border-dashed border-[#9f9f9f] rounded-lg bg-[#f7f7f7] flex items-center justify-center text-[#707070] text-center p-5 cursor-pointer">
-                            Upload bukti foto jika diperlukan
+                        <label for="complaint-proof-input">Bukti Foto</label>
+                        <label for="complaint-proof-input" class="min-h-[108px] border border-dashed border-[#9f9f9f] rounded-lg bg-[#f7f7f7] flex flex-col items-center justify-center gap-2 text-[#707070] text-center p-5 cursor-pointer">
+                            <span class="font-semibold text-[#0080ff]">Upload bukti foto jika diperlukan</span>
+                            <span class="text-sm">Format JPG, PNG, atau WEBP. Maksimal 2MB.</span>
+                        </label>
+                        <input id="complaint-proof-input" class="hidden" type="file" accept="image/png,image/jpeg,image/webp">
+                        <div id="complaint-proof-preview" class="hidden items-center gap-4 rounded-lg border border-[#e0e0e0] bg-white p-3">
+                            <img class="h-20 w-20 rounded-lg object-cover" alt="Preview bukti complaint">
+                            <div class="min-w-0">
+                                <div id="complaint-proof-name" class="truncate font-semibold text-[#4b4b4b]"></div>
+                                <button id="complaint-proof-remove" class="mt-2 h-9 rounded-lg border border-[#df0000] bg-white px-4 font-bold text-[#df0000] cursor-pointer" type="button">Hapus Foto</button>
+                            </div>
                         </div>
                     </div>
 
@@ -102,27 +112,5 @@
             </nav>
         </div>
     </main>
-    <script>
-        function getStoredUser() {
-            const user = localStorage.getItem("user");
-            return user ? JSON.parse(user) : null;
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const user = getStoredUser();
-            const fixedName = document.getElementById("fixed-customer-name");
-            const fixedEmail = document.getElementById("fixed-customer-email");
-            const nameInput = document.getElementById("customer-name");
-            const emailInput = document.getElementById("customer-email");
-
-            const customerName = user?.nama || user?.email || "Customer";
-            const customerEmail = localStorage.getItem("last_order_email") || user?.email || "-";
-
-            fixedName.textContent = customerName;
-            fixedEmail.textContent = customerEmail;
-            nameInput.value = customerName;
-            emailInput.value = customerEmail;
-        });
-    </script>
 </body>
 </html>

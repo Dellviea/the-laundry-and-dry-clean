@@ -101,9 +101,23 @@ async function waitForSuccess(orderId) {
     });
 }
 
-function startPaymentRedirect() {
+async function getInvoiceUrlFromBackend(orderId) {
+    if (!orderId) return "";
+    const payment = await fetchPaymentStatus(orderId);
+    return payment.xendit_invoice_url || "";
+}
+
+async function startPaymentRedirect() {
     const pendingPayment = JSON.parse(sessionStorage.getItem("pendingXenditPayment") || "{}");
-    const invoiceUrl = pendingPayment.invoiceUrl;
+    let invoiceUrl = pendingPayment.invoiceUrl;
+
+    if (!invoiceUrl) {
+        try {
+            invoiceUrl = await getInvoiceUrlFromBackend(orderId);
+        } catch (error) {
+            invoiceUrl = "";
+        }
+    }
 
     if (!invoiceUrl) {
         setState({

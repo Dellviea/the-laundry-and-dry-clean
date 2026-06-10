@@ -1,5 +1,38 @@
 const BASE_URL = "http://127.0.0.1:5000";
 
+function setFieldError(inputEl, errorEl, message) {
+    if (!inputEl || !errorEl) return;
+    inputEl.classList.add('border-red-500','border-2','outline-red-500');
+    errorEl.textContent = message;
+    errorEl.classList.remove('hidden');
+}
+
+function clearFieldError(inputEl, errorEl, fallbackMessage) {
+    if (!inputEl || !errorEl) return;
+    inputEl.classList.remove('border-red-500','border-2','outline-red-500');
+    if (fallbackMessage) errorEl.textContent = fallbackMessage;
+    errorEl.classList.add('hidden');
+}
+
+function setLoginBackendError(emailInput, passwordInput, emailError, passwordError, message) {
+    setFieldError(emailInput, emailError, message);
+    setFieldError(passwordInput, passwordError, message);
+}
+
+function setRegisterBackendError(inputs, errors, message) {
+    const lowerMessage = (message || "").toLowerCase();
+    if (lowerMessage.includes("email")) {
+        setFieldError(inputs.email, errors.email, message);
+        return;
+    }
+    if (lowerMessage.includes("password") || lowerMessage.includes("konfirmasi")) {
+        setFieldError(inputs.password, errors.password, message);
+        setFieldError(inputs.confirm, errors.confirm, message);
+        return;
+    }
+    setFieldError(inputs.firstName, errors.firstName, message || "Data registrasi tidak valid.");
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // ================= LOGIN =================
@@ -16,10 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const emailValue    = emailInput.value.trim();
             const passwordValue = passwordInput.value.trim();
 
-            emailInput.classList.remove('border-red-500','border-2','outline-red-500');
-            passwordInput.classList.remove('border-red-500','border-2','outline-red-500');
-            emailError.classList.add('hidden');
-            passwordError.classList.add('hidden');
+            clearFieldError(emailInput, emailError, "Email tidak boleh kosong!");
+            clearFieldError(passwordInput, passwordError, "Password tidak boleh kosong!");
 
             let isValid = true;
             if (!emailValue) {
@@ -49,10 +80,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     const role = (data.data.user.role || "").toLowerCase();
                     window.location.href = role === "admin" ? "../../admin/dashboard.html" : "../../customer/home.html";
                 } else {
-                    alert(data.message);
+                    setLoginBackendError(emailInput, passwordInput, emailError, passwordError, data.message || "Email atau password salah.");
                 }
             } catch (err) {
-                alert("Tidak bisa connect ke backend!");
+                setLoginBackendError(emailInput, passwordInput, emailError, passwordError, "Tidak bisa connect ke backend!");
                 console.error(err);
             }
         });
@@ -82,14 +113,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const passwordValue  = passwordInput.value.trim();
             const confirmValue   = confirmInput.value.trim();
 
-            firstNameInput.classList.remove('border-red-500','border-2','outline-red-500');
-            emailInput.classList.remove('border-red-500','border-2','outline-red-500');
-            passwordInput.classList.remove('border-red-500','border-2','outline-red-500');
-            confirmInput.classList.remove('border-red-500','border-2','outline-red-500');
-            firstNameError.classList.add('hidden');
-            emailError.classList.add('hidden');
-            passwordError.classList.add('hidden');
-            reEnterPasswordError.classList.add('hidden');
+            clearFieldError(firstNameInput, firstNameError, "First name tidak boleh kosong!");
+            clearFieldError(emailInput, emailError, "Email tidak boleh kosong!");
+            clearFieldError(passwordInput, passwordError, "Password tidak boleh kosong!");
+            clearFieldError(confirmInput, reEnterPasswordError, "Password tidak boleh kosong!");
             passwordNotSame.classList.add('hidden');
             reEnterPasswordNotSame.classList.add('hidden');
 
@@ -141,13 +168,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Simpan token & user langsung setelah register
                     localStorage.setItem("token", data.data.token);
                     localStorage.setItem("user",  JSON.stringify(data.data.user));
-                    alert(data.message);
                     window.location.href = '../../customer/home.html';
                 } else {
-                    alert(data.message);
+                    setRegisterBackendError(
+                        { firstName: firstNameInput, email: emailInput, password: passwordInput, confirm: confirmInput },
+                        { firstName: firstNameError, email: emailError, password: passwordError, confirm: reEnterPasswordError },
+                        data.message
+                    );
                 }
             } catch (err) {
-                alert("Tidak bisa connect ke backend!");
+                setFieldError(emailInput, emailError, "Tidak bisa connect ke backend!");
                 console.error(err);
             }
         });
@@ -163,8 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const emailError = document.getElementById('email-error');
             const emailValue = emailInput.value.trim();
 
-            emailInput.classList.remove('border-red-500','border-2','outline-red-500');
-            emailError.classList.add('hidden');
+            clearFieldError(emailInput, emailError, "Email tidak boleh kosong!");
 
             if (!emailValue) {
                 emailInput.classList.add('border-red-500','border-2','outline-red-500');
@@ -179,13 +208,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: JSON.stringify({ email: emailValue })
                 });
                 const data = await res.json();
-                alert(data.message);
 
                 if (res.ok) {
                     window.location.href = 'login.html';
+                } else {
+                    setFieldError(emailInput, emailError, data.message || "Email tidak valid.");
                 }
             } catch (err) {
-                alert("Tidak bisa connect ke backend!");
+                setFieldError(emailInput, emailError, "Tidak bisa connect ke backend!");
                 console.error(err);
             }
         });
@@ -207,7 +237,6 @@ function getUser() {
 // ── Helper: cek sudah login, kalau belum redirect ke login ────
 function requireLogin() {
     if (!getToken()) {
-        alert("Silakan login terlebih dahulu.");
         window.location.href = '../auth/login/login.html';
         return false;
     }

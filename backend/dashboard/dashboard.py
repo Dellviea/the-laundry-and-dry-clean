@@ -16,6 +16,9 @@ def dashboard():
     cur.execute("SELECT COUNT(*) AS total FROM orders WHERE status='DIPESAN'")
     pending = cur.fetchone()["total"]
 
+    cur.execute("SELECT COUNT(*) AS total FROM orders WHERE status IN ('DIJEMPUT','DIANTAR','DICUCI','DIKIRIM')")
+    processed = cur.fetchone()["total"]
+
     cur.execute("SELECT COUNT(*) AS total FROM orders WHERE status='SELESAI'")
     selesai = cur.fetchone()["total"]
 
@@ -33,9 +36,12 @@ def dashboard():
     recent_orders = cur.fetchall()
 
     cur.execute(
-        """SELECT s.namaService, SUM(oi.quantity) AS total_qty
+        """SELECT s.namaService,
+                  SUM(oi.quantity) AS total_qty,
+                  COALESCE(SUM(oi.subtotal),0) AS revenue
            FROM orderitems oi JOIN services s ON oi.idService=s.idService
-           GROUP BY oi.idService ORDER BY total_qty DESC LIMIT 5"""
+           GROUP BY oi.idService, s.namaService
+           ORDER BY total_qty DESC LIMIT 5"""
     )
     top_services = cur.fetchall()
 
@@ -43,6 +49,7 @@ def dashboard():
     return ok({
         "total_orders":   total_orders,
         "pending_orders": pending,
+        "processed_orders": processed,
         "selesai_orders": selesai,
         "revenue":        int(revenue),
         "total_users":    total_users,

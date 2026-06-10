@@ -53,17 +53,30 @@
                             <strong>Dry Clean Jas</strong>
                             <span class="price-text text-[#0080ff] font-bold text-xs">Rp.25.000/pcs</span>
                         </button>
-                        <button class="service-card min-h-[198px] border border-[#e0e0e0] rounded-lg bg-white text-[#4b4b4b] shadow-md flex flex-col items-center justify-center gap-2.5 cursor-pointer hover:-translate-y-0.5 transition [&_img]:h-[88px] [&_img]:w-[88px] [&_strong]:font-semibold [&_strong]:text-[15px]" type="button" data-service="setrika" data-title="Setrika" data-price="3000">
-                            <img src="../image/shirt.svg" alt="">
-                            <strong>Setrika</strong>
-                            <span class="price-text text-[#0080ff] font-bold text-xs">Rp.3.000/kg</span>
-                        </button>
                     </div>
                 </div>
 
                 <div class="section-block px-[26px] pt-3 pb-[30px] border-b border-[#e3e3e3] last:border-b-0">
                     <h2 class="section-title font-bold text-[22px] leading-tight m-0 pb-1.5 border-b-2 border-[#0080ff]">Item Pesanan</h2>
                     <div class="order-items flex flex-col gap-3 mt-[18px]" id="item"></div>
+                </div>
+
+                <div class="section-block px-[26px] pt-3 pb-[30px] border-b border-[#e3e3e3] last:border-b-0">
+                    <h2 class="section-title font-bold text-[22px] leading-tight m-0 pb-1.5 border-b-2 border-[#0080ff]">Bukti Foto</h2>
+                    <div class="mt-4 rounded-lg border border-dashed border-[#9f9f9f] bg-[#f7f7f7] p-5">
+                        <label for="order-proof-input" class="flex min-h-[108px] cursor-pointer flex-col items-center justify-center gap-2 text-center text-[#707070]">
+                            <span class="font-semibold text-[#0080ff]">Upload foto laundry jika diperlukan</span>
+                            <span class="text-sm">Format JPG, PNG, atau WEBP. Maksimal 2MB.</span>
+                        </label>
+                        <input id="order-proof-input" class="hidden" type="file" accept="image/png,image/jpeg,image/webp">
+                        <div id="order-proof-preview" class="hidden mt-4 items-center gap-4 rounded-lg border border-[#e0e0e0] bg-white p-3">
+                            <img class="h-20 w-20 rounded-lg object-cover" alt="Preview bukti foto">
+                            <div class="min-w-0">
+                                <div id="order-proof-name" class="truncate font-semibold text-[#4b4b4b]"></div>
+                                <button id="order-proof-remove" class="mt-2 h-9 rounded-lg border border-[#df0000] bg-white px-4 font-bold text-[#df0000] cursor-pointer" type="button">Hapus Foto</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="section-block px-[26px] pt-3 pb-[30px] border-b border-[#e3e3e3] last:border-b-0">
@@ -85,6 +98,11 @@
                                 <span class="price-text text-[#0080ff] font-bold text-xs">Free</span>
                             </span>
                         </label>
+                    </div>
+                    <div id="pickup-address-panel" class="hidden mt-4 rounded-lg border border-[#bdbdbd] bg-[#f7f7f7] p-4">
+                        <label for="pickup-address-input" class="mb-2 block font-semibold text-[15px]">Alamat Pickup</label>
+                        <textarea id="pickup-address-input" class="min-h-[96px] w-full resize-y rounded-lg border border-[#bdbdbd] px-4 py-3.5 font-[inherit]" placeholder="Masukkan alamat lengkap untuk pickup laundry"></textarea>
+                        <p class="mt-2 text-sm text-[#707070]">Alamat ini akan disimpan otomatis ke akun anda saat pemesanan dibuat.</p>
                     </div>
                 </div>
 

@@ -6,6 +6,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="../index.css">
     <script src="../handlers/ui_actions.js" defer></script>
+    <script src="../handlers/review_handler.js" defer></script>
     <title>Review Order</title>
 </head>
 <body class="app-body min-h-screen m-0 text-[#4b4b4b] bg-gradient-to-b from-[#087de9] to-[#0063b7]">
@@ -33,7 +34,7 @@
                     <div class="history-date font-semibold text-[15px] mt-2">ORD-030526 - Minggu 3 Mei 2026</div>
                     <div class="price-text text-[#0080ff] font-bold text-xs">Dry Clean Jas - Rp.50.000</div>
                 </div>
-                <form class="complaint-grid grid grid-cols-2 gap-4 mt-[22px]" data-demo-form data-success="Review berhasil dikirim. Terima kasih atas penilaiannya.">
+                <form id="review-form" class="complaint-grid grid grid-cols-2 gap-4 mt-[22px]">
                     <div class="form-field flex flex-col gap-2 mb-[18px] [&_label]:font-semibold [&_label]:text-[15px] [&_input]:w-full [&_input]:border [&_input]:border-[#bdbdbd] [&_input]:rounded-lg [&_input]:py-3.5 [&_input]:px-4 [&_select]:w-full [&_select]:border [&_select]:border-[#bdbdbd] [&_select]:rounded-lg [&_select]:py-3.5 [&_select]:px-4 [&_textarea]:w-full [&_textarea]:min-h-[140px] [&_textarea]:border [&_textarea]:border-[#bdbdbd] [&_textarea]:rounded-lg [&_textarea]:py-3.5 [&_textarea]:px-4 [&_textarea]:resize-y">
                         <label for="review-order">Pilih Pesanan</label>
                         <select id="review-order">
@@ -44,11 +45,11 @@
                     <div class="form-field flex flex-col gap-2 mb-[18px] [&_label]:font-semibold [&_label]:text-[15px] [&_input]:w-full [&_input]:border [&_input]:border-[#bdbdbd] [&_input]:rounded-lg [&_input]:py-3.5 [&_input]:px-4 [&_select]:w-full [&_select]:border [&_select]:border-[#bdbdbd] [&_select]:rounded-lg [&_select]:py-3.5 [&_select]:px-4 [&_textarea]:w-full [&_textarea]:min-h-[140px] [&_textarea]:border [&_textarea]:border-[#bdbdbd] [&_textarea]:rounded-lg [&_textarea]:py-3.5 [&_textarea]:px-4 [&_textarea]:resize-y">
                         <label for="review-rating">Rating</label>
                         <select id="review-rating">
-                            <option>5 - Sangat Puas</option>
-                            <option>4 - Puas</option>
-                            <option>3 - Cukup</option>
-                            <option>2 - Kurang</option>
-                            <option>1 - Tidak Puas</option>
+                            <option value="5">5 - Sangat Puas</option>
+                            <option value="4">4 - Puas</option>
+                            <option value="3">3 - Cukup</option>
+                            <option value="2">2 - Kurang</option>
+                            <option value="1">1 - Tidak Puas</option>
                         </select>
                     </div>
                     <div class="form-field flex flex-col gap-2 mb-[18px] [&_label]:font-semibold [&_label]:text-[15px] [&_input]:w-full [&_input]:border [&_input]:border-[#bdbdbd] [&_input]:rounded-lg [&_input]:py-3.5 [&_input]:px-4 [&_select]:w-full [&_select]:border [&_select]:border-[#bdbdbd] [&_select]:rounded-lg [&_select]:py-3.5 [&_select]:px-4 [&_textarea]:w-full [&_textarea]:min-h-[140px] [&_textarea]:border [&_textarea]:border-[#bdbdbd] [&_textarea]:rounded-lg [&_textarea]:py-3.5 [&_textarea]:px-4 [&_textarea]:resize-y full col-span-full">

@@ -6,6 +6,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="../index.css">
     <script src="../handlers/ui_actions.js" defer></script>
+    <script src="../handlers/admin_chat_handler.js" defer></script>
     <title>Chat Customers</title>
 </head>
 <body class="app-body min-h-screen m-0 text-[#4b4b4b] bg-gradient-to-b from-[#087de9] to-[#0063b7]">
@@ -35,38 +36,15 @@
                 <h2 class="section-title font-bold text-[22px] leading-tight m-0 pb-1.5 border-b-2 border-[#0080ff]">Chat Dengan Customers</h2>
                 <div class="admin-panel-body mt-5 grid grid-cols-[minmax(230px,0.9fr)_minmax(0,1.35fr)] gap-5">
                     <div class="admin-chat-list flex flex-col gap-3.5">
-                        <article class="admin-chat-row grid grid-cols-[52px_minmax(0,1fr)_auto] gap-4 items-center bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg py-4 px-[18px]" data-chat-row data-chat-id="della">
-                            <div class="admin-avatar w-11 h-11 rounded-full bg-[#d8ebff] text-[#0080ff] font-bold flex items-center justify-center">D</div>
-                            <div class="min-w-0">
-                                <div class="admin-row-title font-bold mb-1">Della Oktavia</div>
-                                <div class="admin-row-copy overflow-hidden text-ellipsis whitespace-nowrap text-sm leading-snug" data-chat-preview>Apakah pesanan saya bisa dijemput sore ini?</div>
-                            </div>
-                            <button class="admin-mini-action h-9 border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-open-chat="della">Buka Chat</button>
-                        </article>
-                        <article class="admin-chat-row grid grid-cols-[52px_minmax(0,1fr)_auto] gap-4 items-center bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg py-4 px-[18px]" data-chat-row data-chat-id="syahrial">
-                            <div class="admin-avatar w-11 h-11 rounded-full bg-[#d8ebff] text-[#0080ff] font-bold flex items-center justify-center">S</div>
-                            <div class="min-w-0">
-                                <div class="admin-row-title font-bold mb-1">Syahrial Affansyah</div>
-                                <div class="admin-row-copy overflow-hidden text-ellipsis whitespace-nowrap text-sm leading-snug" data-chat-preview>Saya ingin menanyakan status cuci express.</div>
-                            </div>
-                            <button class="admin-mini-action h-9 border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-open-chat="syahrial">Buka Chat</button>
-                        </article>
-                        <article class="admin-chat-row grid grid-cols-[52px_minmax(0,1fr)_auto] gap-4 items-center bg-[#f7f7f7] border border-[#e0e0e0] rounded-lg py-4 px-[18px]" data-chat-row data-chat-id="thasya">
-                            <div class="admin-avatar w-11 h-11 rounded-full bg-[#d8ebff] text-[#0080ff] font-bold flex items-center justify-center">T</div>
-                            <div class="min-w-0">
-                                <div class="admin-row-title font-bold mb-1">Thasya Jasmine</div>
-                                <div class="admin-row-copy overflow-hidden text-ellipsis whitespace-nowrap text-sm leading-snug" data-chat-preview>Bisa tambah layanan setrika untuk pesanan saya?</div>
-                            </div>
-                            <button class="admin-mini-action h-9 border border-[#0080ff] rounded-lg bg-white text-[#0080ff] font-bold px-4 cursor-pointer" type="button" data-open-chat="thasya">Buka Chat</button>
-                        </article>
+                        <p class="text-center text-gray-400 py-8">Memuat chat customer...</p>
                     </div>
 
                     <div class="rounded-lg border border-[#e0e0e0] bg-white p-4">
                         <div class="flex items-center gap-3 border-b-2 border-[#0080ff] pb-3">
-                            <div class="admin-avatar h-10 w-10 rounded-full bg-[#d8ebff] text-[#0080ff] font-bold flex items-center justify-center" id="active-chat-avatar">D</div>
+                            <div class="admin-avatar h-10 w-10 rounded-full bg-[#d8ebff] text-[#0080ff] font-bold flex items-center justify-center" id="active-chat-avatar">-</div>
                             <div class="min-w-0">
-                                <div class="font-bold truncate" id="active-chat-name">Della Oktavia</div>
-                                <div class="text-xs text-[#707070]" id="active-chat-subtitle">Percakapan dengan customer</div>
+                                <div class="font-bold truncate" id="active-chat-name">Belum ada chat</div>
+                                <div class="text-xs text-[#707070]" id="active-chat-subtitle">Percakapan akan muncul setelah customer mengirim pesan.</div>
                             </div>
                         </div>
                         <div class="message-thread flex min-h-[260px] max-h-[360px] flex-col gap-3 overflow-x-hidden overflow-y-auto py-5" id="admin-chat-thread"></div>
@@ -90,162 +68,5 @@
             </nav>
         </div>
     </main>
-    <script>
-        const chatCustomers = {
-            della: {
-                name: "Della Oktavia",
-                avatar: "D",
-                messages: [
-                    { sender: "customer", text: "Halo admin, apakah pesanan ORD-070526 bisa dijemput sore ini?" },
-                    { sender: "admin", text: "Bisa, pickup tersedia pukul 16.00 sampai 18.00." },
-                    { sender: "customer", text: "Baik, saya pilih pukul 17.00." },
-                ],
-            },
-            syahrial: {
-                name: "Syahrial Affansyah",
-                avatar: "S",
-                unreadByDefault: true,
-                messages: [
-                    { sender: "customer", text: "Saya ingin menanyakan status cuci express." },
-                    { sender: "admin", text: "Pesanan sedang diproses dan estimasi selesai hari ini." },
-                    { sender: "customer", text: "Baik, saya tunggu update berikutnya." },
-                ],
-            },
-            thasya: {
-                name: "Thasya Jasmine",
-                avatar: "T",
-                unreadByDefault: true,
-                messages: [
-                    { sender: "customer", text: "Bisa tambah layanan setrika untuk pesanan saya?" },
-                    { sender: "admin", text: "Bisa, layanan setrika akan kami tambahkan ke pesanan." },
-                    { sender: "customer", text: "Oke admin, tolong kabari total barunya." },
-                ],
-            },
-        };
-
-        let activeChatId = "della";
-
-        function getChatMessages(chatId) {
-            const saved = localStorage.getItem(`admin-chat:${chatId}`);
-            return saved ? JSON.parse(saved) : chatCustomers[chatId].messages;
-        }
-
-        function saveChatMessages(chatId, messages) {
-            localStorage.setItem(`admin-chat:${chatId}`, JSON.stringify(messages));
-        }
-
-        function getReadCount(chatId) {
-            const saved = localStorage.getItem(`admin-chat-read:${chatId}`);
-            if (saved !== null) return Number(saved);
-            return chatCustomers[chatId].unreadByDefault ? 0 : getChatMessages(chatId).length;
-        }
-
-        function markChatRead(chatId) {
-            localStorage.setItem(`admin-chat-read:${chatId}`, String(getChatMessages(chatId).length));
-        }
-
-        function hasUnreadMessage(chatId) {
-            const messages = getChatMessages(chatId);
-            const lastMessage = messages[messages.length - 1];
-            return lastMessage?.sender === "customer" && getReadCount(chatId) < messages.length;
-        }
-
-        function escapeHtml(value) {
-            return value
-                .replaceAll("&", "&amp;")
-                .replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;")
-                .replaceAll('"', "&quot;")
-                .replaceAll("'", "&#039;");
-        }
-
-        function formatPreview(text, maxWords = 4, maxChars = 34) {
-            const clean = text.trim().replace(/\s+/g, " ");
-            const words = clean.split(" ");
-            if (words.length > maxWords) {
-                return `${words.slice(0, maxWords).join(" ")}...`;
-            }
-            if (clean.length > maxChars) {
-                return `${clean.slice(0, maxChars)}...`;
-            }
-            return clean;
-        }
-
-        function updateChatPreview(chatId) {
-            const row = document.querySelector(`[data-chat-row][data-chat-id="${chatId}"]`);
-            if (!row) return;
-            const messages = getChatMessages(chatId);
-            const lastMessage = messages[messages.length - 1]?.text || "";
-            const preview = row.querySelector("[data-chat-preview]");
-            preview.title = lastMessage;
-
-            if (hasUnreadMessage(chatId)) {
-                preview.innerHTML = "<strong>New message</strong>";
-                preview.classList.add("font-bold", "text-[#1f2937]");
-                return;
-            }
-
-            preview.textContent = formatPreview(lastMessage);
-            preview.classList.remove("font-bold", "text-[#1f2937]");
-        }
-
-        function renderChat(chatId) {
-            activeChatId = chatId;
-            const customer = chatCustomers[chatId];
-            const messages = getChatMessages(chatId);
-            const thread = document.getElementById("admin-chat-thread");
-            const input = document.getElementById("admin-chat-message");
-            markChatRead(chatId);
-
-            document.getElementById("active-chat-avatar").textContent = customer.avatar;
-            document.getElementById("active-chat-name").textContent = customer.name;
-            document.getElementById("active-chat-subtitle").textContent = "Percakapan dengan customer";
-            input.placeholder = `Tulis balasan untuk ${customer.name}`;
-
-            thread.innerHTML = messages.map((message) => {
-                const isAdmin = message.sender === "admin";
-                const bubbleClass = isAdmin
-                    ? "self-end bg-[#d8ebff] text-[#064d93]"
-                    : "self-start bg-[#f7f7f7] border border-[#e0e0e0]";
-                return `<div class="message-bubble max-w-[74%] rounded-lg py-3.5 px-4 leading-snug ${bubbleClass}" style="overflow-wrap:anywhere; word-break:break-word; white-space:pre-wrap;">${escapeHtml(message.text)}</div>`;
-            }).join("");
-            thread.scrollTop = thread.scrollHeight;
-
-            document.querySelectorAll("[data-chat-row]").forEach((row) => {
-                updateChatPreview(row.dataset.chatId);
-                const selected = row.dataset.chatId === chatId;
-                row.classList.toggle("bg-[#d8ebff]", selected);
-                row.classList.toggle("border-[#0080ff]", selected);
-                row.classList.toggle("bg-[#f7f7f7]", !selected);
-                const button = row.querySelector("[data-open-chat]");
-                button.textContent = selected ? "Dibuka" : "Buka Chat";
-                button.classList.toggle("bg-[#0080ff]", selected);
-                button.classList.toggle("text-white", selected);
-                button.classList.toggle("bg-white", !selected);
-                button.classList.toggle("text-[#0080ff]", !selected);
-            });
-        }
-
-        document.querySelectorAll("[data-open-chat]").forEach((button) => {
-            button.addEventListener("click", () => renderChat(button.dataset.openChat));
-        });
-
-        document.getElementById("admin-chat-form").addEventListener("submit", (event) => {
-            event.preventDefault();
-            const input = document.getElementById("admin-chat-message");
-            const text = input.value.trim();
-            if (!text) return;
-
-            const messages = getChatMessages(activeChatId);
-            messages.push({ sender: "admin", text });
-            saveChatMessages(activeChatId, messages);
-            markChatRead(activeChatId);
-            input.value = "";
-            updateChatPreview(activeChatId);
-            renderChat(activeChatId);
-        });
-
-        renderChat(activeChatId);
-    </script>
 </body>
 </html>

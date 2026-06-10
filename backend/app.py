@@ -9,6 +9,10 @@ from payments.payment        import payment_bp
 from services.service        import service_bp
 from notifications.notification import notif_bp
 from dashboard.dashboard     import dashboard_bp
+from account.account         import account_bp
+from reviews.review          import review_bp
+from complaints.complaint    import complaint_bp
+from chat.chat               import chat_bp
 
 app = Flask(__name__)
 CORS(app)
@@ -27,6 +31,10 @@ app.register_blueprint(payment_bp)
 app.register_blueprint(service_bp)
 app.register_blueprint(notif_bp)
 app.register_blueprint(dashboard_bp)
+app.register_blueprint(account_bp)
+app.register_blueprint(review_bp)
+app.register_blueprint(complaint_bp)
+app.register_blueprint(chat_bp)
 
 
 if __name__ == "__main__":
