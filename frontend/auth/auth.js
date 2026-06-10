@@ -46,7 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Simpan token & data user ke localStorage
                     localStorage.setItem("token", data.data.token);
                     localStorage.setItem("user",  JSON.stringify(data.data.user));
-                    window.location.href = '../../customer/home.html';
+                    const role = (data.data.user.role || "").toLowerCase();
+                    window.location.href = role === "admin" ? "../../admin/dashboard.html" : "../../customer/home.html";
                 } else {
                     alert(data.message);
                 }
@@ -128,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.setItem("token", data.data.token);
                     localStorage.setItem("user",  JSON.stringify(data.data.user));
                     alert(data.message);
-                    window.location.href = '../login/login.html';
+                    window.location.href = '../../customer/home.html';
                 } else {
                     alert(data.message);
                 }

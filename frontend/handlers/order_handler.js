@@ -33,6 +33,13 @@ const closeQrisModal   = document.getElementById("close-qris-modal");
 
 const selectedServiceClasses = ["!bg-[#c7e3ff]"];
 
+function setServiceSelected(button, selected) {
+    button.classList.toggle("is-selected", selected);
+    selectedServiceClasses.forEach((className) => {
+        button.classList.toggle(className, selected);
+    });
+}
+
 // ── Render item list ──────────────────────────────────────────
 function renderItems() {
     if (!itemParent) return;
@@ -91,7 +98,7 @@ if (serviceGrid) {
         const id = serviceButton.dataset.service;
         if (orderItems.has(id)) {
             orderItems.delete(id);
-            serviceButton.classList.remove("is-selected", ...selectedServiceClasses);
+            setServiceSelected(serviceButton, false);
         } else {
             orderItems.set(id, {
                 title:    serviceButton.dataset.title,
@@ -99,7 +106,7 @@ if (serviceGrid) {
                 quantity: 1,
                 idService: Number(serviceButton.dataset.idService) || null,
             });
-            serviceButton.classList.add("is-selected", ...selectedServiceClasses);
+            setServiceSelected(serviceButton, true);
         }
         renderItems();
     });
@@ -122,7 +129,7 @@ if (itemParent) {
         if (action === "delete") {
             orderItems.delete(id);
             const btn = document.querySelector(`.service-card[data-service="${id}"]`);
-            if (btn) btn.classList.remove("is-selected", ...selectedServiceClasses);
+            if (btn) setServiceSelected(btn, false);
         }
         renderItems();
     });

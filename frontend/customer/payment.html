@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="../index.css">
+    <script src="../handlers/ui_actions.js" defer></script>
+    <script src="../handlers/payment_handler.js" defer></script>
+    <title>Pembayaran</title>
+</head>
+<body class="min-h-screen m-0 text-[#4b4b4b] bg-gradient-to-b from-[#087de9] to-[#0063b7]">
+    <header class="h-[72px] bg-white flex items-center justify-between px-12">
+        <a class="flex items-center gap-[18px] text-[#0080ff] no-underline [&_img]:h-10 [&_img]:w-10 [&_span]:font-bold [&_span]:text-2xl [&_span]:leading-none" href="home.html">
+            <img src="../image/shirt.svg" alt="">
+            <span>Laundry &amp; Dry Clean</span>
+        </a>
+        <button class="h-10 rounded-lg border border-[#0080ff] bg-white px-5 font-bold text-[#0080ff] cursor-pointer" type="button" data-logout>Log out</button>
+    </header>
+
+    <main class="w-[calc(100%_-_64px)] max-w-[920px] mx-auto py-12">
+        <h1 class="text-white font-bold text-[48px] leading-none text-center mb-10">Pembayaran</h1>
+
+        <section class="bg-white rounded-lg shadow-md p-8 text-center">
+            <div id="payment-icon" class="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-[#d8ebff] text-4xl font-bold text-[#0080ff]">...</div>
+            <h2 id="payment-title" class="mb-3 text-2xl font-bold text-[#4b4b4b]">Menyiapkan pembayaran</h2>
+            <p id="payment-message" class="mx-auto mb-7 max-w-xl text-base leading-relaxed text-[#5f5f5f]">Mohon tunggu sebentar.</p>
+
+            <div class="flex flex-wrap justify-center gap-3">
+                <a id="payment-action" class="hidden h-12 items-center justify-center rounded-lg bg-[#0080ff] px-7 font-bold text-white no-underline shadow-md" href="#">Lanjutkan Pembayaran</a>
+                <button id="history-action" class="hidden h-12 rounded-lg border border-[#0080ff] bg-white px-7 font-bold text-[#0080ff]" type="button">Riwayat Pesanan</button>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

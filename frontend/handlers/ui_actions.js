@@ -1,6 +1,4 @@
-const BASE_URL = "http://127.0.0.1:5000";
-
-function getToken() { return localStorage.getItem("token"); }
+(() => {
 function getUser()  { const u = localStorage.getItem("user"); return u ? JSON.parse(u) : null; }
 
 // ── Tampilkan nama user di navbar jika ada ─────────────────────
@@ -60,3 +58,4 @@ document.addEventListener("submit", (event) => {
     event.preventDefault();
     alert(form.dataset.success || "Data berhasil diproses.");
 });
+})();
